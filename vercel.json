@@ -1,0 +1,4 @@
+{
+  "framework": "nextjs",
+  "regions": ["sin1", "hnd1", "iad1"]
+}

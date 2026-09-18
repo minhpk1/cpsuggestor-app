@@ -1,0 +1,7821 @@
+[
+  {
+    "id": "APIO13_interference",
+    "title": "Interference",
+    "contest": "APIO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO13_interference",
+    "points": 100
+  },
+  {
+    "id": "APIO13_robots",
+    "title": "Robots",
+    "contest": "APIO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO13_robots",
+    "points": 100
+  },
+  {
+    "id": "APIO13_toll",
+    "title": "Toll",
+    "contest": "APIO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO13_toll",
+    "points": 100
+  },
+  {
+    "id": "APIO14_beads",
+    "title": "Beads and wires",
+    "contest": "APIO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO14_beads",
+    "points": 100
+  },
+  {
+    "id": "APIO14_palindrome",
+    "title": "Palindromes",
+    "contest": "APIO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO14_palindrome",
+    "points": 100
+  },
+  {
+    "id": "APIO14_sequence",
+    "title": "Split the sequence",
+    "contest": "APIO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO14_sequence",
+    "points": 100
+  },
+  {
+    "id": "APIO15_bridge",
+    "title": "Palembang Bridges",
+    "contest": "APIO 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO15_bridge",
+    "points": 100
+  },
+  {
+    "id": "APIO15_sculpture",
+    "title": "Bali Sculptures",
+    "contest": "APIO 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO15_sculpture",
+    "points": 100
+  },
+  {
+    "id": "APIO15_skyscraper",
+    "title": "Jakarta Skyscrapers",
+    "contest": "APIO 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO15_skyscraper",
+    "points": 100
+  },
+  {
+    "id": "APIO16_boat",
+    "title": "Boat",
+    "contest": "APIO 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO16_boat",
+    "points": 100
+  },
+  {
+    "id": "APIO16_fireworks",
+    "title": "Fireworks",
+    "contest": "APIO 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO16_fireworks",
+    "points": 100
+  },
+  {
+    "id": "APIO16_gap",
+    "title": "Gap",
+    "contest": "APIO 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO16_gap",
+    "points": 100
+  },
+  {
+    "id": "APIO17_koala",
+    "title": "Koala Game",
+    "contest": "APIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO17_koala",
+    "points": 100
+  },
+  {
+    "id": "APIO17_merchant",
+    "title": "Travelling Merchant",
+    "contest": "APIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO17_merchant",
+    "points": 100
+  },
+  {
+    "id": "APIO17_rainbow",
+    "title": "Land of the Rainbow Gold",
+    "contest": "APIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO17_rainbow",
+    "points": 100
+  },
+  {
+    "id": "APIO18_circle_selection",
+    "title": "Circle selection",
+    "contest": "APIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO18_circle_selection",
+    "points": 100
+  },
+  {
+    "id": "APIO18_duathlon",
+    "title": "Duathlon",
+    "contest": "APIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO18_duathlon",
+    "points": 100
+  },
+  {
+    "id": "APIO18_new_home",
+    "title": "New Home",
+    "contest": "APIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO18_new_home",
+    "points": 100
+  },
+  {
+    "id": "APIO19_bridges",
+    "title": "Bridges",
+    "contest": "APIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO19_bridges",
+    "points": 100
+  },
+  {
+    "id": "APIO19_strange_device",
+    "title": "Strange Device",
+    "contest": "APIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO19_strange_device",
+    "points": 100
+  },
+  {
+    "id": "APIO19_street_lamps",
+    "title": "Street Lamps",
+    "contest": "APIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO19_street_lamps",
+    "points": 100
+  },
+  {
+    "id": "APIO20_fun",
+    "title": "Fun Tour",
+    "contest": "APIO 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO20_fun",
+    "points": 100
+  },
+  {
+    "id": "APIO20_paint",
+    "title": "Painting Walls",
+    "contest": "APIO 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO20_paint",
+    "points": 100
+  },
+  {
+    "id": "APIO20_swap",
+    "title": "Swapping Cities",
+    "contest": "APIO 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO20_swap",
+    "points": 100
+  },
+  {
+    "id": "APIO21_hexagon",
+    "title": "Hexagonal Territory",
+    "contest": "APIO 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO21_hexagon",
+    "points": 100
+  },
+  {
+    "id": "APIO21_jumps",
+    "title": "Rainforest Jumps",
+    "contest": "APIO 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO21_jumps",
+    "points": 100
+  },
+  {
+    "id": "APIO21_roads",
+    "title": "Road Closures",
+    "contest": "APIO 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO21_roads",
+    "points": 100
+  },
+  {
+    "id": "APIO22_game",
+    "title": "Game",
+    "contest": "APIO 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO22_game",
+    "points": 100
+  },
+  {
+    "id": "APIO22_mars",
+    "title": "Mars",
+    "contest": "APIO 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO22_mars",
+    "points": 100
+  },
+  {
+    "id": "APIO22_perm",
+    "title": "Permutation",
+    "contest": "APIO 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO22_perm",
+    "points": 100
+  },
+  {
+    "id": "APIO23_abc",
+    "title": "Alice, Bob, and Circuit",
+    "contest": "APIO 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO23_abc",
+    "points": 100
+  },
+  {
+    "id": "APIO23_cyberland",
+    "title": "Cyberland",
+    "contest": "APIO 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO23_cyberland",
+    "points": 100
+  },
+  {
+    "id": "APIO23_sequence",
+    "title": "Sequence",
+    "contest": "APIO 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO23_sequence",
+    "points": 100
+  },
+  {
+    "id": "APIO24_september",
+    "title": "September",
+    "contest": "APIO 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO24_september",
+    "points": 100
+  },
+  {
+    "id": "APIO24_show",
+    "title": "Magic Show",
+    "contest": "APIO 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO24_show",
+    "points": 100
+  },
+  {
+    "id": "APIO24_train",
+    "title": "Train",
+    "contest": "APIO 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO24_train",
+    "points": 100
+  },
+  {
+    "id": "APIO25_hack",
+    "title": "Hack",
+    "contest": "APIO 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO25_hack",
+    "points": 100
+  },
+  {
+    "id": "APIO25_permgame",
+    "title": "Permutation Game",
+    "contest": "APIO 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO25_permgame",
+    "points": 100
+  },
+  {
+    "id": "APIO25_rotate",
+    "title": "Rotating Lines",
+    "contest": "APIO 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO25_rotate",
+    "points": 100
+  },
+  {
+    "id": "APIO26_ancient",
+    "title": "Ancient Ruins Excursion",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_ancient",
+    "points": 100
+  },
+  {
+    "id": "APIO26_apio",
+    "title": "This is APIO, not APOI",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_apio",
+    "points": 100
+  },
+  {
+    "id": "APIO26_bike",
+    "title": "APIOBike",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_bike",
+    "points": 100
+  },
+  {
+    "id": "APIO26_game",
+    "title": "Communication Game",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_game",
+    "points": 100
+  },
+  {
+    "id": "APIO26_navigation",
+    "title": "Navigation",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_navigation",
+    "points": 100
+  },
+  {
+    "id": "APIO26_nightmarket",
+    "title": "Night Market",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_nightmarket",
+    "points": 100
+  },
+  {
+    "id": "APIO26_party",
+    "title": "Scallion Pancake Party",
+    "contest": "APIO 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/APIO26_party",
+    "points": 100
+  },
+  {
+    "id": "balkan11_2circles",
+    "title": "2circles",
+    "contest": "BalkanOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan11_2circles",
+    "points": 100
+  },
+  {
+    "id": "balkan11_cmp",
+    "title": "cmp",
+    "contest": "BalkanOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan11_cmp",
+    "points": 100
+  },
+  {
+    "id": "balkan11_medians",
+    "title": "medians",
+    "contest": "BalkanOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan11_medians",
+    "points": 100
+  },
+  {
+    "id": "balkan11_timeismoney",
+    "title": "timeismoney",
+    "contest": "BalkanOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan11_timeismoney",
+    "points": 100
+  },
+  {
+    "id": "balkan11_trapezoid",
+    "title": "trapezoid",
+    "contest": "BalkanOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan11_trapezoid",
+    "points": 100
+  },
+  {
+    "id": "Balkan15_CIRCUS",
+    "title": "Circus",
+    "contest": "BalkanOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/Balkan15_CIRCUS",
+    "points": 100
+  },
+  {
+    "id": "Balkan15_HAPPINESS",
+    "title": "Happiness",
+    "contest": "BalkanOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/Balkan15_HAPPINESS",
+    "points": 100
+  },
+  {
+    "id": "Balkan15_RADIO",
+    "title": "Radio",
+    "contest": "BalkanOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/Balkan15_RADIO",
+    "points": 100
+  },
+  {
+    "id": "balkan16_acrobat",
+    "title": "Acrobat",
+    "contest": "BalkanOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/balkan16_acrobat",
+    "points": 100
+  },
+  {
+    "id": "BOI06_bitwise",
+    "title": "Bitwise",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_bitwise",
+    "points": 100
+  },
+  {
+    "id": "BOI06_city",
+    "title": "City",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_city",
+    "points": 100
+  },
+  {
+    "id": "BOI06_coins",
+    "title": "Coins",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_coins",
+    "points": 100
+  },
+  {
+    "id": "BOI06_countries",
+    "title": "Countries",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_countries",
+    "points": 100
+  },
+  {
+    "id": "BOI06_jump",
+    "title": "Jump",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_jump",
+    "points": 100
+  },
+  {
+    "id": "BOI06_rle",
+    "title": "RLE",
+    "contest": "BOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI06_rle",
+    "points": 100
+  },
+  {
+    "id": "BOI07_sorting",
+    "title": "Ranklist Sorting",
+    "contest": "BOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI07_sorting",
+    "points": 100
+  },
+  {
+    "id": "BOI11_grow",
+    "title": "Growing Trees",
+    "contest": "BOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI11_grow",
+    "points": 100
+  },
+  {
+    "id": "BOI12_mobile",
+    "title": "Mobile",
+    "contest": "BOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI12_mobile",
+    "points": 100
+  },
+  {
+    "id": "BOI13_ballmachine",
+    "title": "Ball Machine",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_ballmachine",
+    "points": 100
+  },
+  {
+    "id": "BOI13_brunhilda",
+    "title": "Brunhilda’s Birthday",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_brunhilda",
+    "points": 100
+  },
+  {
+    "id": "BOI13_numbers",
+    "title": "Palindrome-Free Numbers",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_numbers",
+    "points": 100
+  },
+  {
+    "id": "BOI13_pipes",
+    "title": "Pipes",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_pipes",
+    "points": 100
+  },
+  {
+    "id": "BOI13_tracks",
+    "title": "Tracks in the Snow",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_tracks",
+    "points": 100
+  },
+  {
+    "id": "BOI13_vim",
+    "title": "Vim",
+    "contest": "BOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI13_vim",
+    "points": 100
+  },
+  {
+    "id": "BOI14_coprobber",
+    "title": "Cop and Robber",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_coprobber",
+    "points": 100
+  },
+  {
+    "id": "BOI14_demarcation",
+    "title": "Demarcation",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_demarcation",
+    "points": 100
+  },
+  {
+    "id": "BOI14_friends",
+    "title": "Three Friends",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_friends",
+    "points": 100
+  },
+  {
+    "id": "BOI14_network",
+    "title": "Computer Network",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_network",
+    "points": 100
+  },
+  {
+    "id": "BOI14_portals",
+    "title": "Portals",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_portals",
+    "points": 100
+  },
+  {
+    "id": "BOI14_postmen",
+    "title": "Senior Postmen",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_postmen",
+    "points": 100
+  },
+  {
+    "id": "BOI14_sequence",
+    "title": "Sequence",
+    "contest": "BOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI14_sequence",
+    "points": 100
+  },
+  {
+    "id": "BOI15_bow",
+    "title": "Bowling",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_bow",
+    "points": 100
+  },
+  {
+    "id": "BOI15_edi",
+    "title": "Editor",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_edi",
+    "points": 100
+  },
+  {
+    "id": "BOI15_fil",
+    "title": "File Paths",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_fil",
+    "points": 100
+  },
+  {
+    "id": "BOI15_hac",
+    "title": "Hacker",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_hac",
+    "points": 100
+  },
+  {
+    "id": "BOI15_net",
+    "title": "Network",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_net",
+    "points": 100
+  },
+  {
+    "id": "BOI15_tug",
+    "title": "Tug of War",
+    "contest": "BOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI15_tug",
+    "points": 100
+  },
+  {
+    "id": "BOI16_bosses",
+    "title": "Bosses",
+    "contest": "BOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI16_bosses",
+    "points": 100
+  },
+  {
+    "id": "BOI16_cities",
+    "title": "Cities",
+    "contest": "BOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI16_cities",
+    "points": 100
+  },
+  {
+    "id": "BOI16_park",
+    "title": "Park",
+    "contest": "BOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI16_park",
+    "points": 100
+  },
+  {
+    "id": "BOI16_spiral",
+    "title": "Spiral",
+    "contest": "BOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI16_spiral",
+    "points": 100
+  },
+  {
+    "id": "BOI16_swap",
+    "title": "Swap",
+    "contest": "BOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI16_swap",
+    "points": 100
+  },
+  {
+    "id": "BOI17_catinatree",
+    "title": "Cat in a tree",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_catinatree",
+    "points": 100
+  },
+  {
+    "id": "BOI17_friends",
+    "title": "Friends",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_friends",
+    "points": 100
+  },
+  {
+    "id": "BOI17_plusminus",
+    "title": "Plus Minus",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_plusminus",
+    "points": 100
+  },
+  {
+    "id": "BOI17_politicaldevelopment",
+    "title": "Political Development",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_politicaldevelopment",
+    "points": 100
+  },
+  {
+    "id": "BOI17_railway",
+    "title": "Railway",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_railway",
+    "points": 100
+  },
+  {
+    "id": "BOI17_toll",
+    "title": "Toll",
+    "contest": "BOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI17_toll",
+    "points": 100
+  },
+  {
+    "id": "BOI18_alternating",
+    "title": "Alternating Current",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_alternating",
+    "points": 100
+  },
+  {
+    "id": "BOI18_dna",
+    "title": "Martian DNA",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_dna",
+    "points": 100
+  },
+  {
+    "id": "BOI18_election",
+    "title": "Election",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_election",
+    "points": 100
+  },
+  {
+    "id": "BOI18_genetics",
+    "title": "Genetics",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_genetics",
+    "points": 100
+  },
+  {
+    "id": "BOI18_homecoming",
+    "title": "Homecoming",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_homecoming",
+    "points": 100
+  },
+  {
+    "id": "BOI18_minmaxtree",
+    "title": "Min-max tree",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_minmaxtree",
+    "points": 100
+  },
+  {
+    "id": "BOI21_xanadu",
+    "title": "The Xana coup",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_xanadu",
+    "points": 100
+  },
+  {
+    "id": "BOI22_art",
+    "title": "Art Collections",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_art",
+    "points": 100
+  },
+  {
+    "id": "BOI22_communication",
+    "title": "Flight to the Ford",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_communication",
+    "points": 100
+  },
+  {
+    "id": "BOI22_events",
+    "title": "Event Hopping",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_events",
+    "points": 100
+  },
+  {
+    "id": "BOI22_island",
+    "title": "Stranded Far From Home",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_island",
+    "points": 100
+  },
+  {
+    "id": "BOI22_passes",
+    "title": "Boarding Passes",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_passes",
+    "points": 100
+  },
+  {
+    "id": "BOI22_vault",
+    "title": "Uplifting Excursion",
+    "contest": "BOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI22_vault",
+    "points": 100
+  },
+  {
+    "id": "BOI23_astronomer",
+    "title": "Astronomer",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_astronomer",
+    "points": 100
+  },
+  {
+    "id": "BOI23_minequake",
+    "title": "Minequake",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_minequake",
+    "points": 100
+  },
+  {
+    "id": "BOI23_mineraldeposits",
+    "title": "Mineral deposits",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_mineraldeposits",
+    "points": 100
+  },
+  {
+    "id": "BOI23_sequence",
+    "title": "Sequence",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_sequence",
+    "points": 100
+  },
+  {
+    "id": "BOI23_staringcontest",
+    "title": "Staring Contest",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_staringcontest",
+    "points": 100
+  },
+  {
+    "id": "BOI23_tycho",
+    "title": "Tycho",
+    "contest": "BOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI23_tycho",
+    "points": 100
+  },
+  {
+    "id": "BOI24_drivers",
+    "title": "Drivers",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_drivers",
+    "points": 100
+  },
+  {
+    "id": "BOI24_fire",
+    "title": "Fire",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_fire",
+    "points": 100
+  },
+  {
+    "id": "BOI24_jobs",
+    "title": "Jobs",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_jobs",
+    "points": 100
+  },
+  {
+    "id": "BOI24_multiplication",
+    "title": "Multiplication",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_multiplication",
+    "points": 100
+  },
+  {
+    "id": "BOI24_portal",
+    "title": "Portal",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_portal",
+    "points": 100
+  },
+  {
+    "id": "BOI24_rectangle",
+    "title": "Cutting a Rectangle",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_rectangle",
+    "points": 100
+  },
+  {
+    "id": "BOI24_tiles",
+    "title": "Tiles",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_tiles",
+    "points": 100
+  },
+  {
+    "id": "BOI24_trains",
+    "title": "Trains",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_trains",
+    "points": 100
+  },
+  {
+    "id": "BOI24_wall",
+    "title": "Flooding Wall",
+    "contest": "BOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI24_wall",
+    "points": 100
+  },
+  {
+    "id": "BOI25_boi",
+    "title": "BOI Acronym",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_boi",
+    "points": 100
+  },
+  {
+    "id": "BOI25_dev",
+    "title": "Developer",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_dev",
+    "points": 100
+  },
+  {
+    "id": "BOI25_exp",
+    "title": "Exponents",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_exp",
+    "points": 100
+  },
+  {
+    "id": "BOI25_gcd",
+    "title": "Gingerbread",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_gcd",
+    "points": 100
+  },
+  {
+    "id": "BOI25_tou",
+    "title": "Tour",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_tou",
+    "points": 100
+  },
+  {
+    "id": "BOI25_tow",
+    "title": "Tower",
+    "contest": "BOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI25_tow",
+    "points": 100
+  },
+  {
+    "id": "BOI26_blocks",
+    "title": "Blocks",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_blocks",
+    "points": 100
+  },
+  {
+    "id": "BOI26_distances",
+    "title": "Distances",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_distances",
+    "points": 100
+  },
+  {
+    "id": "BOI26_hamilton",
+    "title": "Hamilton",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_hamilton",
+    "points": 100
+  },
+  {
+    "id": "BOI26_island",
+    "title": "Island",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_island",
+    "points": 100
+  },
+  {
+    "id": "BOI26_journey",
+    "title": "Tourist's Journey",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_journey",
+    "points": 100
+  },
+  {
+    "id": "BOI26_sort",
+    "title": "Sort",
+    "contest": "BOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI26_sort",
+    "points": 100
+  },
+  {
+    "id": "CEOI06_connect",
+    "title": "Connect",
+    "contest": "CEOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI06_connect",
+    "points": 100
+  },
+  {
+    "id": "CEOI06_link",
+    "title": "Link",
+    "contest": "CEOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI06_link",
+    "points": 100
+  },
+  {
+    "id": "CEOI06_meandian",
+    "title": "Meandian",
+    "contest": "CEOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI06_meandian",
+    "points": 100
+  },
+  {
+    "id": "CEOI06_queue",
+    "title": "Queue",
+    "contest": "CEOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI06_queue",
+    "points": 100
+  },
+  {
+    "id": "CEOI06_walk",
+    "title": "Walk",
+    "contest": "CEOI 2006",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI06_walk",
+    "points": 100
+  },
+  {
+    "id": "CEOI08_dominance",
+    "title": "Dominance",
+    "contest": "CEOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI08_dominance",
+    "points": 100
+  },
+  {
+    "id": "CEOI08_fence",
+    "title": "Fence",
+    "contest": "CEOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI08_fence",
+    "points": 100
+  },
+  {
+    "id": "CEOI08_information",
+    "title": "Information",
+    "contest": "CEOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI08_information",
+    "points": 100
+  },
+  {
+    "id": "CEOI08_snake",
+    "title": "Snake",
+    "contest": "CEOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI08_snake",
+    "points": 100
+  },
+  {
+    "id": "CEOI09_harbingers",
+    "title": "Harbingers",
+    "contest": "CEOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI09_harbingers",
+    "points": 100
+  },
+  {
+    "id": "CEOI09_tri",
+    "title": "Tri",
+    "contest": "CEOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI09_tri",
+    "points": 100
+  },
+  {
+    "id": "CEOI10_bodyguards",
+    "title": "Bodyguards",
+    "contest": "CEOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI10_bodyguards",
+    "points": 100
+  },
+  {
+    "id": "CEOI10_mp3player",
+    "title": "MP3 Player",
+    "contest": "CEOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI10_mp3player",
+    "points": 100
+  },
+  {
+    "id": "CEOI10_pin",
+    "title": "PIN",
+    "contest": "CEOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI10_pin",
+    "points": 100
+  },
+  {
+    "id": "CEOI10_tower",
+    "title": "A Huge Tower",
+    "contest": "CEOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI10_tower",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_bal",
+    "title": "Balloons",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_bal",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_hot",
+    "title": "Hotel",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_hot",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_mat",
+    "title": "Matching",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_mat",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_tea",
+    "title": "Teams",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_tea",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_tra",
+    "title": "Traffic",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_tra",
+    "points": 100
+  },
+  {
+    "id": "CEOI11_tre",
+    "title": "Treasure Hunt",
+    "contest": "CEOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI11_tre",
+    "points": 100
+  },
+  {
+    "id": "CEOI12_circuit",
+    "title": "Printed Circuit Board",
+    "contest": "CEOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI12_circuit",
+    "points": 100
+  },
+  {
+    "id": "CEOI12_highway",
+    "title": "Highway design",
+    "contest": "CEOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI12_highway",
+    "points": 100
+  },
+  {
+    "id": "CEOI12_jobs",
+    "title": "Job Scheduling",
+    "contest": "CEOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI12_jobs",
+    "points": 100
+  },
+  {
+    "id": "CEOI12_race",
+    "title": "Sailing Race",
+    "contest": "CEOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI12_race",
+    "points": 100
+  },
+  {
+    "id": "CEOI13_adriatic",
+    "title": "Adriatic",
+    "contest": "CEOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI13_adriatic",
+    "points": 100
+  },
+  {
+    "id": "CEOI13_board",
+    "title": "Board",
+    "contest": "CEOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI13_board",
+    "points": 100
+  },
+  {
+    "id": "CEOI13_tram",
+    "title": "Tram",
+    "contest": "CEOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI13_tram",
+    "points": 100
+  },
+  {
+    "id": "CEOI13_treasure2",
+    "title": "Treasure (different grader from official contest)",
+    "contest": "CEOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI13_treasure2",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_007",
+    "title": "007",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_007",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_cake",
+    "title": "Cake",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_cake",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_carnival",
+    "title": "Carnival",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_carnival",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_fangorn",
+    "title": "The Forest of Fangorn",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_fangorn",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_question_grader",
+    "title": "Question (Grader is different from the original contest)",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_question_grader",
+    "points": 100
+  },
+  {
+    "id": "CEOI14_wall",
+    "title": "Wall",
+    "contest": "CEOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI14_wall",
+    "points": 100
+  },
+  {
+    "id": "CEOI15_bobek",
+    "title": "Ice Hockey World Championship",
+    "contest": "CEOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI15_bobek",
+    "points": 100
+  },
+  {
+    "id": "CEOI15_indcyc",
+    "title": "Potemkin cycle",
+    "contest": "CEOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI15_indcyc",
+    "points": 100
+  },
+  {
+    "id": "CEOI15_nuclearia",
+    "title": "Nuclearia",
+    "contest": "CEOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI15_nuclearia",
+    "points": 100
+  },
+  {
+    "id": "CEOI15_pipes",
+    "title": "Pipes",
+    "contest": "CEOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI15_pipes",
+    "points": 100
+  },
+  {
+    "id": "CEOI15_teams",
+    "title": "Calvinball championship",
+    "contest": "CEOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI15_teams",
+    "points": 100
+  },
+  {
+    "id": "CEOI16_icc",
+    "title": "ICC",
+    "contest": "CEOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI16_icc",
+    "points": 100
+  },
+  {
+    "id": "CEOI16_kangaroo",
+    "title": "Kangaroo",
+    "contest": "CEOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI16_kangaroo",
+    "points": 100
+  },
+  {
+    "id": "CEOI16_match",
+    "title": "Match",
+    "contest": "CEOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI16_match",
+    "points": 100
+  },
+  {
+    "id": "CEOI16_popeala",
+    "title": "Popeala",
+    "contest": "CEOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI16_popeala",
+    "points": 100
+  },
+  {
+    "id": "CEOI16_router",
+    "title": "Router",
+    "contest": "CEOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI16_router",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_building",
+    "title": "Building Bridges",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_building",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_chase",
+    "title": "Chase",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_chase",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_mousetrap",
+    "title": "Mousetrap",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_mousetrap",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_mul",
+    "title": "Multiply",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_mul",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_museum",
+    "title": "Museum",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_museum",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_oneway",
+    "title": "One-Way Streets",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_oneway",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_palindromic",
+    "title": "Palindromic Partitions",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_palindromic",
+    "points": 100
+  },
+  {
+    "id": "CEOI17_sure",
+    "title": "Sure Bet",
+    "contest": "CEOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI17_sure",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_clo",
+    "title": "Cloud Computing",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_clo",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_fib",
+    "title": "Fibonacci representations",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_fib",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_glo",
+    "title": "Global Warming",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_glo",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_lot",
+    "title": "Lottery",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_lot",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_toy",
+    "title": "Toys",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_toy",
+    "points": 100
+  },
+  {
+    "id": "CEOI18_tri",
+    "title": "Triangles",
+    "contest": "CEOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI18_tri",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_amusementpark",
+    "title": "Amusement Park",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_amusementpark",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_countsquares",
+    "title": "Count Squares",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_countsquares",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_cubeword",
+    "title": "Cubeword",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_cubeword",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_diameter",
+    "title": "Dynamic Diameter",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_diameter",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_magictree",
+    "title": "Magic Tree",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_magictree",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_scissors",
+    "title": "Scissors and Tape",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_scissors",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_separator",
+    "title": "Separator",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_separator",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_skyscrapers",
+    "title": "Building Skyscrapers",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_skyscrapers",
+    "points": 100
+  },
+  {
+    "id": "CEOI19_towerdefense",
+    "title": "Tower Defense",
+    "contest": "CEOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI19_towerdefense",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_chessrush",
+    "title": "Chess Rush",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_chessrush",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_cleaning",
+    "title": "Spring cleaning",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_cleaning",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_fancyfence",
+    "title": "Fancy Fence",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_fancyfence",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_potion",
+    "title": "The Potion of Great Power",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_potion",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_roads",
+    "title": "Roads",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_roads",
+    "points": 100
+  },
+  {
+    "id": "CEOI20_startrek",
+    "title": "Star Trek",
+    "contest": "CEOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI20_startrek",
+    "points": 100
+  },
+  {
+    "id": "CEOI21_diversity",
+    "title": "Diversity",
+    "contest": "CEOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI21_diversity",
+    "points": 100
+  },
+  {
+    "id": "CEOI21_ltriominoes",
+    "title": "L-triominoes",
+    "contest": "CEOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI21_ltriominoes",
+    "points": 100
+  },
+  {
+    "id": "CEOI21_newspapers",
+    "title": "Newspapers",
+    "contest": "CEOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI21_newspapers",
+    "points": 100
+  },
+  {
+    "id": "CEOI21_tortoise",
+    "title": "Tortoise",
+    "contest": "CEOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI21_tortoise",
+    "points": 100
+  },
+  {
+    "id": "CEOI21_wells",
+    "title": "Wells",
+    "contest": "CEOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI21_wells",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_abracadabra",
+    "title": "Abracadabra",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_abracadabra",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_drawing",
+    "title": "Drawing",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_drawing",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_homework",
+    "title": "Homework",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_homework",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_measures",
+    "title": "Measures",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_measures",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_parking",
+    "title": "Parking",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_parking",
+    "points": 100
+  },
+  {
+    "id": "CEOI22_prize",
+    "title": "Prize",
+    "contest": "CEOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI22_prize",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_avoid",
+    "title": "How to Avoid Disqualification in 75 Easy Steps",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_avoid",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_balance",
+    "title": "Brought Down the Grading Server?",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_balance",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_gradingserver",
+    "title": "Bring Down the Grading Server",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_gradingserver",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_incursion",
+    "title": "The Ties That Guide Us",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_incursion",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_light",
+    "title": "A Light Inconvenience",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_light",
+    "points": 100
+  },
+  {
+    "id": "CEOI23_trade",
+    "title": "Tricks of the Trade",
+    "contest": "CEOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI23_trade",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_battle",
+    "title": "Naval battle",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_battle",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_covid",
+    "title": "COVID tests",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_covid",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_editor",
+    "title": "Text editor",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_editor",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_sprinklers",
+    "title": "Sprinklers",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_sprinklers",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_stations",
+    "title": "Petrol stations",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_stations",
+    "points": 100
+  },
+  {
+    "id": "CEOI24_toy",
+    "title": "Toy",
+    "contest": "CEOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI24_toy",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_boardgames",
+    "title": "Boardgames",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_boardgames",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_equalmex",
+    "title": "Equalmex",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_equalmex",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_highest",
+    "title": "Highest",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_highest",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_lawnmower",
+    "title": "Lawn Mower",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_lawnmower",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_splits",
+    "title": "Splits",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_splits",
+    "points": 100
+  },
+  {
+    "id": "CEOI25_theseus",
+    "title": "Theseus",
+    "contest": "CEOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI25_theseus",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_birdwatchers",
+    "title": "Birdwatchers",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_birdwatchers",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_dfs",
+    "title": "DFS",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_dfs",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_flowers",
+    "title": "Flower Cutting",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_flowers",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_hunt",
+    "title": "Treasure Hunt",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_hunt",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_towers",
+    "title": "Towers",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_towers",
+    "points": 100
+  },
+  {
+    "id": "CEOI26_vim",
+    "title": "Vim",
+    "contest": "CEOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/CEOI26_vim",
+    "points": 100
+  },
+  {
+    "id": "COCI14_bob",
+    "title": "Bob",
+    "contest": "COCI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI14_bob",
+    "points": 100
+  },
+  {
+    "id": "COCI14_mobitel",
+    "title": "Mobitel",
+    "contest": "COCI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI14_mobitel",
+    "points": 100
+  },
+  {
+    "id": "COCI14_prosjek",
+    "title": "Prosjek",
+    "contest": "COCI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI14_prosjek",
+    "points": 100
+  },
+  {
+    "id": "COCI14_studentsko",
+    "title": "Studentsko",
+    "contest": "COCI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI14_studentsko",
+    "points": 100
+  },
+  {
+    "id": "COCI14_utrka",
+    "title": "Utrka",
+    "contest": "COCI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI14_utrka",
+    "points": 100
+  },
+  {
+    "id": "COCI15_akcija",
+    "title": "Akcija",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_akcija",
+    "points": 100
+  },
+  {
+    "id": "COCI15_baloni",
+    "title": "Baloni",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_baloni",
+    "points": 100
+  },
+  {
+    "id": "COCI15_domino",
+    "title": "Domino",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_domino",
+    "points": 100
+  },
+  {
+    "id": "COCI15_drzava",
+    "title": "Drzava",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_drzava",
+    "points": 100
+  },
+  {
+    "id": "COCI15_esej",
+    "title": "Esej",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_esej",
+    "points": 100
+  },
+  {
+    "id": "COCI15_geppetto",
+    "title": "Geppetto",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_geppetto",
+    "points": 100
+  },
+  {
+    "id": "COCI15_karte",
+    "title": "Karte",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_karte",
+    "points": 100
+  },
+  {
+    "id": "COCI15_marko",
+    "title": "Marko",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_marko",
+    "points": 100
+  },
+  {
+    "id": "COCI15_nekameleoni",
+    "title": "Nekameleoni",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_nekameleoni",
+    "points": 100
+  },
+  {
+    "id": "COCI15_pot",
+    "title": "Pot",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_pot",
+    "points": 100
+  },
+  {
+    "id": "COCI15_relativnost",
+    "title": "Relativnost",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_relativnost",
+    "points": 100
+  },
+  {
+    "id": "COCI15_savez",
+    "title": "Savez",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_savez",
+    "points": 100
+  },
+  {
+    "id": "COCI15_slon",
+    "title": "Slon",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_slon",
+    "points": 100
+  },
+  {
+    "id": "COCI15_topovi",
+    "title": "Topovi",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_topovi",
+    "points": 100
+  },
+  {
+    "id": "COCI15_uzastopni",
+    "title": "Uzastopni",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_uzastopni",
+    "points": 100
+  },
+  {
+    "id": "COCI15_vudu",
+    "title": "Vudu",
+    "contest": "COCI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI15_vudu",
+    "points": 100
+  },
+  {
+    "id": "COCI16_burza",
+    "title": "Burza",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_burza",
+    "points": 100
+  },
+  {
+    "id": "COCI16_cezar",
+    "title": "Cezar",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_cezar",
+    "points": 100
+  },
+  {
+    "id": "COCI16_go",
+    "title": "Go",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_go",
+    "points": 100
+  },
+  {
+    "id": "COCI16_imena",
+    "title": "Imena",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_imena",
+    "points": 100
+  },
+  {
+    "id": "COCI16_jetpack",
+    "title": "Jetpack",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_jetpack",
+    "points": 100
+  },
+  {
+    "id": "COCI16_kralj",
+    "title": "Kralj",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_kralj",
+    "points": 100
+  },
+  {
+    "id": "COCI16_kronican",
+    "title": "Kronican",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_kronican",
+    "points": 100
+  },
+  {
+    "id": "COCI16_kvalitetni",
+    "title": "Kvalitetni",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_kvalitetni",
+    "points": 100
+  },
+  {
+    "id": "COCI16_mag",
+    "title": "Mag",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_mag",
+    "points": 100
+  },
+  {
+    "id": "COCI16_meksikanac",
+    "title": "Meksikanac",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_meksikanac",
+    "points": 100
+  },
+  {
+    "id": "COCI16_nizin",
+    "title": "Nizin",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_nizin",
+    "points": 100
+  },
+  {
+    "id": "COCI16_pohlepko",
+    "title": "Pohlepko",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_pohlepko",
+    "points": 100
+  },
+  {
+    "id": "COCI16_prosjecni",
+    "title": "Prosjecni",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_prosjecni",
+    "points": 100
+  },
+  {
+    "id": "COCI16_tarifa",
+    "title": "Tarifa",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_tarifa",
+    "points": 100
+  },
+  {
+    "id": "COCI16_tavan",
+    "title": "Tavan",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_tavan",
+    "points": 100
+  },
+  {
+    "id": "COCI16_vjestica",
+    "title": "Vještica",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_vjestica",
+    "points": 100
+  },
+  {
+    "id": "COCI16_zamjene",
+    "title": "Zamjene",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_zamjene",
+    "points": 100
+  },
+  {
+    "id": "COCI16_zoltan",
+    "title": "Zoltan",
+    "contest": "COCI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI16_zoltan",
+    "points": 100
+  },
+  {
+    "id": "COCI17_aron",
+    "title": "Aron",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_aron",
+    "points": 100
+  },
+  {
+    "id": "COCI17_automobil",
+    "title": "Automobil",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_automobil",
+    "points": 100
+  },
+  {
+    "id": "COCI17_baza",
+    "title": "Baza",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_baza",
+    "points": 100
+  },
+  {
+    "id": "COCI17_bridz",
+    "title": "Bridž",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_bridz",
+    "points": 100
+  },
+  {
+    "id": "COCI17_ceste",
+    "title": "Ceste",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_ceste",
+    "points": 100
+  },
+  {
+    "id": "COCI17_cezar",
+    "title": "COCI17_cezar",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_cezar",
+    "points": 100
+  },
+  {
+    "id": "COCI17_deda",
+    "title": "Deda",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_deda",
+    "points": 100
+  },
+  {
+    "id": "COCI17_dojave",
+    "title": "Dojave",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_dojave",
+    "points": 100
+  },
+  {
+    "id": "COCI17_doktor",
+    "title": "Doktor",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_doktor",
+    "points": 100
+  },
+  {
+    "id": "COCI17_garaza",
+    "title": "Garaža",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_garaza",
+    "points": 100
+  },
+  {
+    "id": "COCI17_gauss",
+    "title": "Gauss",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_gauss",
+    "points": 100
+  },
+  {
+    "id": "COCI17_hindeks",
+    "title": "Hindeks",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_hindeks",
+    "points": 100
+  },
+  {
+    "id": "COCI17_hokej",
+    "title": "Hokej",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_hokej",
+    "points": 100
+  },
+  {
+    "id": "COCI17_igra",
+    "title": "Igra",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_igra",
+    "points": 100
+  },
+  {
+    "id": "COCI17_izbori",
+    "title": "Izbori",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_izbori",
+    "points": 100
+  },
+  {
+    "id": "COCI17_kartomat",
+    "title": "Kartomat",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_kartomat",
+    "points": 100
+  },
+  {
+    "id": "COCI17_kas",
+    "title": "Kas",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_kas",
+    "points": 100
+  },
+  {
+    "id": "COCI17_klavir",
+    "title": "Klavir",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_klavir",
+    "points": 100
+  },
+  {
+    "id": "COCI17_kosnja",
+    "title": "Košnja",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_kosnja",
+    "points": 100
+  },
+  {
+    "id": "COCI17_krov",
+    "title": "Krov",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_krov",
+    "points": 100
+  },
+  {
+    "id": "COCI17_lozinke",
+    "title": "Lozinke",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_lozinke",
+    "points": 100
+  },
+  {
+    "id": "COCI17_osmosmjerka",
+    "title": "Osmosmjerka",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_osmosmjerka",
+    "points": 100
+  },
+  {
+    "id": "COCI17_paralelogrami",
+    "title": "Paralelogrami",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_paralelogrami",
+    "points": 100
+  },
+  {
+    "id": "COCI17_pareto",
+    "title": "Pareto",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_pareto",
+    "points": 100
+  },
+  {
+    "id": "COCI17_plahte",
+    "title": "Plahte",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_plahte",
+    "points": 100
+  },
+  {
+    "id": "COCI17_poklon",
+    "title": "Poklon",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_poklon",
+    "points": 100
+  },
+  {
+    "id": "COCI17_poklon7",
+    "title": "Poklon",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_poklon7",
+    "points": 100
+  },
+  {
+    "id": "COCI17_portal",
+    "title": "Portal",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_portal",
+    "points": 100
+  },
+  {
+    "id": "COCI17_programiranje",
+    "title": "Programiranje",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_programiranje",
+    "points": 100
+  },
+  {
+    "id": "COCI17_rasvjeta",
+    "title": "Rasvjeta",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_rasvjeta",
+    "points": 100
+  },
+  {
+    "id": "COCI17_retro",
+    "title": "Retro",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_retro",
+    "points": 100
+  },
+  {
+    "id": "COCI17_rima",
+    "title": "Rima",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_rima",
+    "points": 100
+  },
+  {
+    "id": "COCI17_ronald",
+    "title": "Ronald",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_ronald",
+    "points": 100
+  },
+  {
+    "id": "COCI17_san",
+    "title": "San",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_san",
+    "points": 100
+  },
+  {
+    "id": "COCI17_savrsen",
+    "title": "Savrsen",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_savrsen",
+    "points": 100
+  },
+  {
+    "id": "COCI17_sazetak",
+    "title": "Sažetak",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_sazetak",
+    "points": 100
+  },
+  {
+    "id": "COCI17_sirni",
+    "title": "Sirni",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_sirni",
+    "points": 100
+  },
+  {
+    "id": "COCI17_telefoni",
+    "title": "Telefoni",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_telefoni",
+    "points": 100
+  },
+  {
+    "id": "COCI17_tetris",
+    "title": "Tetris",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_tetris",
+    "points": 100
+  },
+  {
+    "id": "COCI17_tuna",
+    "title": "Tuna",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_tuna",
+    "points": 100
+  },
+  {
+    "id": "COCI17_turnir",
+    "title": "Turnir",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_turnir",
+    "points": 100
+  },
+  {
+    "id": "COCI17_unija",
+    "title": "Unija",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_unija",
+    "points": 100
+  },
+  {
+    "id": "COCI17_usmjeri",
+    "title": "Usmjeri",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_usmjeri",
+    "points": 100
+  },
+  {
+    "id": "COCI17_uzastopni",
+    "title": "Uzastopni",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_uzastopni",
+    "points": 100
+  },
+  {
+    "id": "COCI17_vode",
+    "title": "Vođe",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_vode",
+    "points": 100
+  },
+  {
+    "id": "COCI17_zigzag",
+    "title": "ZigZag",
+    "contest": "COCI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI17_zigzag",
+    "points": 100
+  },
+  {
+    "id": "COCI18_alkemija",
+    "title": "Alkemija",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_alkemija",
+    "points": 100
+  },
+  {
+    "id": "COCI18_birokracija",
+    "title": "Birokracija",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_birokracija",
+    "points": 100
+  },
+  {
+    "id": "COCI18_cipele",
+    "title": "Cipele",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_cipele",
+    "points": 100
+  },
+  {
+    "id": "COCI18_clickbait",
+    "title": "Clickbait",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_clickbait",
+    "points": 100
+  },
+  {
+    "id": "COCI18_cover",
+    "title": "Cover",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_cover",
+    "points": 100
+  },
+  {
+    "id": "COCI18_deblo",
+    "title": "Deblo",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_deblo",
+    "points": 100
+  },
+  {
+    "id": "COCI18_dostavljac",
+    "title": "Dostavljač",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_dostavljac",
+    "points": 100
+  },
+  {
+    "id": "COCI18_go",
+    "title": "Go",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_go",
+    "points": 100
+  },
+  {
+    "id": "COCI18_karte",
+    "title": "Karte",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_karte",
+    "points": 100
+  },
+  {
+    "id": "COCI18_kocka",
+    "title": "Kocka",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_kocka",
+    "points": 100
+  },
+  {
+    "id": "COCI18_kotrljanje",
+    "title": "Kotrljanje",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_kotrljanje",
+    "points": 100
+  },
+  {
+    "id": "COCI18_magnus",
+    "title": "Magnus",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_magnus",
+    "points": 100
+  },
+  {
+    "id": "COCI18_maja",
+    "title": "Maja",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_maja",
+    "points": 100
+  },
+  {
+    "id": "COCI18_mate",
+    "title": "Mate",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_mate",
+    "points": 100
+  },
+  {
+    "id": "COCI18_nadan",
+    "title": "Nadan",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_nadan",
+    "points": 100
+  },
+  {
+    "id": "COCI18_nlo",
+    "title": "NLO",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_nlo",
+    "points": 100
+  },
+  {
+    "id": "COCI18_olivander",
+    "title": "Olivander",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_olivander",
+    "points": 100
+  },
+  {
+    "id": "COCI18_pictionary",
+    "title": "Pictionary",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_pictionary",
+    "points": 100
+  },
+  {
+    "id": "COCI18_pismo",
+    "title": "Pismo",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_pismo",
+    "points": 100
+  },
+  {
+    "id": "COCI18_planinarenje",
+    "title": "Planinarenje",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_planinarenje",
+    "points": 100
+  },
+  {
+    "id": "COCI18_prakticni",
+    "title": "Praktični",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_prakticni",
+    "points": 100
+  },
+  {
+    "id": "COCI18_preokret",
+    "title": "Preokret",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_preokret",
+    "points": 100
+  },
+  {
+    "id": "COCI18_priglavci",
+    "title": "Priglavci",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_priglavci",
+    "points": 100
+  },
+  {
+    "id": "COCI18_prosjek",
+    "title": "Prosjek",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_prosjek",
+    "points": 100
+  },
+  {
+    "id": "COCI18_sajam",
+    "title": "Sajam",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_sajam",
+    "points": 100
+  },
+  {
+    "id": "COCI18_spirale",
+    "title": "Spirale",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_spirale",
+    "points": 100
+  },
+  {
+    "id": "COCI18_strah",
+    "title": "Strah",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_strah",
+    "points": 100
+  },
+  {
+    "id": "COCI18_suncanje",
+    "title": "Sunčanje",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_suncanje",
+    "points": 100
+  },
+  {
+    "id": "COCI18_teoreticar",
+    "title": "Teoretičar",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_teoreticar",
+    "points": 100
+  },
+  {
+    "id": "COCI18_timovi",
+    "title": "Timovi",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_timovi",
+    "points": 100
+  },
+  {
+    "id": "COCI18_vrtic",
+    "title": "Vrtić",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_vrtic",
+    "points": 100
+  },
+  {
+    "id": "COCI18_zamjena",
+    "title": "Zamjena",
+    "contest": "COCI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI18_zamjena",
+    "points": 100
+  },
+  {
+    "id": "COCI19_acm",
+    "title": "ACM",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_acm",
+    "points": 100
+  },
+  {
+    "id": "COCI19_akvizna",
+    "title": "새로운 문제",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_akvizna",
+    "points": 100
+  },
+  {
+    "id": "COCI19_checker",
+    "title": "Checker",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_checker",
+    "points": 100
+  },
+  {
+    "id": "COCI19_drvca",
+    "title": "Drvca",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_drvca",
+    "points": 100
+  },
+  {
+    "id": "COCI19_dzumbus",
+    "title": "Džumbus",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_dzumbus",
+    "points": 100
+  },
+  {
+    "id": "COCI19_elder",
+    "title": "Elder",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_elder",
+    "points": 100
+  },
+  {
+    "id": "COCI19_grudanje",
+    "title": "Grudanje",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_grudanje",
+    "points": 100
+  },
+  {
+    "id": "COCI19_ispit",
+    "title": "Ispit",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_ispit",
+    "points": 100
+  },
+  {
+    "id": "COCI19_jarvis",
+    "title": "Jarvis",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_jarvis",
+    "points": 100
+  },
+  {
+    "id": "COCI19_kisik",
+    "title": "Kisik",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_kisik",
+    "points": 100
+  },
+  {
+    "id": "COCI19_konj",
+    "title": "Konj",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_konj",
+    "points": 100
+  },
+  {
+    "id": "COCI19_lampice",
+    "title": "Lampice",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_lampice",
+    "points": 100
+  },
+  {
+    "id": "COCI19_lun",
+    "title": "Lun",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_lun",
+    "points": 100
+  },
+  {
+    "id": "COCI19_lutrija",
+    "title": "Lutrija",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_lutrija",
+    "points": 100
+  },
+  {
+    "id": "COCI19_mobitel",
+    "title": "Mobitel",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_mobitel",
+    "points": 100
+  },
+  {
+    "id": "COCI19_parametriziran",
+    "title": "Parametriziran",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_parametriziran",
+    "points": 100
+  },
+  {
+    "id": "COCI19_popcount",
+    "title": "Popcount",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_popcount",
+    "points": 100
+  },
+  {
+    "id": "COCI19_preokret",
+    "title": "Preokret",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_preokret",
+    "points": 100
+  },
+  {
+    "id": "COCI19_simfonija",
+    "title": "Simfonija",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_simfonija",
+    "points": 100
+  },
+  {
+    "id": "COCI19_slagalica",
+    "title": "Slagalica",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_slagalica",
+    "points": 100
+  },
+  {
+    "id": "COCI19_slagalica2",
+    "title": "Slagalica",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_slagalica2",
+    "points": 100
+  },
+  {
+    "id": "COCI19_slicice",
+    "title": "Sličice",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_slicice",
+    "points": 100
+  },
+  {
+    "id": "COCI19_sob",
+    "title": "Sob",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_sob",
+    "points": 100
+  },
+  {
+    "id": "COCI19_titlovi",
+    "title": "Titlovi",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_titlovi",
+    "points": 100
+  },
+  {
+    "id": "COCI19_transport",
+    "title": "Transport",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_transport",
+    "points": 100
+  },
+  {
+    "id": "COCI19_trobojnica",
+    "title": "Trobojnica",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_trobojnica",
+    "points": 100
+  },
+  {
+    "id": "COCI19_trol",
+    "title": "Trol",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_trol",
+    "points": 100
+  },
+  {
+    "id": "COCI19_wand",
+    "title": "Wand",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_wand",
+    "points": 100
+  },
+  {
+    "id": "COCI19_zoo",
+    "title": "Zoo",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_zoo",
+    "points": 100
+  },
+  {
+    "id": "COCI19_zvijezda",
+    "title": "Zvijezda",
+    "contest": "COCI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI19_zvijezda",
+    "points": 100
+  },
+  {
+    "id": "COCI20_bajka",
+    "title": "Bajka",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_bajka",
+    "points": 100
+  },
+  {
+    "id": "COCI20_birmingham",
+    "title": "Birmingham",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_birmingham",
+    "points": 100
+  },
+  {
+    "id": "COCI20_crtanje",
+    "title": "Crtanje",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_crtanje",
+    "points": 100
+  },
+  {
+    "id": "COCI20_datum",
+    "title": "Datum",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_datum",
+    "points": 100
+  },
+  {
+    "id": "COCI20_emacs",
+    "title": "Emacs",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_emacs",
+    "points": 100
+  },
+  {
+    "id": "COCI20_euklid",
+    "title": "Euklid",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_euklid",
+    "points": 100
+  },
+  {
+    "id": "COCI20_histogram",
+    "title": "3D Histogram",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_histogram",
+    "points": 100
+  },
+  {
+    "id": "COCI20_holding",
+    "title": "Holding",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_holding",
+    "points": 100
+  },
+  {
+    "id": "COCI20_klasika",
+    "title": "Klasika",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_klasika",
+    "points": 100
+  },
+  {
+    "id": "COCI20_knjige",
+    "title": "Knjige",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_knjige",
+    "points": 100
+  },
+  {
+    "id": "COCI20_konstrukcija",
+    "title": "Konstrukcija",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_konstrukcija",
+    "points": 100
+  },
+  {
+    "id": "COCI20_matching",
+    "title": "Matching",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_matching",
+    "points": 100
+  },
+  {
+    "id": "COCI20_nivelle",
+    "title": "Nivelle",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_nivelle",
+    "points": 100
+  },
+  {
+    "id": "COCI20_odasiljaci",
+    "title": "Odašiljači",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_odasiljaci",
+    "points": 100
+  },
+  {
+    "id": "COCI20_papricice",
+    "title": "Papričice",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_papricice",
+    "points": 100
+  },
+  {
+    "id": "COCI20_patkice",
+    "title": "Patkice",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_patkice",
+    "points": 100
+  },
+  {
+    "id": "COCI20_politicari",
+    "title": "Političari",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_politicari",
+    "points": 100
+  },
+  {
+    "id": "COCI20_psk",
+    "title": "Pod starim krovovima",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_psk",
+    "points": 100
+  },
+  {
+    "id": "COCI20_putovanje",
+    "title": "Putovanje",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_putovanje",
+    "points": 100
+  },
+  {
+    "id": "COCI20_satellti",
+    "title": "Sateliti",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_satellti",
+    "points": 100
+  },
+  {
+    "id": "COCI20_selotejp",
+    "title": "Selotejp",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_selotejp",
+    "points": 100
+  },
+  {
+    "id": "COCI20_sjekira",
+    "title": "Sjekira",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_sjekira",
+    "points": 100
+  },
+  {
+    "id": "COCI20_skandi",
+    "title": "Skandi",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_skandi",
+    "points": 100
+  },
+  {
+    "id": "COCI20_specijacija",
+    "title": "Specijacija",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_specijacija",
+    "points": 100
+  },
+  {
+    "id": "COCI20_spiderman",
+    "title": "Spiderman",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_spiderman",
+    "points": 100
+  },
+  {
+    "id": "COCI20_svjetlo",
+    "title": "Svjetlo",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_svjetlo",
+    "points": 100
+  },
+  {
+    "id": "COCI20_tenis",
+    "title": "Tenis",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_tenis",
+    "points": 100
+  },
+  {
+    "id": "COCI20_trener",
+    "title": "Trener",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_trener",
+    "points": 100
+  },
+  {
+    "id": "COCI20_vlak",
+    "title": "Vlak",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_vlak",
+    "points": 100
+  },
+  {
+    "id": "COCI20_zapina",
+    "title": "Zapina",
+    "contest": "COCI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI20_zapina",
+    "points": 100
+  },
+  {
+    "id": "COCI21_akcija",
+    "title": "Akcija",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_akcija",
+    "points": 100
+  },
+  {
+    "id": "COCI21_alias",
+    "title": "Alias",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_alias",
+    "points": 100
+  },
+  {
+    "id": "COCI21_anagramistica",
+    "title": "Anagramistica",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_anagramistica",
+    "points": 100
+  },
+  {
+    "id": "COCI21_bold",
+    "title": "Bold",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_bold",
+    "points": 100
+  },
+  {
+    "id": "COCI21_cijanobakterije",
+    "title": "Cijanobakterije",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_cijanobakterije",
+    "points": 100
+  },
+  {
+    "id": "COCI21_ekoeko",
+    "title": "Ekoeko",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_ekoeko",
+    "points": 100
+  },
+  {
+    "id": "COCI21_geometrija",
+    "title": "Geometrija",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_geometrija",
+    "points": 100
+  },
+  {
+    "id": "COCI21_hiperkocka",
+    "title": "Hiperkocka",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_hiperkocka",
+    "points": 100
+  },
+  {
+    "id": "COCI21_hop",
+    "title": "Hop",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_hop",
+    "points": 100
+  },
+  {
+    "id": "COCI21_index",
+    "title": "Index",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_index",
+    "points": 100
+  },
+  {
+    "id": "COCI21_janjetina",
+    "title": "Janjetina",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_janjetina",
+    "points": 100
+  },
+  {
+    "id": "COCI21_kamencici",
+    "title": "Kamenčići",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_kamencici",
+    "points": 100
+  },
+  {
+    "id": "COCI21_kaucuk",
+    "title": "Kaučuk",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_kaucuk",
+    "points": 100
+  },
+  {
+    "id": "COCI21_kucice",
+    "title": "Kućice",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_kucice",
+    "points": 100
+  },
+  {
+    "id": "COCI21_kutije",
+    "title": "Kutije",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_kutije",
+    "points": 100
+  },
+  {
+    "id": "COCI21_lampice",
+    "title": "Lampice",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_lampice",
+    "points": 100
+  },
+  {
+    "id": "COCI21_ljeto",
+    "title": "Ljeto",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_ljeto",
+    "points": 100
+  },
+  {
+    "id": "COCI21_logicari",
+    "title": "Logičari",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_logicari",
+    "points": 100
+  },
+  {
+    "id": "COCI21_magenta",
+    "title": "Magenta",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_magenta",
+    "points": 100
+  },
+  {
+    "id": "COCI21_magneti",
+    "title": "Magneti",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_magneti",
+    "points": 100
+  },
+  {
+    "id": "COCI21_osumnjiceni",
+    "title": "Osumnjičeni",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_osumnjiceni",
+    "points": 100
+  },
+  {
+    "id": "COCI21_patkice2",
+    "title": "Patkice II",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_patkice2",
+    "points": 100
+  },
+  {
+    "id": "COCI21_pizza",
+    "title": "Pizza",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_pizza",
+    "points": 100
+  },
+  {
+    "id": "COCI21_planine",
+    "title": "Planine",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_planine",
+    "points": 100
+  },
+  {
+    "id": "COCI21_po",
+    "title": "Po",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_po",
+    "points": 100
+  },
+  {
+    "id": "COCI21_set",
+    "title": "Set",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_set",
+    "points": 100
+  },
+  {
+    "id": "COCI21_sifra",
+    "title": "Sifra",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_sifra",
+    "points": 100
+  },
+  {
+    "id": "COCI21_sjeckanje",
+    "title": "Sjeckanje",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_sjeckanje",
+    "points": 100
+  },
+  {
+    "id": "COCI21_vepar",
+    "title": "Vepar",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_vepar",
+    "points": 100
+  },
+  {
+    "id": "COCI21_volontiranje",
+    "title": "Volontiranje",
+    "contest": "COCI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI21_volontiranje",
+    "points": 100
+  },
+  {
+    "id": "COCI22_autici",
+    "title": "Autići",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_autici",
+    "points": 100
+  },
+  {
+    "id": "COCI22_autobus",
+    "title": "Autobus",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_autobus",
+    "points": 100
+  },
+  {
+    "id": "COCI22_dijamant",
+    "title": "Dijamant",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_dijamant",
+    "points": 100
+  },
+  {
+    "id": "COCI22_fliper",
+    "title": "Fliper",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_fliper",
+    "points": 100
+  },
+  {
+    "id": "COCI22_izbori",
+    "title": "Izbori",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_izbori",
+    "points": 100
+  },
+  {
+    "id": "COCI22_kemija",
+    "title": "Kemija",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_kemija",
+    "points": 100
+  },
+  {
+    "id": "COCI22_med",
+    "title": "Med",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_med",
+    "points": 100
+  },
+  {
+    "id": "COCI22_naboj",
+    "title": "Naboj",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_naboj",
+    "points": 100
+  },
+  {
+    "id": "COCI22_palindromi",
+    "title": "Palindromi",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_palindromi",
+    "points": 100
+  },
+  {
+    "id": "COCI22_parkovi",
+    "title": "Parkovi",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_parkovi",
+    "points": 100
+  },
+  {
+    "id": "COCI22_radio",
+    "title": "Radio",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_radio",
+    "points": 100
+  },
+  {
+    "id": "COCI22_sarenlist",
+    "title": "Šarenlist",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_sarenlist",
+    "points": 100
+  },
+  {
+    "id": "COCI22_superpozicija",
+    "title": "Superpozicija",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_superpozicija",
+    "points": 100
+  },
+  {
+    "id": "COCI22_usmjeravanje",
+    "title": "Usmjeravanje",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_usmjeravanje",
+    "points": 100
+  },
+  {
+    "id": "COCI22_zemljiste",
+    "title": "Zemljište",
+    "contest": "COCI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI22_zemljiste",
+    "points": 100
+  },
+  {
+    "id": "COCI25_dodatna",
+    "title": "Dodatna",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_dodatna",
+    "points": 100
+  },
+  {
+    "id": "COCI25_domjenak",
+    "title": "Domjenak",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_domjenak",
+    "points": 100
+  },
+  {
+    "id": "COCI25_drzava",
+    "title": "Drzava",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_drzava",
+    "points": 100
+  },
+  {
+    "id": "COCI25_festival",
+    "title": "Festival",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_festival",
+    "points": 100
+  },
+  {
+    "id": "COCI25_harmonija",
+    "title": "Harmonija",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_harmonija",
+    "points": 100
+  },
+  {
+    "id": "COCI25_kist",
+    "title": "Kist",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_kist",
+    "points": 100
+  },
+  {
+    "id": "COCI25_kraljica",
+    "title": "Kraljica",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_kraljica",
+    "points": 100
+  },
+  {
+    "id": "COCI25_krugomet",
+    "title": "Krugomet",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_krugomet",
+    "points": 100
+  },
+  {
+    "id": "COCI25_minesweeper",
+    "title": "Minesweeper",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_minesweeper",
+    "points": 100
+  },
+  {
+    "id": "COCI25_natjecanje",
+    "title": "Natjecanje",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_natjecanje",
+    "points": 100
+  },
+  {
+    "id": "COCI25_rastuci",
+    "title": "Rastuci",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_rastuci",
+    "points": 100
+  },
+  {
+    "id": "COCI25_ravnalo",
+    "title": "Ravnalo",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_ravnalo",
+    "points": 100
+  },
+  {
+    "id": "COCI25_rima",
+    "title": "Rima",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_rima",
+    "points": 100
+  },
+  {
+    "id": "COCI25_tornjevi",
+    "title": "Tornjevi",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_tornjevi",
+    "points": 100
+  },
+  {
+    "id": "COCI25_zagi",
+    "title": "Zagi",
+    "contest": "COCI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI25_zagi",
+    "points": 100
+  },
+  {
+    "id": "COCI26_magija",
+    "title": "Magija",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_magija",
+    "points": 100
+  },
+  {
+    "id": "COCI26_matcha",
+    "title": "Matcha",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_matcha",
+    "points": 100
+  },
+  {
+    "id": "COCI26_pet",
+    "title": "Pet",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_pet",
+    "points": 100
+  },
+  {
+    "id": "COCI26_skare",
+    "title": "Skare",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_skare",
+    "points": 100
+  },
+  {
+    "id": "COCI26_sladoled",
+    "title": "Sladoled",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_sladoled",
+    "points": 100
+  },
+  {
+    "id": "COCI26_slaganje",
+    "title": "Slaganje",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_slaganje",
+    "points": 100
+  },
+  {
+    "id": "COCI26_struktura",
+    "title": "Struktura",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_struktura",
+    "points": 100
+  },
+  {
+    "id": "COCI26_tezina",
+    "title": "Tezina",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_tezina",
+    "points": 100
+  },
+  {
+    "id": "COCI26_tjelesni",
+    "title": "Tjelesni",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_tjelesni",
+    "points": 100
+  },
+  {
+    "id": "COCI26_tomahawk",
+    "title": "Tomahawk",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_tomahawk",
+    "points": 100
+  },
+  {
+    "id": "COCI26_zombie",
+    "title": "Zombie",
+    "contest": "COCI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/COCI26_zombie",
+    "points": 100
+  },
+  {
+    "id": "info1cup17_binary",
+    "title": "Binary Subsequences",
+    "contest": "Info1Cup 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup17_binary",
+    "points": 100
+  },
+  {
+    "id": "info1cup17_eastereggs",
+    "title": "Easter Eggs",
+    "contest": "Info1Cup 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup17_eastereggs",
+    "points": 100
+  },
+  {
+    "id": "info1cup17_permutation",
+    "title": "Permutation Recovery",
+    "contest": "Info1Cup 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup17_permutation",
+    "points": 100
+  },
+  {
+    "id": "info1cup17_xorsum",
+    "title": "XOR Sum",
+    "contest": "Info1Cup 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup17_xorsum",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_balancedtree",
+    "title": "Balanced Tree",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_balancedtree",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_cambridge",
+    "title": "Cambridge",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_cambridge",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_del13",
+    "title": "DEL13",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_del13",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_hidden",
+    "title": "Hidden Sequence",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_hidden",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_maxcomp",
+    "title": "Maxcomp",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_maxcomp",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_norela",
+    "title": "Norela",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_norela",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_palindromes",
+    "title": "Palindromes",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_palindromes",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_shell",
+    "title": "Shell",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_shell",
+    "points": 100
+  },
+  {
+    "id": "info1cup18_thegrade",
+    "title": "The grade",
+    "contest": "Info1Cup 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup18_thegrade",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_cat",
+    "title": "Cat",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_cat",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_consul",
+    "title": "CONSUL",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_consul",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_costinland",
+    "title": "Costinland",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_costinland",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_mean",
+    "title": "Mean",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_mean",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_mouse",
+    "title": "Mouse",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_mouse",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_simple",
+    "title": "Simple",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_simple",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_split",
+    "title": "Split",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_split",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_subway",
+    "title": "Subway",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_subway",
+    "points": 100
+  },
+  {
+    "id": "info1cup19_treasure",
+    "title": "Treasure",
+    "contest": "Info1Cup 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup19_treasure",
+    "points": 100
+  },
+  {
+    "id": "info1cup20_cheerleaders",
+    "title": "Cheerleaders",
+    "contest": "Info1Cup 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup20_cheerleaders",
+    "points": 100
+  },
+  {
+    "id": "info1cup20_football",
+    "title": "Football",
+    "contest": "Info1Cup 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup20_football",
+    "points": 100
+  },
+  {
+    "id": "info1cup20_tabletennis",
+    "title": "Table Tennis",
+    "contest": "Info1Cup 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup20_tabletennis",
+    "points": 100
+  },
+  {
+    "id": "info1cup20_trampoline",
+    "title": "Trampoline",
+    "contest": "Info1Cup 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/info1cup20_trampoline",
+    "points": 100
+  },
+  {
+    "id": "IOI03_reverse",
+    "title": "Reverse",
+    "contest": "IOI 2003",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI03_reverse",
+    "points": 100
+  },
+  {
+    "id": "IOI07_aliens",
+    "title": "Aliens",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_aliens",
+    "points": 100
+  },
+  {
+    "id": "IOI07_flood",
+    "title": "Flood",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_flood",
+    "points": 100
+  },
+  {
+    "id": "IOI07_miners",
+    "title": "Miners",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_miners",
+    "points": 100
+  },
+  {
+    "id": "IOI07_pairs",
+    "title": "Pairs",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_pairs",
+    "points": 100
+  },
+  {
+    "id": "IOI07_sails",
+    "title": "Sails",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_sails",
+    "points": 100
+  },
+  {
+    "id": "IOI07_training",
+    "title": "Training",
+    "contest": "IOI 2007",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI07_training",
+    "points": 100
+  },
+  {
+    "id": "IOI08_fish",
+    "title": "Fish",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_fish",
+    "points": 100
+  },
+  {
+    "id": "IOI08_islands",
+    "title": "Islands",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_islands",
+    "points": 100
+  },
+  {
+    "id": "IOI08_linear_garden",
+    "title": "Linear Garden",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_linear_garden",
+    "points": 100
+  },
+  {
+    "id": "IOI08_printer",
+    "title": "Type Printer",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_printer",
+    "points": 100
+  },
+  {
+    "id": "IOI08_pyramid_base",
+    "title": "Pyramid Base",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_pyramid_base",
+    "points": 100
+  },
+  {
+    "id": "IOI08_teleporters",
+    "title": "Teleporters",
+    "contest": "IOI 2008",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI08_teleporters",
+    "points": 100
+  },
+  {
+    "id": "IOI09_archery",
+    "title": "Archery",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_archery",
+    "points": 100
+  },
+  {
+    "id": "IOI09_garage",
+    "title": "Garage",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_garage",
+    "points": 100
+  },
+  {
+    "id": "IOI09_hiring",
+    "title": "Hiring",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_hiring",
+    "points": 100
+  },
+  {
+    "id": "IOI09_mecho",
+    "title": "Mecho",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_mecho",
+    "points": 100
+  },
+  {
+    "id": "IOI09_poi",
+    "title": "Poi",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_poi",
+    "points": 100
+  },
+  {
+    "id": "IOI09_raisins",
+    "title": "Raisins",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_raisins",
+    "points": 100
+  },
+  {
+    "id": "IOI09_regions",
+    "title": "Regions",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_regions",
+    "points": 100
+  },
+  {
+    "id": "IOI09_salesman",
+    "title": "Salesman",
+    "contest": "IOI 2009",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI09_salesman",
+    "points": 100
+  },
+  {
+    "id": "IOI10_cluedo",
+    "title": "Cluedo",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_cluedo",
+    "points": 100
+  },
+  {
+    "id": "IOI10_hottercolder",
+    "title": "Hotter Colder",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_hottercolder",
+    "points": 100
+  },
+  {
+    "id": "IOI10_languages",
+    "title": "Languages",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_languages",
+    "points": 100
+  },
+  {
+    "id": "IOI10_maze",
+    "title": "Maze",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_maze",
+    "points": 100
+  },
+  {
+    "id": "IOI10_memory",
+    "title": "Memory",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_memory",
+    "points": 100
+  },
+  {
+    "id": "IOI10_quality",
+    "title": "Quality Of Living",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_quality",
+    "points": 100
+  },
+  {
+    "id": "IOI10_saveit",
+    "title": "Saveit",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_saveit",
+    "points": 100
+  },
+  {
+    "id": "IOI10_traffic",
+    "title": "Traffic",
+    "contest": "IOI 2010",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI10_traffic",
+    "points": 100
+  },
+  {
+    "id": "IOI11_crocodile",
+    "title": "Crocodile's Underground City",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_crocodile",
+    "points": 100
+  },
+  {
+    "id": "IOI11_elephants",
+    "title": "Dancing Elephants",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_elephants",
+    "points": 100
+  },
+  {
+    "id": "IOI11_garden",
+    "title": "Tropical Garden",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_garden",
+    "points": 100
+  },
+  {
+    "id": "IOI11_parrots",
+    "title": "Parrots",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_parrots",
+    "points": 100
+  },
+  {
+    "id": "IOI11_race",
+    "title": "Race",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_race",
+    "points": 100
+  },
+  {
+    "id": "IOI11_ricehub",
+    "title": "Rice Hub",
+    "contest": "IOI 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI11_ricehub",
+    "points": 100
+  },
+  {
+    "id": "IOI12_city",
+    "title": "Ideal city",
+    "contest": "IOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI12_city",
+    "points": 100
+  },
+  {
+    "id": "IOI12_rings",
+    "title": "Parachute rings",
+    "contest": "IOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI12_rings",
+    "points": 100
+  },
+  {
+    "id": "IOI12_scrivener",
+    "title": "Crayfish scrivener",
+    "contest": "IOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI12_scrivener",
+    "points": 100
+  },
+  {
+    "id": "IOI12_supper",
+    "title": "Last supper",
+    "contest": "IOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI12_supper",
+    "points": 100
+  },
+  {
+    "id": "IOI12_tournament",
+    "title": "Jousting tournament",
+    "contest": "IOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI12_tournament",
+    "points": 100
+  },
+  {
+    "id": "IOI13_artclass",
+    "title": "Art Class",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_artclass",
+    "points": 100
+  },
+  {
+    "id": "IOI13_cave",
+    "title": "Cave",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_cave",
+    "points": 100
+  },
+  {
+    "id": "IOI13_dreaming",
+    "title": "Dreaming",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_dreaming",
+    "points": 100
+  },
+  {
+    "id": "IOI13_game",
+    "title": "Game",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_game",
+    "points": 100
+  },
+  {
+    "id": "IOI13_robots",
+    "title": "Robots",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_robots",
+    "points": 100
+  },
+  {
+    "id": "IOI13_wombats",
+    "title": "Wombats",
+    "contest": "IOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI13_wombats",
+    "points": 100
+  },
+  {
+    "id": "IOI14_friend",
+    "title": "Friend",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_friend",
+    "points": 100
+  },
+  {
+    "id": "IOI14_game",
+    "title": "Game",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_game",
+    "points": 100
+  },
+  {
+    "id": "IOI14_gondola",
+    "title": "Gondola",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_gondola",
+    "points": 100
+  },
+  {
+    "id": "IOI14_holiday",
+    "title": "Holiday",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_holiday",
+    "points": 100
+  },
+  {
+    "id": "IOI14_rail",
+    "title": "Rail",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_rail",
+    "points": 100
+  },
+  {
+    "id": "IOI14_wall",
+    "title": "Wall",
+    "contest": "IOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI14_wall",
+    "points": 100
+  },
+  {
+    "id": "IOI15_boxes",
+    "title": "Boxes with souvenirs",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_boxes",
+    "points": 100
+  },
+  {
+    "id": "IOI15_horses",
+    "title": "Horses",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_horses",
+    "points": 100
+  },
+  {
+    "id": "IOI15_scales",
+    "title": "Scales",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_scales",
+    "points": 100
+  },
+  {
+    "id": "IOI15_sorting",
+    "title": "Sorting",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_sorting",
+    "points": 100
+  },
+  {
+    "id": "IOI15_teams",
+    "title": "Teams",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_teams",
+    "points": 100
+  },
+  {
+    "id": "IOI15_towns",
+    "title": "Towns",
+    "contest": "IOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI15_towns",
+    "points": 100
+  },
+  {
+    "id": "IOI16_aliens",
+    "title": "Aliens",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_aliens",
+    "points": 100
+  },
+  {
+    "id": "IOI16_dna",
+    "title": "Martian DNA",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_dna",
+    "points": 100
+  },
+  {
+    "id": "IOI16_laugh",
+    "title": "Laugh Analysis",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_laugh",
+    "points": 100
+  },
+  {
+    "id": "IOI16_messy",
+    "title": "Unscrambling a Messy Bug",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_messy",
+    "points": 100
+  },
+  {
+    "id": "IOI16_molecules",
+    "title": "Detecting Molecules",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_molecules",
+    "points": 100
+  },
+  {
+    "id": "IOI16_paint",
+    "title": "Paint By Numbers",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_paint",
+    "points": 100
+  },
+  {
+    "id": "IOI16_railroad",
+    "title": "Roller Coaster Railroad",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_railroad",
+    "points": 100
+  },
+  {
+    "id": "IOI16_reverse",
+    "title": "Reversing a Sequence",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_reverse",
+    "points": 100
+  },
+  {
+    "id": "IOI16_shortcut",
+    "title": "Shortcut",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_shortcut",
+    "points": 100
+  },
+  {
+    "id": "IOI16_tetris",
+    "title": "Mini tetris",
+    "contest": "IOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI16_tetris",
+    "points": 100
+  },
+  {
+    "id": "IOI17_books",
+    "title": "Ancient Books",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_books",
+    "points": 100
+  },
+  {
+    "id": "IOI17_coins",
+    "title": "Coins",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_coins",
+    "points": 100
+  },
+  {
+    "id": "IOI17_cup",
+    "title": "Cup of Jamshid",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_cup",
+    "points": 100
+  },
+  {
+    "id": "IOI17_mountains",
+    "title": "Mountains",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_mountains",
+    "points": 100
+  },
+  {
+    "id": "IOI17_nowruz",
+    "title": "Nowruz",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_nowruz",
+    "points": 100
+  },
+  {
+    "id": "IOI17_prize",
+    "title": "The Big Prize",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_prize",
+    "points": 100
+  },
+  {
+    "id": "IOI17_simurgh",
+    "title": "Simurgh",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_simurgh",
+    "points": 100
+  },
+  {
+    "id": "IOI17_train",
+    "title": "Toy Train",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_train",
+    "points": 100
+  },
+  {
+    "id": "IOI17_wiring",
+    "title": "Wiring",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI17_wiring",
+    "points": 100
+  },
+  {
+    "id": "IOI18_combo",
+    "title": "Combo",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_combo",
+    "points": 100
+  },
+  {
+    "id": "IOI18_doll",
+    "title": "Mechanical Doll",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_doll",
+    "points": 100
+  },
+  {
+    "id": "IOI18_highway",
+    "title": "Highway Tolls",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_highway",
+    "points": 100
+  },
+  {
+    "id": "IOI18_meetings",
+    "title": "Meetings",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_meetings",
+    "points": 100
+  },
+  {
+    "id": "IOI18_seats",
+    "title": "Seats",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_seats",
+    "points": 100
+  },
+  {
+    "id": "IOI18_werewolf",
+    "title": "Werewolf",
+    "contest": "IOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI18_werewolf",
+    "points": 100
+  },
+  {
+    "id": "IOI19_cycle",
+    "title": "Lost in the cycle",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_cycle",
+    "points": 100
+  },
+  {
+    "id": "IOI19_job",
+    "title": "Job Scheduling",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_job",
+    "points": 100
+  },
+  {
+    "id": "IOI19_line",
+    "title": "Broken Line",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_line",
+    "points": 100
+  },
+  {
+    "id": "IOI19_packing",
+    "title": "Packing",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_packing",
+    "points": 100
+  },
+  {
+    "id": "IOI19_rect",
+    "title": "Rectangles",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_rect",
+    "points": 100
+  },
+  {
+    "id": "IOI19_shoes",
+    "title": "Arranging Shoes",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_shoes",
+    "points": 100
+  },
+  {
+    "id": "IOI19_split",
+    "title": "Split the Attractions",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_split",
+    "points": 100
+  },
+  {
+    "id": "IOI19_transfer",
+    "title": "Data Transfer",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_transfer",
+    "points": 100
+  },
+  {
+    "id": "IOI19_vision",
+    "title": "Vision Program",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_vision",
+    "points": 100
+  },
+  {
+    "id": "IOI19_walk",
+    "title": "Sky Walking",
+    "contest": "IOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI19_walk",
+    "points": 100
+  },
+  {
+    "id": "IOI20_biscuits",
+    "title": "Packing Biscuits",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_biscuits",
+    "points": 100
+  },
+  {
+    "id": "IOI20_gift",
+    "title": "Handcrafted Gift",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_gift",
+    "points": 100
+  },
+  {
+    "id": "IOI20_jelly",
+    "title": "Jelly Flavours",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_jelly",
+    "points": 100
+  },
+  {
+    "id": "IOI20_mushrooms",
+    "title": "Counting Mushrooms",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_mushrooms",
+    "points": 100
+  },
+  {
+    "id": "IOI20_plants",
+    "title": "Comparing Plants",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_plants",
+    "points": 100
+  },
+  {
+    "id": "IOI20_routers",
+    "title": "Finding Routers",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_routers",
+    "points": 100
+  },
+  {
+    "id": "IOI20_squares",
+    "title": "Painting Squares",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_squares",
+    "points": 100
+  },
+  {
+    "id": "IOI20_stations",
+    "title": "Stations",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_stations",
+    "points": 100
+  },
+  {
+    "id": "IOI20_supertrees",
+    "title": "Connecting Supertrees",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_supertrees",
+    "points": 100
+  },
+  {
+    "id": "IOI20_tickets",
+    "title": "Carnival Tickets",
+    "contest": "IOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI20_tickets",
+    "points": 100
+  },
+  {
+    "id": "IOI21_candies",
+    "title": "Distributing Candies",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_candies",
+    "points": 100
+  },
+  {
+    "id": "IOI21_dna",
+    "title": "Mutating DNA",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_dna",
+    "points": 100
+  },
+  {
+    "id": "IOI21_dungeons",
+    "title": "Dungeons Game",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_dungeons",
+    "points": 100
+  },
+  {
+    "id": "IOI21_keys",
+    "title": "Keys",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_keys",
+    "points": 100
+  },
+  {
+    "id": "IOI21_parks",
+    "title": "Fountain Parks",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_parks",
+    "points": 100
+  },
+  {
+    "id": "IOI21_registers",
+    "title": "Bit Shift Registers",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI21_registers",
+    "points": 100
+  },
+  {
+    "id": "IOI22_circuit",
+    "title": "Digital Circuit",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_circuit",
+    "points": 100
+  },
+  {
+    "id": "IOI22_fish",
+    "title": "Catfish Farm",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_fish",
+    "points": 100
+  },
+  {
+    "id": "IOI22_insects",
+    "title": "Rarest Insects",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_insects",
+    "points": 100
+  },
+  {
+    "id": "IOI22_islands",
+    "title": "Thousands Islands",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_islands",
+    "points": 100
+  },
+  {
+    "id": "IOI22_prison",
+    "title": "Prisoner Challenge",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_prison",
+    "points": 100
+  },
+  {
+    "id": "IOI22_towers",
+    "title": "Radio Towers",
+    "contest": "IOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI22_towers",
+    "points": 100
+  },
+  {
+    "id": "IOI23_aplusb",
+    "title": "A Plus B",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_aplusb",
+    "points": 100
+  },
+  {
+    "id": "IOI23_beechtree",
+    "title": "Beech Tree",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_beechtree",
+    "points": 100
+  },
+  {
+    "id": "IOI23_choreography",
+    "title": "Choreography",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_choreography",
+    "points": 100
+  },
+  {
+    "id": "IOI23_closing",
+    "title": "Closing Time",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_closing",
+    "points": 100
+  },
+  {
+    "id": "IOI23_coreputer",
+    "title": "Coreputer",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_coreputer",
+    "points": 100
+  },
+  {
+    "id": "IOI23_deliveries",
+    "title": "Truck Driver",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_deliveries",
+    "points": 100
+  },
+  {
+    "id": "IOI23_lockpicking",
+    "title": "Lockpicking",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_lockpicking",
+    "points": 100
+  },
+  {
+    "id": "IOI23_longesttrip",
+    "title": "Longest Trip",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_longesttrip",
+    "points": 100
+  },
+  {
+    "id": "IOI23_overtaking",
+    "title": "Overtaking",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_overtaking",
+    "points": 100
+  },
+  {
+    "id": "IOI23_robot",
+    "title": "Robot Contest",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_robot",
+    "points": 100
+  },
+  {
+    "id": "IOI23_soccer",
+    "title": "Soccer Stadium",
+    "contest": "IOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI23_soccer",
+    "points": 100
+  },
+  {
+    "id": "IOI24_aplusb",
+    "title": "A + B",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_aplusb",
+    "points": 100
+  },
+  {
+    "id": "IOI24_hieroglyphs",
+    "title": "Hieroglyphs",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_hieroglyphs",
+    "points": 100
+  },
+  {
+    "id": "IOI24_machine",
+    "title": "Machine",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_machine",
+    "points": 100
+  },
+  {
+    "id": "IOI24_message",
+    "title": "Message",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_message",
+    "points": 100
+  },
+  {
+    "id": "IOI24_mosaic",
+    "title": "Mosaic",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_mosaic",
+    "points": 100
+  },
+  {
+    "id": "IOI24_nile",
+    "title": "Nile",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_nile",
+    "points": 100
+  },
+  {
+    "id": "IOI24_pyramids",
+    "title": "Pyramids",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_pyramids",
+    "points": 100
+  },
+  {
+    "id": "IOI24_sphinx",
+    "title": "Sphinx's Riddle",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_sphinx",
+    "points": 100
+  },
+  {
+    "id": "IOI24_treasure",
+    "title": "Treasure",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_treasure",
+    "points": 100
+  },
+  {
+    "id": "IOI24_tree",
+    "title": "Tree",
+    "contest": "IOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI24_tree",
+    "points": 100
+  },
+  {
+    "id": "IOI25_festival",
+    "title": "Festival",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_festival",
+    "points": 100
+  },
+  {
+    "id": "IOI25_migrations",
+    "title": "Migrations",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_migrations",
+    "points": 100
+  },
+  {
+    "id": "IOI25_obstacles",
+    "title": "Obstacles for a Llama",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_obstacles",
+    "points": 100
+  },
+  {
+    "id": "IOI25_souvenirs",
+    "title": "Souvenirs",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_souvenirs",
+    "points": 100
+  },
+  {
+    "id": "IOI25_triples",
+    "title": "Triple Peaks",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_triples",
+    "points": 100
+  },
+  {
+    "id": "IOI25_worldmap",
+    "title": "World Map",
+    "contest": "IOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI25_worldmap",
+    "points": 100
+  },
+  {
+    "id": "IOI26_aplusb",
+    "title": "A + B Queries",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_aplusb",
+    "points": 100
+  },
+  {
+    "id": "IOI26_ballmachine",
+    "title": "Ball Machine",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_ballmachine",
+    "points": 100
+  },
+  {
+    "id": "IOI26_bitstrings",
+    "title": "Duplicated Binary Strings",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_bitstrings",
+    "points": 100
+  },
+  {
+    "id": "IOI26_boringgame",
+    "title": "Boring Game",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_boringgame",
+    "points": 100
+  },
+  {
+    "id": "IOI26_classroom",
+    "title": "Classroom Game",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_classroom",
+    "points": 100
+  },
+  {
+    "id": "IOI26_magic",
+    "title": "Magic Trick",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_magic",
+    "points": 100
+  },
+  {
+    "id": "IOI26_magiccity",
+    "title": "Magic City",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_magiccity",
+    "points": 100
+  },
+  {
+    "id": "IOI26_monuments",
+    "title": "Monuments",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_monuments",
+    "points": 100
+  },
+  {
+    "id": "IOI26_partition",
+    "title": "Partition",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_partition",
+    "points": 100
+  },
+  {
+    "id": "IOI26_tiling",
+    "title": "Tiling Game",
+    "contest": "IOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/IOI26_tiling",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_collider",
+    "title": "Collider",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_collider",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_hyper",
+    "title": "Hyper-minimum",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_hyper",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_kthpath",
+    "title": "K-th path",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_kthpath",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_oddeven",
+    "title": "Odd-even",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_oddeven",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_skyline",
+    "title": "Skyline",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_skyline",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_stones",
+    "title": "Weighting stones",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_stones",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_triangle",
+    "title": "Star triangles",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_triangle",
+    "points": 100
+  },
+  {
+    "id": "IZhO11_turtle",
+    "title": "Energetic turtle",
+    "contest": "IZhO 2011",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO11_turtle",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_ants",
+    "title": "Ants",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_ants",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_apple",
+    "title": "Monkey and Apple-trees",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_apple",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_beauty",
+    "title": "Beautiful row",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_beauty",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_biochips",
+    "title": "Biochips",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_biochips",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_route",
+    "title": "Mountain Trek Route",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_route",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_train",
+    "title": "New Year Train",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_train",
+    "points": 100
+  },
+  {
+    "id": "IZhO12_xor",
+    "title": "XOR",
+    "contest": "IZhO 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO12_xor",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_burrow",
+    "title": "Luxury burrow",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_burrow",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_crazy",
+    "title": "Crazy old lady",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_crazy",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_expgorl",
+    "title": "Experiments with Gorlum",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_expgorl",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_riddicks",
+    "title": "Riddick's Cube",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_riddicks",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_rowords",
+    "title": "Round words",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_rowords",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_school",
+    "title": "Schools",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_school",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_specialg",
+    "title": "Special graph",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_specialg",
+    "points": 100
+  },
+  {
+    "id": "IZhO13_trading",
+    "title": "Trading",
+    "contest": "IZhO 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO13_trading",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_bank",
+    "title": "Bank",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_bank",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_blocks",
+    "title": "K blocks",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_blocks",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_divide",
+    "title": "Divide and conquer",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_divide",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_marriage",
+    "title": "Marriage questions",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_marriage",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_shymbulak",
+    "title": "Shymbulak",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_shymbulak",
+    "points": 100
+  },
+  {
+    "id": "IZhO14_ufo",
+    "title": "UFO",
+    "contest": "IZhO 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO14_ufo",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_bomb",
+    "title": "Bomb",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_bomb",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_bootfall",
+    "title": "Bootfall",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_bootfall",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_game",
+    "title": "Simple game",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_game",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_money",
+    "title": "Money",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_money",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_road",
+    "title": "Hard route",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_road",
+    "points": 100
+  },
+  {
+    "id": "IZhO17_subsequence",
+    "title": "Longest beautiful sequence",
+    "contest": "IZhO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO17_subsequence",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_chessboard",
+    "title": "Chessboard",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_chessboard",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_nicegift",
+    "title": "Gift",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_nicegift",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_plan",
+    "title": "Evacuation plan",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_plan",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_segments",
+    "title": "Segments",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_segments",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_sequence",
+    "title": "Nice sequence",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_sequence",
+    "points": 100
+  },
+  {
+    "id": "IZhO18_treearray",
+    "title": "Birthday gift",
+    "contest": "IZhO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO18_treearray",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_lyuboyn",
+    "title": "\"The Lyuboyn\" code",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_lyuboyn",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_segments",
+    "title": "Bigger segments",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_segments",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_sortbooks",
+    "title": "Hedgehog Daniyar and Algorithms",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_sortbooks",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_stones",
+    "title": "Red-blue table",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_stones",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_xoractive",
+    "title": "Xoractive",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_xoractive",
+    "points": 100
+  },
+  {
+    "id": "IZhO19_xorsum",
+    "title": "Intergalactic ship",
+    "contest": "IZhO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/IZhO19_xorsum",
+    "points": 100
+  },
+  {
+    "id": "JOI12_constellation",
+    "title": "별자리",
+    "contest": "JOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI12_constellation",
+    "points": 100
+  },
+  {
+    "id": "JOI12_invitation",
+    "title": "초대",
+    "contest": "JOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI12_invitation",
+    "points": 100
+  },
+  {
+    "id": "JOI12_rotate",
+    "title": "회전",
+    "contest": "JOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI12_rotate",
+    "points": 100
+  },
+  {
+    "id": "JOI13_cake",
+    "title": "케이크",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_cake",
+    "points": 100
+  },
+  {
+    "id": "JOI13_collecting",
+    "title": "즐거운 사진 수집",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_collecting",
+    "points": 100
+  },
+  {
+    "id": "JOI13_construction",
+    "title": "도로 건설 사업",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_construction",
+    "points": 100
+  },
+  {
+    "id": "JOI13_koala",
+    "title": "코알라",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_koala",
+    "points": 100
+  },
+  {
+    "id": "JOI13_mascots",
+    "title": "마스코트",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_mascots",
+    "points": 100
+  },
+  {
+    "id": "JOI13_mountain",
+    "title": "산악 구조대",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_mountain",
+    "points": 100
+  },
+  {
+    "id": "JOI13_spy",
+    "title": "스파이",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_spy",
+    "points": 100
+  },
+  {
+    "id": "JOI13_synchronization",
+    "title": "Synchronization",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_synchronization",
+    "points": 100
+  },
+  {
+    "id": "JOI13_watching",
+    "title": "Watching",
+    "contest": "JOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI13_watching",
+    "points": 100
+  },
+  {
+    "id": "JOI14_bottle",
+    "title": "물병",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_bottle",
+    "points": 100
+  },
+  {
+    "id": "JOI14_bus",
+    "title": "버스",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_bus",
+    "points": 100
+  },
+  {
+    "id": "JOI14_constellation2",
+    "title": "별자리 2",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_constellation2",
+    "points": 100
+  },
+  {
+    "id": "JOI14_factories",
+    "title": "Factories",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_factories",
+    "points": 100
+  },
+  {
+    "id": "JOI14_fortune_telling2",
+    "title": "Fortune Telling 2",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_fortune_telling2",
+    "points": 100
+  },
+  {
+    "id": "JOI14_friends",
+    "title": "우호 조약 체결",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_friends",
+    "points": 100
+  },
+  {
+    "id": "JOI14_growing",
+    "title": "즐거운 채소 기르기",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_growing",
+    "points": 100
+  },
+  {
+    "id": "JOI14_historical",
+    "title": "역사적 조사",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_historical",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ho_t1",
+    "title": "JOI 문장",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ho_t2",
+    "title": "만두",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ho_t3",
+    "title": "도넛",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ho_t4",
+    "title": "날다람쥐",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ho_t5",
+    "title": "절취선",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI14_joioji",
+    "title": "JOIOJI",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_joioji",
+    "points": 100
+  },
+  {
+    "id": "JOI14_kanji",
+    "title": "한자 끝말잇기",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_kanji",
+    "points": 100
+  },
+  {
+    "id": "JOI14_manju",
+    "title": "만두 팔기",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_manju",
+    "points": 100
+  },
+  {
+    "id": "JOI14_migration",
+    "title": "Project of Migration",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_migration",
+    "points": 100
+  },
+  {
+    "id": "JOI14_pinball",
+    "title": "Pinball",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_pinball",
+    "points": 100
+  },
+  {
+    "id": "JOI14_ramen",
+    "title": "라멘",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_ramen",
+    "points": 100
+  },
+  {
+    "id": "JOI14_scarecrows",
+    "title": "허수아비",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_scarecrows",
+    "points": 100
+  },
+  {
+    "id": "JOI14_secret",
+    "title": "Secret",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_secret",
+    "points": 100
+  },
+  {
+    "id": "JOI14_space_pirate",
+    "title": "Space Pirate",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_space_pirate",
+    "points": 100
+  },
+  {
+    "id": "JOI14_stamps",
+    "title": "도장 모으기",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_stamps",
+    "points": 100
+  },
+  {
+    "id": "JOI14_straps",
+    "title": "스트랩",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_straps",
+    "points": 100
+  },
+  {
+    "id": "JOI14_voltage",
+    "title": "전압",
+    "contest": "JOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI14_voltage",
+    "points": 100
+  },
+  {
+    "id": "JOI15_aaqqz",
+    "title": "AAQQZ",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_aaqqz",
+    "points": 100
+  },
+  {
+    "id": "JOI15_building3",
+    "title": "빌딩 장식 3",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_building3",
+    "points": 100
+  },
+  {
+    "id": "JOI15_cardgame2",
+    "title": "매우 즐거운 카드 게임",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_cardgame2",
+    "points": 100
+  },
+  {
+    "id": "JOI15_copypaste2",
+    "title": "복사 붙여넣기 2",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_copypaste2",
+    "points": 100
+  },
+  {
+    "id": "JOI15_election_campaign",
+    "title": "Election Campaign",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_election_campaign",
+    "points": 100
+  },
+  {
+    "id": "JOI15_keys",
+    "title": "여별 열쇠",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_keys",
+    "points": 100
+  },
+  {
+    "id": "JOI15_memory",
+    "title": "기억 압축",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_memory",
+    "points": 100
+  },
+  {
+    "id": "JOI15_road_development",
+    "title": "도로 개발",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_road_development",
+    "points": 100
+  },
+  {
+    "id": "JOI15_sterilizing",
+    "title": "Sterilizing Spray",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_sterilizing",
+    "points": 100
+  },
+  {
+    "id": "JOI15_walls",
+    "title": "방벽",
+    "contest": "JOI 2015",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI15_walls",
+    "points": 100
+  },
+  {
+    "id": "JOI16_dungeon2",
+    "title": "Dungeon 2",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_dungeon2",
+    "points": 100
+  },
+  {
+    "id": "JOI16_employment",
+    "title": "Employment",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_employment",
+    "points": 100
+  },
+  {
+    "id": "JOI16_ho_t1",
+    "title": "오렌지 출하",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI16_ho_t2",
+    "title": "스탬프 수집",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI16_ho_t3",
+    "title": "철도 요금",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI16_ho_t4",
+    "title": "영역",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI16_ho_t5",
+    "title": "단층",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI16_joiris",
+    "title": "JOIRIS",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_joiris",
+    "points": 100
+  },
+  {
+    "id": "JOI16_matryoshka",
+    "title": "Matryoshka",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_matryoshka",
+    "points": 100
+  },
+  {
+    "id": "JOI16_memory2",
+    "title": "Memory 2",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_memory2",
+    "points": 100
+  },
+  {
+    "id": "JOI16_sandwich",
+    "title": "Sandwich",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_sandwich",
+    "points": 100
+  },
+  {
+    "id": "JOI16_selling_rna",
+    "title": "Selling RNA Strands",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_selling_rna",
+    "points": 100
+  },
+  {
+    "id": "JOI16_skating",
+    "title": "Dangerous Skating",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_skating",
+    "points": 100
+  },
+  {
+    "id": "JOI16_skyscraper",
+    "title": "Skyscraper",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_skyscraper",
+    "points": 100
+  },
+  {
+    "id": "JOI16_snowy",
+    "title": "Snowy Roads",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_snowy",
+    "points": 100
+  },
+  {
+    "id": "JOI16_solitaire",
+    "title": "Solitaire",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_solitaire",
+    "points": 100
+  },
+  {
+    "id": "JOI16_sushi",
+    "title": "Sushi",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_sushi",
+    "points": 100
+  },
+  {
+    "id": "JOI16_telegraph",
+    "title": "Telegraph",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_telegraph",
+    "points": 100
+  },
+  {
+    "id": "JOI16_toilets",
+    "title": "Toilets",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_toilets",
+    "points": 100
+  },
+  {
+    "id": "JOI16_worst_reporter2",
+    "title": "Worst Reporter 2",
+    "contest": "JOI 2016",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI16_worst_reporter2",
+    "points": 100
+  },
+  {
+    "id": "JOI17_abduction2",
+    "title": "Abduction 2",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_abduction2",
+    "points": 100
+  },
+  {
+    "id": "JOI17_amusement_park",
+    "title": "Amusement Park",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_amusement_park",
+    "points": 100
+  },
+  {
+    "id": "JOI17_arranging_tickets",
+    "title": "Arranging Tickets",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_arranging_tickets",
+    "points": 100
+  },
+  {
+    "id": "JOI17_broken_device",
+    "title": "Broken Device",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_broken_device",
+    "points": 100
+  },
+  {
+    "id": "JOI17_bulldozer",
+    "title": "Bulldozer",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_bulldozer",
+    "points": 100
+  },
+  {
+    "id": "JOI17_city",
+    "title": "City",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_city",
+    "points": 100
+  },
+  {
+    "id": "JOI17_coach",
+    "title": "Long Distance Coach",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_coach",
+    "points": 100
+  },
+  {
+    "id": "JOI17_cultivation",
+    "title": "Cultivation",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_cultivation",
+    "points": 100
+  },
+  {
+    "id": "JOI17_dragon2",
+    "title": "Dragon 2",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_dragon2",
+    "points": 100
+  },
+  {
+    "id": "JOI17_foehn_phenomena",
+    "title": "Foehn Phenomena",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_foehn_phenomena",
+    "points": 100
+  },
+  {
+    "id": "JOI17_golf",
+    "title": "Golf",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_golf",
+    "points": 100
+  },
+  {
+    "id": "JOI17_joioi",
+    "title": "The Kingdom of JOIOI",
+    "contest": "IOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_joioi",
+    "points": 100
+  },
+  {
+    "id": "JOI17_long_mansion",
+    "title": "Long Mansion",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_long_mansion",
+    "points": 100
+  },
+  {
+    "id": "JOI17_park",
+    "title": "Park",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_park",
+    "points": 100
+  },
+  {
+    "id": "JOI17_port_facility",
+    "title": "Port Facility",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_port_facility",
+    "points": 100
+  },
+  {
+    "id": "JOI17_railway_trip",
+    "title": "Railway Trip",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_railway_trip",
+    "points": 100
+  },
+  {
+    "id": "JOI17_rope",
+    "title": "Rope",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_rope",
+    "points": 100
+  },
+  {
+    "id": "JOI17_semiexpress",
+    "title": "Semiexpress",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_semiexpress",
+    "points": 100
+  },
+  {
+    "id": "JOI17_soccer",
+    "title": "Soccer",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_soccer",
+    "points": 100
+  },
+  {
+    "id": "JOI17_sparklers",
+    "title": "Sparklers",
+    "contest": "JOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI17_sparklers",
+    "points": 100
+  },
+  {
+    "id": "JOI18_airline",
+    "title": "Airline Route Map",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_airline",
+    "points": 100
+  },
+  {
+    "id": "JOI18_art",
+    "title": "Art Exhibition",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_art",
+    "points": 100
+  },
+  {
+    "id": "JOI18_asceticism",
+    "title": "Asceticism",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_asceticism",
+    "points": 100
+  },
+  {
+    "id": "JOI18_bitaro",
+    "title": "Bitaro’s Party",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_bitaro",
+    "points": 100
+  },
+  {
+    "id": "JOI18_bubblesort2",
+    "title": "Bubble Sort 2",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_bubblesort2",
+    "points": 100
+  },
+  {
+    "id": "JOI18_candies",
+    "title": "Candies",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_candies",
+    "points": 100
+  },
+  {
+    "id": "JOI18_catdog",
+    "title": "Cats or Dogs",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_catdog",
+    "points": 100
+  },
+  {
+    "id": "JOI18_collapse",
+    "title": "Collapse",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_collapse",
+    "points": 100
+  },
+  {
+    "id": "JOI18_commuter_pass",
+    "title": "Commuter Pass",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_commuter_pass",
+    "points": 100
+  },
+  {
+    "id": "JOI18_construction",
+    "title": "Construction of Highway",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_construction",
+    "points": 100
+  },
+  {
+    "id": "JOI18_dango_maker",
+    "title": "Dango Maker",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_dango_maker",
+    "points": 100
+  },
+  {
+    "id": "JOI18_fences",
+    "title": "Fences",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_fences",
+    "points": 100
+  },
+  {
+    "id": "JOI18_library",
+    "title": "Library",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_library",
+    "points": 100
+  },
+  {
+    "id": "JOI18_security_gate",
+    "title": "Security Gate",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_security_gate",
+    "points": 100
+  },
+  {
+    "id": "JOI18_snake_escaping",
+    "title": "Snake Escaping",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_snake_escaping",
+    "points": 100
+  },
+  {
+    "id": "JOI18_stove",
+    "title": "Stove",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_stove",
+    "points": 100
+  },
+  {
+    "id": "JOI18_tents",
+    "title": "Tents",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_tents",
+    "points": 100
+  },
+  {
+    "id": "JOI18_wild_boar",
+    "title": "Wild Boar",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_wild_boar",
+    "points": 100
+  },
+  {
+    "id": "JOI18_worst_reporter3",
+    "title": "Worst Reporter 3",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_worst_reporter3",
+    "points": 100
+  },
+  {
+    "id": "JOI18_xylophone",
+    "title": "Xylophone",
+    "contest": "JOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI18_xylophone",
+    "points": 100
+  },
+  {
+    "id": "JOI19_antennas",
+    "title": "Two Antennas",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_antennas",
+    "points": 100
+  },
+  {
+    "id": "JOI19_cake3",
+    "title": "Cake 3",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_cake3",
+    "points": 100
+  },
+  {
+    "id": "JOI19_designated_cities",
+    "title": "Designated Cities",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_designated_cities",
+    "points": 100
+  },
+  {
+    "id": "JOI19_dishes",
+    "title": "Two Dishes",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_dishes",
+    "points": 100
+  },
+  {
+    "id": "JOI19_examination",
+    "title": "Examination",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_examination",
+    "points": 100
+  },
+  {
+    "id": "JOI19_ho_t1",
+    "title": "Bitaro the Brave",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI19_ho_t2",
+    "title": "Exhibition",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI19_ho_t3",
+    "title": "Growing Vegetable is Fun 3",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI19_ho_t4",
+    "title": "Coin Collecting",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI19_ho_t5",
+    "title": "Unique Cities",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI19_jumps",
+    "title": "Triple Jump",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_jumps",
+    "points": 100
+  },
+  {
+    "id": "JOI19_lamps",
+    "title": "Lamps",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_lamps",
+    "points": 100
+  },
+  {
+    "id": "JOI19_meetings",
+    "title": "Meetings",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_meetings",
+    "points": 100
+  },
+  {
+    "id": "JOI19_mergers",
+    "title": "Mergers",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_mergers",
+    "points": 100
+  },
+  {
+    "id": "JOI19_minerals",
+    "title": "Minerals",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_minerals",
+    "points": 100
+  },
+  {
+    "id": "JOI19_naan",
+    "title": "Naan",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_naan",
+    "points": 100
+  },
+  {
+    "id": "JOI19_remittance",
+    "title": "Remittance",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_remittance",
+    "points": 100
+  },
+  {
+    "id": "JOI19_timeleap",
+    "title": "Bitaro, who Leaps through Time",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_timeleap",
+    "points": 100
+  },
+  {
+    "id": "JOI19_transportations",
+    "title": "Two Transportations",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_transportations",
+    "points": 100
+  },
+  {
+    "id": "JOI19_virus",
+    "title": "Virus Experiment",
+    "contest": "JOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI19_virus",
+    "points": 100
+  },
+  {
+    "id": "JOI20_building4",
+    "title": "Building 4",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_building4",
+    "points": 100
+  },
+  {
+    "id": "JOI20_capital_city",
+    "title": "Capital City",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_capital_city",
+    "points": 100
+  },
+  {
+    "id": "JOI20_chameleon",
+    "title": "Chameleon's Love",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_chameleon",
+    "points": 100
+  },
+  {
+    "id": "JOI20_constellation3",
+    "title": "Constellation 3",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_constellation3",
+    "points": 100
+  },
+  {
+    "id": "JOI20_dango2",
+    "title": "Legendary Dango Maker",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_dango2",
+    "points": 100
+  },
+  {
+    "id": "JOI20_furniture",
+    "title": "Furniture",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_furniture",
+    "points": 100
+  },
+  {
+    "id": "JOI20_hamburg",
+    "title": "Hamburg Steak",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_hamburg",
+    "points": 100
+  },
+  {
+    "id": "JOI20_harvest",
+    "title": "Harvest",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_harvest",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ho_t1",
+    "title": "Just Long Neckties",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ho_t2",
+    "title": "JJOOII 2",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ho_t3",
+    "title": "Collecting Stamps 3",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ho_t4",
+    "title": "Olympic Bus",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ho_t5",
+    "title": "Fire",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI20_joitter2",
+    "title": "Making Friends on Joitter is Fun",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_joitter2",
+    "points": 100
+  },
+  {
+    "id": "JOI20_monochrome",
+    "title": "Monochrome Points",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_monochrome",
+    "points": 100
+  },
+  {
+    "id": "JOI20_power",
+    "title": "Power Plant",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_power",
+    "points": 100
+  },
+  {
+    "id": "JOI20_ruins3",
+    "title": "Ruins 3",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_ruins3",
+    "points": 100
+  },
+  {
+    "id": "JOI20_stray",
+    "title": "Stray Cat",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_stray",
+    "points": 100
+  },
+  {
+    "id": "JOI20_sweeping",
+    "title": "Sweeping",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_sweeping",
+    "points": 100
+  },
+  {
+    "id": "JOI20_treatment",
+    "title": "Treatment Project",
+    "contest": "JOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI20_treatment",
+    "points": 100
+  },
+  {
+    "id": "JOI21_aerobatics",
+    "title": "Aerobatics",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_aerobatics",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ancient_machine",
+    "title": "Ancient Machine",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ancient_machine",
+    "points": 100
+  },
+  {
+    "id": "JOI21_bodyguard",
+    "title": "Bodyguard",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_bodyguard",
+    "points": 100
+  },
+  {
+    "id": "JOI21_crossing",
+    "title": "Crossing",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_crossing",
+    "points": 100
+  },
+  {
+    "id": "JOI21_escape_route",
+    "title": "Escape Route",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_escape_route",
+    "points": 100
+  },
+  {
+    "id": "JOI21_event2",
+    "title": "Event Hopping 2",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_event2",
+    "points": 100
+  },
+  {
+    "id": "JOI21_fever",
+    "title": "IOI Fever",
+    "contest": "IOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_fever",
+    "points": 100
+  },
+  {
+    "id": "JOI21_financial",
+    "title": "Financial Report",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_financial",
+    "points": 100
+  },
+  {
+    "id": "JOI21_foodcourt",
+    "title": "Food Court",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_foodcourt",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ho_t1",
+    "title": "Growing Vegetables is Fun 4",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ho_t2",
+    "title": "Snowball",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ho_t3",
+    "title": "Group Photo",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ho_t4",
+    "title": "Robot",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI21_ho_t5",
+    "title": "Dungeon 3",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI21_meetings2",
+    "title": "Meetings 2",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_meetings2",
+    "points": 100
+  },
+  {
+    "id": "JOI21_monster",
+    "title": "Monster Game",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_monster",
+    "points": 100
+  },
+  {
+    "id": "JOI21_navigation2",
+    "title": "Navigation 2",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_navigation2",
+    "points": 100
+  },
+  {
+    "id": "JOI21_road_construction",
+    "title": "Road Construction",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_road_construction",
+    "points": 100
+  },
+  {
+    "id": "JOI21_shopping",
+    "title": "Shopping",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_shopping",
+    "points": 100
+  },
+  {
+    "id": "JOI21_worst_reporter4",
+    "title": "Worst Reporter 4",
+    "contest": "JOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI21_worst_reporter4",
+    "points": 100
+  },
+  {
+    "id": "JOI22_copypaste3",
+    "title": "Copy and Paste 3",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_copypaste3",
+    "points": 100
+  },
+  {
+    "id": "JOI22_dango3",
+    "title": "Super Dango Maker",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_dango3",
+    "points": 100
+  },
+  {
+    "id": "JOI22_device2",
+    "title": "Broken Device 2",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_device2",
+    "points": 100
+  },
+  {
+    "id": "JOI22_fish2",
+    "title": "Fish 2",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_fish2",
+    "points": 100
+  },
+  {
+    "id": "JOI22_flights",
+    "title": "Flights",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_flights",
+    "points": 100
+  },
+  {
+    "id": "JOI22_giraffes",
+    "title": "Giraffes",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_giraffes",
+    "points": 100
+  },
+  {
+    "id": "JOI22_ho_t1",
+    "title": "Intercastellar",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI22_ho_t2",
+    "title": "Self Study",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI22_ho_t3",
+    "title": "Let's Win the Election",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI22_ho_t4",
+    "title": "Railway Trip 2",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI22_ho_t5",
+    "title": "Sandcastle 2",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI22_jail",
+    "title": "Jail",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_jail",
+    "points": 100
+  },
+  {
+    "id": "JOI22_kyoto",
+    "title": "Sightseeing in Kyoto",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_kyoto",
+    "points": 100
+  },
+  {
+    "id": "JOI22_misspelling",
+    "title": "Misspelling",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_misspelling",
+    "points": 100
+  },
+  {
+    "id": "JOI22_reconstruction",
+    "title": "Reconstruction Project",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_reconstruction",
+    "points": 100
+  },
+  {
+    "id": "JOI22_seesaw",
+    "title": "Seesaw",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_seesaw",
+    "points": 100
+  },
+  {
+    "id": "JOI22_sprinkler",
+    "title": "Sprinkler",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_sprinkler",
+    "points": 100
+  },
+  {
+    "id": "JOI22_sugar",
+    "title": "Ants and Sugar",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_sugar",
+    "points": 100
+  },
+  {
+    "id": "JOI22_team",
+    "title": "Team Contest",
+    "contest": "JOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI22_team",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ancient2",
+    "title": "Ancient Machine 2",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ancient2",
+    "points": 100
+  },
+  {
+    "id": "JOI23_cell",
+    "title": "Cell Automaton",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_cell",
+    "points": 100
+  },
+  {
+    "id": "JOI23_chorus",
+    "title": "Chorus",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_chorus",
+    "points": 100
+  },
+  {
+    "id": "JOI23_cookies",
+    "title": "Cookies",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_cookies",
+    "points": 100
+  },
+  {
+    "id": "JOI23_council",
+    "title": "Council",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_council",
+    "points": 100
+  },
+  {
+    "id": "JOI23_currencies",
+    "title": "Two Currencies",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_currencies",
+    "points": 100
+  },
+  {
+    "id": "JOI23_festival2",
+    "title": "Festivals in JOI Kingdom 2",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_festival2",
+    "points": 100
+  },
+  {
+    "id": "JOI23_garden",
+    "title": "Garden",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_garden",
+    "points": 100
+  },
+  {
+    "id": "JOI23_guard",
+    "title": "Security Guard",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_guard",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ho_t1",
+    "title": "Stone Arranging 2",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ho_t2",
+    "title": "Advertisement 2",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ho_t3",
+    "title": "Maze",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ho_t4",
+    "title": "Cat Exercise",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI23_ho_t5",
+    "title": "Modern Machine",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI23_mizuyokan2",
+    "title": "Mizuyokan 2",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_mizuyokan2",
+    "points": 100
+  },
+  {
+    "id": "JOI23_passport",
+    "title": "Passport",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_passport",
+    "points": 100
+  },
+  {
+    "id": "JOI23_tourism",
+    "title": "Tourism",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_tourism",
+    "points": 100
+  },
+  {
+    "id": "JOI23_travel",
+    "title": "Bitaro's travel",
+    "contest": "JOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI23_travel",
+    "points": 100
+  },
+  {
+    "id": "JOI24_boardgame",
+    "title": "Board Game",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_boardgame",
+    "points": 100
+  },
+  {
+    "id": "JOI24_collection",
+    "title": "Card Collection",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_collection",
+    "points": 100
+  },
+  {
+    "id": "JOI24_escape2",
+    "title": "Escape Route 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_escape2",
+    "points": 100
+  },
+  {
+    "id": "JOI24_examination2",
+    "title": "Examination 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_examination2",
+    "points": 100
+  },
+  {
+    "id": "JOI24_fish3",
+    "title": "Fish 3",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_fish3",
+    "points": 100
+  },
+  {
+    "id": "JOI24_heat",
+    "title": "Heat Stroke",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_heat",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ho_t1",
+    "title": "Room Temperature",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ho_t2",
+    "title": "Construction Project 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ho_t3",
+    "title": "Marathon Race 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ho_t4",
+    "title": "Gift Exchange",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ho_t5",
+    "title": "Road Service 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI24_island",
+    "title": "Island Hopping",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_island",
+    "points": 100
+  },
+  {
+    "id": "JOI24_joitour",
+    "title": "JOI tour",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_joitour",
+    "points": 100
+  },
+  {
+    "id": "JOI24_library3",
+    "title": "Library 3",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_library3",
+    "points": 100
+  },
+  {
+    "id": "JOI24_ski2",
+    "title": "Ski 2",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_ski2",
+    "points": 100
+  },
+  {
+    "id": "JOI24_spy3",
+    "title": "Spy 3",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_spy3",
+    "points": 100
+  },
+  {
+    "id": "JOI24_tabletennis",
+    "title": "Table Tennis",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_tabletennis",
+    "points": 100
+  },
+  {
+    "id": "JOI24_tower",
+    "title": "Tower",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_tower",
+    "points": 100
+  },
+  {
+    "id": "JOI24_tricolor",
+    "title": "Tricolor Lights",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_tricolor",
+    "points": 100
+  },
+  {
+    "id": "JOI24_vegetables5",
+    "title": "Growing Vegetables is Fun 5",
+    "contest": "JOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI24_vegetables5",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ambulance",
+    "title": "Ambulance",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ambulance",
+    "points": 100
+  },
+  {
+    "id": "JOI25_brave3",
+    "title": "Bitaro the Brave 3",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_brave3",
+    "points": 100
+  },
+  {
+    "id": "JOI25_bubble",
+    "title": "Bubble Sort Machine",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_bubble",
+    "points": 100
+  },
+  {
+    "id": "JOI25_circuit2",
+    "title": "Circuit 2",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_circuit2",
+    "points": 100
+  },
+  {
+    "id": "JOI25_conference",
+    "title": "Conference",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_conference",
+    "points": 100
+  },
+  {
+    "id": "JOI25_exhibition3",
+    "title": "Exhibition 3",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_exhibition3",
+    "points": 100
+  },
+  {
+    "id": "JOI25_fortune3",
+    "title": "Fortune Telling 3",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_fortune3",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ho_t1",
+    "title": "Grid Coloring",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ho_t1",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ho_t2",
+    "title": "Bitaro the Brave 2",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ho_t2",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ho_t3",
+    "title": "Mi Teleférico",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ho_t3",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ho_t4",
+    "title": "Just Long Neckties 2",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ho_t4",
+    "points": 100
+  },
+  {
+    "id": "JOI25_ho_t5",
+    "title": "Post Office",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_ho_t5",
+    "points": 100
+  },
+  {
+    "id": "JOI25_lottery",
+    "title": "Lottery",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_lottery",
+    "points": 100
+  },
+  {
+    "id": "JOI25_migration",
+    "title": "Migration Plan",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_migration",
+    "points": 100
+  },
+  {
+    "id": "JOI25_multi",
+    "title": "Multi Communication",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_multi",
+    "points": 100
+  },
+  {
+    "id": "JOI25_stamps4",
+    "title": "Collecting Stamps 4",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_stamps4",
+    "points": 100
+  },
+  {
+    "id": "JOI25_telepathy",
+    "title": "Telepathy",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_telepathy",
+    "points": 100
+  },
+  {
+    "id": "JOI25_thief",
+    "title": "Space Thief",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_thief",
+    "points": 100
+  },
+  {
+    "id": "JOI25_travel2",
+    "title": "Bitaro's Travel 2",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_travel2",
+    "points": 100
+  },
+  {
+    "id": "JOI25_uiro",
+    "title": "Uiro",
+    "contest": "JOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI25_uiro",
+    "points": 100
+  },
+  {
+    "id": "JOI26_baker",
+    "title": "Baker",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_baker",
+    "points": 100
+  },
+  {
+    "id": "JOI26_casino",
+    "title": "Casino",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_casino",
+    "points": 100
+  },
+  {
+    "id": "JOI26_dango",
+    "title": "Legendary Dango Eater",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_dango",
+    "points": 100
+  },
+  {
+    "id": "JOI26_festival",
+    "title": "Festivals in JOI Kingdom 3",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_festival",
+    "points": 100
+  },
+  {
+    "id": "JOI26_garden",
+    "title": "Garden 3",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_garden",
+    "points": 100
+  },
+  {
+    "id": "JOI26_joitour",
+    "title": "JOI Tour 2",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_joitour",
+    "points": 100
+  },
+  {
+    "id": "JOI26_multi",
+    "title": "Multi Communication 2",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_multi",
+    "points": 100
+  },
+  {
+    "id": "JOI26_rainfall",
+    "title": "Triangular Rainfall",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_rainfall",
+    "points": 100
+  },
+  {
+    "id": "JOI26_scarecrows",
+    "title": "Scarecrows 2",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_scarecrows",
+    "points": 100
+  },
+  {
+    "id": "JOI26_stamps",
+    "title": "Collecting Stamps 5",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_stamps",
+    "points": 100
+  },
+  {
+    "id": "JOI26_teleporter",
+    "title": "Teleporter 2",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_teleporter",
+    "points": 100
+  },
+  {
+    "id": "JOI26_voltage",
+    "title": "Voltage 2",
+    "contest": "JOI 2026",
+    "ojuzUrl": "https://oj.uz/problem/view/JOI26_voltage",
+    "points": 100
+  },
+  {
+    "id": "LMIO17_faktai",
+    "title": "April Fools",
+    "contest": "LMIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO17_faktai",
+    "points": 100
+  },
+  {
+    "id": "LMIO17_keliones",
+    "title": "Travels",
+    "contest": "LMIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO17_keliones",
+    "points": 100
+  },
+  {
+    "id": "LMIO17_lektuvai",
+    "title": "Airplanes",
+    "contest": "LMIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO17_lektuvai",
+    "points": 100
+  },
+  {
+    "id": "LMIO17_sunkvezimiai",
+    "title": "Trucks",
+    "contest": "LMIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO17_sunkvezimiai",
+    "points": 100
+  },
+  {
+    "id": "LMIO17_vienetai",
+    "title": "Ones",
+    "contest": "LMIO 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO17_vienetai",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_asm",
+    "title": "ASM",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_asm",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_menesinis_bilietas",
+    "title": "Monthly railway pass",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_menesinis_bilietas",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_pigus_skrydziai",
+    "title": "Cheap flights",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_pigus_skrydziai",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_plaukimo_varzybos",
+    "title": "Swimming competition",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_plaukimo_varzybos",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_sauga",
+    "title": "Fire drill",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_sauga",
+    "points": 100
+  },
+  {
+    "id": "LMIO18_staciakampis",
+    "title": "Cutting a rectangle",
+    "contest": "LMIO 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO18_staciakampis",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_bulves",
+    "title": "Potatoes and fertilizers",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_bulves",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_korteles",
+    "title": "Cards",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_korteles",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_mokesciai",
+    "title": "Tax Evasion",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_mokesciai",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_monetos",
+    "title": "Coins",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_monetos",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_noras",
+    "title": "Wish",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_noras",
+    "points": 100
+  },
+  {
+    "id": "LMIO19_triusis",
+    "title": "Rabbit Carrot",
+    "contest": "LMIO 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/LMIO19_triusis",
+    "points": 100
+  },
+  {
+    "id": "NOI12_forensic",
+    "title": "Forensic",
+    "contest": "NOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI12_forensic",
+    "points": 100
+  },
+  {
+    "id": "NOI12_modsum",
+    "title": "Modsum",
+    "contest": "NOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI12_modsum",
+    "points": 100
+  },
+  {
+    "id": "NOI12_pancake",
+    "title": "Pancake",
+    "contest": "NOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI12_pancake",
+    "points": 100
+  },
+  {
+    "id": "NOI12_walking",
+    "title": "Walking",
+    "contest": "NOI 2012",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI12_walking",
+    "points": 100
+  },
+  {
+    "id": "NOI13_ferries",
+    "title": "Ferries",
+    "contest": "NOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI13_ferries",
+    "points": 100
+  },
+  {
+    "id": "NOI13_gw",
+    "title": "Global Warming",
+    "contest": "NOI 2013",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI13_gw",
+    "points": 100
+  },
+  {
+    "id": "NOI14_cats",
+    "title": "CATS",
+    "contest": "NOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI14_cats",
+    "points": 100
+  },
+  {
+    "id": "NOI14_obelisk",
+    "title": "OBELISK",
+    "contest": "NOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI14_obelisk",
+    "points": 100
+  },
+  {
+    "id": "NOI14_orchard",
+    "title": "Orchard",
+    "contest": "NOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI14_orchard",
+    "points": 100
+  },
+  {
+    "id": "NOI14_sightseeing",
+    "title": "Sightseeing",
+    "contest": "NOI 2014",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI14_sightseeing",
+    "points": 100
+  },
+  {
+    "id": "NOI17_bestplace",
+    "title": "Best Place",
+    "contest": "NOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI17_bestplace",
+    "points": 100
+  },
+  {
+    "id": "NOI17_hotspot",
+    "title": "Hotspot",
+    "contest": "NOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI17_hotspot",
+    "points": 100
+  },
+  {
+    "id": "NOI17_pokemonmaster",
+    "title": "I want to be the very best too!",
+    "contest": "NOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI17_pokemonmaster",
+    "points": 100
+  },
+  {
+    "id": "NOI17_rmq",
+    "title": "RMQ",
+    "contest": "NOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI17_rmq",
+    "points": 100
+  },
+  {
+    "id": "NOI17_roadsideadverts",
+    "title": "Roadside Advertisements",
+    "contest": "NOI 2017",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI17_roadsideadverts",
+    "points": 100
+  },
+  {
+    "id": "NOI18_citymapping",
+    "title": "City Mapping",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_citymapping",
+    "points": 100
+  },
+  {
+    "id": "NOI18_collectmushrooms",
+    "title": "Collecting Mushrooms",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_collectmushrooms",
+    "points": 100
+  },
+  {
+    "id": "NOI18_island",
+    "title": "Island",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_island",
+    "points": 100
+  },
+  {
+    "id": "NOI18_journey",
+    "title": "Journey",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_journey",
+    "points": 100
+  },
+  {
+    "id": "NOI18_knapsack",
+    "title": "Knapsack",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_knapsack",
+    "points": 100
+  },
+  {
+    "id": "NOI18_lightningrod",
+    "title": "Lightning Rod",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_lightningrod",
+    "points": 100
+  },
+  {
+    "id": "NOI18_safety",
+    "title": "Safety",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_safety",
+    "points": 100
+  },
+  {
+    "id": "NOI18_snail",
+    "title": "Snail",
+    "contest": "NOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI18_snail",
+    "points": 100
+  },
+  {
+    "id": "NOI19_charges",
+    "title": "Experimental Charges",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_charges",
+    "points": 100
+  },
+  {
+    "id": "NOI19_feast",
+    "title": "Feast",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_feast",
+    "points": 100
+  },
+  {
+    "id": "NOI19_lasers",
+    "title": "Lasers",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_lasers",
+    "points": 100
+  },
+  {
+    "id": "NOI19_lostarray",
+    "title": "Lost Array",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_lostarray",
+    "points": 100
+  },
+  {
+    "id": "NOI19_palindrome",
+    "title": "Palindromic FizzBuzz",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_palindrome",
+    "points": 100
+  },
+  {
+    "id": "NOI19_pilot",
+    "title": "Pilot",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_pilot",
+    "points": 100
+  },
+  {
+    "id": "NOI19_riggedroads",
+    "title": "Rigged Roads",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_riggedroads",
+    "points": 100
+  },
+  {
+    "id": "NOI19_shuffle",
+    "title": "Shuffle",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_shuffle",
+    "points": 100
+  },
+  {
+    "id": "NOI19_squarerect",
+    "title": "Square or Rectangle?",
+    "contest": "NOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI19_squarerect",
+    "points": 100
+  },
+  {
+    "id": "NOI20_aesthetic",
+    "title": "Aesthetic",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_aesthetic",
+    "points": 100
+  },
+  {
+    "id": "NOI20_arcade",
+    "title": "Arcade",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_arcade",
+    "points": 100
+  },
+  {
+    "id": "NOI20_crypto",
+    "title": "Cryptography",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_crypto",
+    "points": 100
+  },
+  {
+    "id": "NOI20_discharging",
+    "title": "Discharging",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_discharging",
+    "points": 100
+  },
+  {
+    "id": "NOI20_firefighting",
+    "title": "Firefighting",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_firefighting",
+    "points": 100
+  },
+  {
+    "id": "NOI20_fuelstation",
+    "title": "Fuel Station",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_fuelstation",
+    "points": 100
+  },
+  {
+    "id": "NOI20_labels",
+    "title": "Labels",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_labels",
+    "points": 100
+  },
+  {
+    "id": "NOI20_mountains",
+    "title": "Mountains",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_mountains",
+    "points": 100
+  },
+  {
+    "id": "NOI20_progression",
+    "title": "Progression",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_progression",
+    "points": 100
+  },
+  {
+    "id": "NOI20_relaymarathon",
+    "title": "Relay Marathon",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_relaymarathon",
+    "points": 100
+  },
+  {
+    "id": "NOI20_solarstorm",
+    "title": "Solar Storm",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_solarstorm",
+    "points": 100
+  },
+  {
+    "id": "NOI20_visitingsingapore",
+    "title": "Visiting Singapore",
+    "contest": "NOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI20_visitingsingapore",
+    "points": 100
+  },
+  {
+    "id": "NOI22_fruits",
+    "title": "Fruits",
+    "contest": "NOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI22_fruits",
+    "points": 100
+  },
+  {
+    "id": "NOI22_grapevine",
+    "title": "Grapevine",
+    "contest": "NOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI22_grapevine",
+    "points": 100
+  },
+  {
+    "id": "NOI22_gymbadges",
+    "title": "Gym Badges",
+    "contest": "NOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI22_gymbadges",
+    "points": 100
+  },
+  {
+    "id": "NOI22_towers",
+    "title": "Towers",
+    "contest": "NOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI22_towers",
+    "points": 100
+  },
+  {
+    "id": "NOI22_votingcity",
+    "title": "Voting Cities",
+    "contest": "NOI 2022",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI22_votingcity",
+    "points": 100
+  },
+  {
+    "id": "NOI23_airplane",
+    "title": "Airplane",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_airplane",
+    "points": 100
+  },
+  {
+    "id": "NOI23_area",
+    "title": "Area",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_area",
+    "points": 100
+  },
+  {
+    "id": "NOI23_burgers",
+    "title": "Burgers",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_burgers",
+    "points": 100
+  },
+  {
+    "id": "NOI23_curtains",
+    "title": "Curtains",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_curtains",
+    "points": 100
+  },
+  {
+    "id": "NOI23_dolls",
+    "title": "Dolls",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_dolls",
+    "points": 100
+  },
+  {
+    "id": "NOI23_inspections",
+    "title": "Inspections",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_inspections",
+    "points": 100
+  },
+  {
+    "id": "NOI23_network",
+    "title": "Network",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_network",
+    "points": 100
+  },
+  {
+    "id": "NOI23_swords",
+    "title": "Swords",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_swords",
+    "points": 100
+  },
+  {
+    "id": "NOI23_topical",
+    "title": "Topical",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_topical",
+    "points": 100
+  },
+  {
+    "id": "NOI23_toxic",
+    "title": "Toxic Gene",
+    "contest": "NOI 2023",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI23_toxic",
+    "points": 100
+  },
+  {
+    "id": "NOI24_coin",
+    "title": "Coin",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_coin",
+    "points": 100
+  },
+  {
+    "id": "NOI24_explosives",
+    "title": "Explosives",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_explosives",
+    "points": 100
+  },
+  {
+    "id": "NOI24_field",
+    "title": "Field",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_field",
+    "points": 100
+  },
+  {
+    "id": "NOI24_park",
+    "title": "Amusement Park",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_park",
+    "points": 100
+  },
+  {
+    "id": "NOI24_party",
+    "title": "Party",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_party",
+    "points": 100
+  },
+  {
+    "id": "NOI24_photo",
+    "title": "School Photo",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_photo",
+    "points": 100
+  },
+  {
+    "id": "NOI24_problemsetter",
+    "title": "Problem Setter",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_problemsetter",
+    "points": 100
+  },
+  {
+    "id": "NOI24_shops",
+    "title": "Shops",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_shops",
+    "points": 100
+  },
+  {
+    "id": "NOI24_tourist",
+    "title": "Tourist",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_tourist",
+    "points": 100
+  },
+  {
+    "id": "NOI24_toxic",
+    "title": "Toxic Gene 2",
+    "contest": "NOI 2024",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI24_toxic",
+    "points": 100
+  },
+  {
+    "id": "NOI25_duckbuttons",
+    "title": "Ducks And Buttons",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_duckbuttons",
+    "points": 100
+  },
+  {
+    "id": "NOI25_flooding",
+    "title": "Flooding",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_flooding",
+    "points": 100
+  },
+  {
+    "id": "NOI25_itinerary",
+    "title": "Itinerary",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_itinerary",
+    "points": 100
+  },
+  {
+    "id": "NOI25_lasers2",
+    "title": "Lasers 2",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_lasers2",
+    "points": 100
+  },
+  {
+    "id": "NOI25_monsters",
+    "title": "Monsters",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_monsters",
+    "points": 100
+  },
+  {
+    "id": "NOI25_reachability",
+    "title": "Reachability",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_reachability",
+    "points": 100
+  },
+  {
+    "id": "NOI25_robots",
+    "title": "Robots",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_robots",
+    "points": 100
+  },
+  {
+    "id": "NOI25_snacks",
+    "title": "Snacks",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_snacks",
+    "points": 100
+  },
+  {
+    "id": "NOI25_thumper",
+    "title": "Thumper",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_thumper",
+    "points": 100
+  },
+  {
+    "id": "NOI25_trainorbus",
+    "title": "Train Or Bus",
+    "contest": "NOI 2025",
+    "ojuzUrl": "https://oj.uz/problem/view/NOI25_trainorbus",
+    "points": 100
+  },
+  {
+    "id": "RMI18_climbers",
+    "title": "Climbers",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_climbers",
+    "points": 100
+  },
+  {
+    "id": "RMI18_colors",
+    "title": "Colors",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_colors",
+    "points": 100
+  },
+  {
+    "id": "RMI18_password",
+    "title": "Password",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_password",
+    "points": 100
+  },
+  {
+    "id": "RMI18_squirrel",
+    "title": "Squirrel",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_squirrel",
+    "points": 100
+  },
+  {
+    "id": "RMI18_traffickers",
+    "title": "Traffickers",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_traffickers",
+    "points": 100
+  },
+  {
+    "id": "RMI18_w",
+    "title": "W",
+    "contest": "RMI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI18_w",
+    "points": 100
+  },
+  {
+    "id": "RMI19_devil",
+    "title": "Devil's Share",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_devil",
+    "points": 100
+  },
+  {
+    "id": "RMI19_fishing",
+    "title": "Fishing Game",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_fishing",
+    "points": 100
+  },
+  {
+    "id": "RMI19_lucky",
+    "title": "Lucky Numbers",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_lucky",
+    "points": 100
+  },
+  {
+    "id": "RMI19_permutation",
+    "title": "Secret Permutation",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_permutation",
+    "points": 100
+  },
+  {
+    "id": "RMI19_restore",
+    "title": "Restore Array",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_restore",
+    "points": 100
+  },
+  {
+    "id": "RMI19_santa",
+    "title": "Santa Claus",
+    "contest": "RMI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI19_santa",
+    "points": 100
+  },
+  {
+    "id": "RMI20_arboras",
+    "title": "Arboras",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_arboras",
+    "points": 100
+  },
+  {
+    "id": "RMI20_brperm",
+    "title": "Brperm",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_brperm",
+    "points": 100
+  },
+  {
+    "id": "RMI20_floppy",
+    "title": "Floppy",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_floppy",
+    "points": 100
+  },
+  {
+    "id": "RMI20_nicelines",
+    "title": "Nicelines",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_nicelines",
+    "points": 100
+  },
+  {
+    "id": "RMI20_peru",
+    "title": "Peru",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_peru",
+    "points": 100
+  },
+  {
+    "id": "RMI20_sumzero",
+    "title": "Sum Zero",
+    "contest": "RMI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI20_sumzero",
+    "points": 100
+  },
+  {
+    "id": "RMI21_gardening",
+    "title": "Gardening",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_gardening",
+    "points": 100
+  },
+  {
+    "id": "RMI21_nom",
+    "title": "NoM",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_nom",
+    "points": 100
+  },
+  {
+    "id": "RMI21_paths",
+    "title": "Paths",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_paths",
+    "points": 100
+  },
+  {
+    "id": "RMI21_present",
+    "title": "Present",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_present",
+    "points": 100
+  },
+  {
+    "id": "RMI21_speedrun",
+    "title": "Speedrun",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_speedrun",
+    "points": 100
+  },
+  {
+    "id": "RMI21_weirdtree",
+    "title": "Weirdtree",
+    "contest": "RMI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/RMI21_weirdtree",
+    "points": 100
+  },
+  {
+    "id": "BOI18_parentrises",
+    "title": "parentrises",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_parentrises",
+    "points": 100
+  },
+  {
+    "id": "BOI18_paths",
+    "title": "Paths",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_paths",
+    "points": 100
+  },
+  {
+    "id": "BOI18_polygon",
+    "title": "Love Polygon",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_polygon",
+    "points": 100
+  },
+  {
+    "id": "BOI18_popa",
+    "title": "popa",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_popa",
+    "points": 100
+  },
+  {
+    "id": "BOI18_worm",
+    "title": "Worm Worries",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_worm",
+    "points": 100
+  },
+  {
+    "id": "BOI18_zalmoxis",
+    "title": "Zalmoxis",
+    "contest": "BOI 2018",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI18_zalmoxis",
+    "points": 100
+  },
+  {
+    "id": "BOI19_kitchen",
+    "title": "Kitchen",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_kitchen",
+    "points": 100
+  },
+  {
+    "id": "BOI19_nautilus",
+    "title": "Nautilus",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_nautilus",
+    "points": 100
+  },
+  {
+    "id": "BOI19_necklace1",
+    "title": "Necklace (Subtask 1-3)",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_necklace1",
+    "points": 100
+  },
+  {
+    "id": "BOI19_necklace4",
+    "title": "Necklace (Subtask 4)",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_necklace4",
+    "points": 100
+  },
+  {
+    "id": "BOI19_olympiads",
+    "title": "Olympiads",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_olympiads",
+    "points": 100
+  },
+  {
+    "id": "BOI19_valley",
+    "title": "Valley",
+    "contest": "BOI 2019",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI19_valley",
+    "points": 100
+  },
+  {
+    "id": "BOI20_colors",
+    "title": "Colors",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_colors",
+    "points": 100
+  },
+  {
+    "id": "BOI20_graph",
+    "title": "Graph",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_graph",
+    "points": 100
+  },
+  {
+    "id": "BOI20_guess",
+    "title": "Guess the number",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_guess",
+    "points": 100
+  },
+  {
+    "id": "BOI20_joker",
+    "title": "Joker",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_joker",
+    "points": 100
+  },
+  {
+    "id": "BOI20_mixture",
+    "title": "Mixture",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_mixture",
+    "points": 100
+  },
+  {
+    "id": "BOI20_roses",
+    "title": "Roses",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_roses",
+    "points": 100
+  },
+  {
+    "id": "BOI20_village",
+    "title": "Village",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_village",
+    "points": 100
+  },
+  {
+    "id": "BOI20_viruses",
+    "title": "Viruses",
+    "contest": "BOI 2020",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI20_viruses",
+    "points": 100
+  },
+  {
+    "id": "BOI21_books",
+    "title": "A Difficult(y) Choice",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_books",
+    "points": 100
+  },
+  {
+    "id": "BOI21_prison",
+    "title": "The short shank; Redemption",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_prison",
+    "points": 100
+  },
+  {
+    "id": "BOI21_servers",
+    "title": "Inside information",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_servers",
+    "points": 100
+  },
+  {
+    "id": "BOI21_swaps",
+    "title": "The Collection Game",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_swaps",
+    "points": 100
+  },
+  {
+    "id": "BOI21_watchmen",
+    "title": "From Hacks to Snitches",
+    "contest": "BOI 2021",
+    "ojuzUrl": "https://oj.uz/problem/view/BOI21_watchmen",
+    "points": 100
+  }
+]
