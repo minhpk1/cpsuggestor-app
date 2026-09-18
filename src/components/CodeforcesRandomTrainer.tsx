@@ -50,7 +50,8 @@ const COMMON_CF_TAGS = [
 
 const RATING_OPTIONS = [
   800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 
-  1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400
+  1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
+  2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500
 ];
 
 interface CodeforcesRandomTrainerProps {
@@ -158,7 +159,8 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
     if (r < 1900) return 'bg-blue-50 text-blue-700 border-blue-300';
     if (r < 2100) return 'bg-purple-50 text-purple-700 border-purple-300';
     if (r < 2400) return 'bg-amber-50 text-amber-700 border-amber-300';
-    return 'bg-rose-50 text-rose-700 border-rose-300';
+    if (r < 3000) return 'bg-rose-50 text-rose-700 border-rose-300';
+    return 'bg-red-100 text-red-900 border-red-400 font-extrabold shadow-sm';
   };
 
   return (

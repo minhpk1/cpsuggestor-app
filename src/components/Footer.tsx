@@ -14,10 +14,10 @@ export const Footer: React.FC = () => {
               OJ
             </div>
             <span className="font-semibold text-slate-800 dark:text-slate-200">
-              oj.uz Insight & Recommender
+              CPSuggestor
             </span>
             <span>—</span>
-            <span>Thiết kế theo chuẩn LibreOJ cho học sinh Olympic Tin học (OI/CP)</span>
+            <span>Nền tảng hỗ trợ học sinh Olympic Tin học (OI) và Luyện thi Codeforces</span>
           </div>
 
           <div className="flex items-center gap-4">

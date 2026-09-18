@@ -70,6 +70,7 @@ export async function GET(request: NextRequest) {
 
     for (const p of problems) {
       if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
+      if (p.rating < 800 || p.rating > 3500) continue;
       
       const probKey = `${p.contestId}${p.index}`;
       
@@ -97,6 +98,7 @@ export async function GET(request: NextRequest) {
     if (eligibleProblems.length === 0 && targetRating) {
       for (const p of problems) {
         if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
+        if (p.rating < 800 || p.rating > 3500) continue;
         const probKey = `${p.contestId}${p.index}`;
         if (solvedSet.has(probKey)) continue;
 

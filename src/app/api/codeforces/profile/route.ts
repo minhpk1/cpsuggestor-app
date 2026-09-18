@@ -112,10 +112,10 @@ export async function GET(request: NextRequest) {
       return { tag, count, percentage, status };
     });
 
-    // 5. Calculate Rating Distribution (from 800 to 2600 in steps of 100)
+    // 5. Calculate Rating Distribution (from 800 to 3500 in steps of 100)
     const ratingBuckets: Record<number, number> = {};
     const step = 100;
-    for (let r = 800; r <= 2600; r += step) {
+    for (let r = 800; r <= 3500; r += step) {
       ratingBuckets[r] = 0;
     }
 
@@ -123,12 +123,13 @@ export async function GET(request: NextRequest) {
     const solvedRatings: number[] = [];
 
     for (const item of Array.from(solvedMap.values())) {
-      if (typeof item.rating === 'number' && item.rating >= 800) {
+      if (typeof item.rating === 'number' && item.rating >= 800 && item.rating <= 3500) {
         const rounded = Math.floor(item.rating / step) * step;
-        const bucket = Math.min(2600, Math.max(800, rounded));
-        ratingBuckets[bucket] = (ratingBuckets[bucket] || 0) + 1;
-        solvedRatings.push(item.rating);
-        solvedWithRatingCount++;
+        if (rounded >= 800 && rounded <= 3500) {
+          ratingBuckets[rounded] = (ratingBuckets[rounded] || 0) + 1;
+          solvedRatings.push(item.rating);
+          solvedWithRatingCount++;
+        }
       }
     }
 
@@ -142,13 +143,13 @@ export async function GET(request: NextRequest) {
 
     if (currentRating > 0) {
       // Nếu user có rating thi đấu, vùng luyện tập tốt nhất thường là Rating + 100 đến Rating + 200
-      recommendedRating = Math.min(3000, Math.round((currentRating + 150) / 100) * 100);
-      recommendedReason = `Dựa trên rating thi đấu hiện tại (${currentRating}), luyện các bài ${recommendedRating} sẽ giúp bạn mở rộng tư duy giải thuật mà không quá ngợp.`;
+      recommendedRating = Math.min(3500, Math.max(800, Math.round((currentRating + 150) / 100) * 100));
+      recommendedReason = `Dựa trên rating thi đấu hiện tại (${currentRating}), luyện các bài ${recommendedRating} sẽ giúp bạn mở rộng tư duy giải thuật mà không bị quá ngợp.`;
     } else if (solvedRatings.length > 0) {
       // Dựa vào phân vị 75% của các bài đã giải
       const p75Index = Math.floor(solvedRatings.length * 0.75);
       const base = solvedRatings[p75Index] || 1200;
-      recommendedRating = Math.min(3000, Math.round((base + 100) / 100) * 100);
+      recommendedRating = Math.min(3500, Math.max(800, Math.round((base + 100) / 100) * 100));
       recommendedReason = `Dựa trên phân bố ${totalSolved} bài bạn đã giải (75% nằm dưới ${base}), mức ${recommendedRating} là thử thách lý tưởng tiếp theo.`;
     } else {
       recommendedRating = 1000;

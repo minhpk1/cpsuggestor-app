@@ -67,7 +67,10 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
       weeksArr.push(currentWeek);
     }
 
-    const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    const monthNames = [
+      'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+      'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+    ];
     const months: { name: string; weekIndex: number }[] = [];
     let lastMonth = -1;
 

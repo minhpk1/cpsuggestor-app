@@ -106,20 +106,21 @@ export async function fetchCFProfileClientSide(handle: string): Promise<CFProfil
     return { tag, count, percentage, status };
   });
 
-  // 5. Rating Distribution
+  // 5. Rating Distribution (800 to 3500)
   const ratingBuckets: Record<number, number> = {};
   const step = 100;
-  for (let r = 800; r <= 2600; r += step) {
+  for (let r = 800; r <= 3500; r += step) {
     ratingBuckets[r] = 0;
   }
 
   const solvedRatings: number[] = [];
   for (const item of Array.from(solvedMap.values())) {
-    if (typeof item.rating === 'number' && item.rating >= 800) {
+    if (typeof item.rating === 'number' && item.rating >= 800 && item.rating <= 3500) {
       const rounded = Math.floor(item.rating / step) * step;
-      const bucket = Math.min(2600, Math.max(800, rounded));
-      ratingBuckets[bucket] = (ratingBuckets[bucket] || 0) + 1;
-      solvedRatings.push(item.rating);
+      if (rounded >= 800 && rounded <= 3500) {
+        ratingBuckets[rounded] = (ratingBuckets[rounded] || 0) + 1;
+        solvedRatings.push(item.rating);
+      }
     }
   }
 
@@ -130,12 +131,12 @@ export async function fetchCFProfileClientSide(handle: string): Promise<CFProfil
 
   const currentRating = user.rating || 0;
   if (currentRating > 0) {
-    recommendedRating = Math.min(3000, Math.round((currentRating + 150) / 100) * 100);
+    recommendedRating = Math.min(3500, Math.max(800, Math.round((currentRating + 150) / 100) * 100));
     recommendedReason = `Dựa trên rating thi đấu hiện tại (${currentRating}), luyện các bài ${recommendedRating} sẽ giúp bạn mở rộng tư duy giải thuật mà không bị quá ngợp.`;
   } else if (solvedRatings.length > 0) {
     const p75Index = Math.floor(solvedRatings.length * 0.75);
     const base = solvedRatings[p75Index] || 1200;
-    recommendedRating = Math.min(3000, Math.round((base + 100) / 100) * 100);
+    recommendedRating = Math.min(3500, Math.max(800, Math.round((base + 100) / 100) * 100));
     recommendedReason = `Dựa trên phân bố ${totalSolved} bài bạn đã giải (75% nằm dưới ${base}), mức ${recommendedRating} là thử thách lý tưởng tiếp theo.`;
   } else {
     recommendedRating = 1000;
@@ -202,10 +203,11 @@ export async function getRandomCFProblem(
     throw new Error(json.error || 'Không tìm thấy bài tập phù hợp.');
   }
 
-  // 3. Lọc bài chưa AC và đúng mốc rating
+  // 3. Lọc bài chưa AC và đúng mốc rating (chỉ tính bài có rating chính thức từ 800 đến 3500)
   let candidates: CFRandomProblemItem[] = [];
   for (const p of problems) {
     if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
+    if (p.rating < 800 || p.rating > 3500) continue;
     const key = `${p.contestId}${p.index}`;
     if (solvedSet.has(key)) continue;
 
@@ -221,10 +223,11 @@ export async function getRandomCFProblem(
     }
   }
 
-  // Nếu không có bài đúng tuyệt đối rating, cho phép khoảng +- 100
+  // Nếu không có bài đúng tuyệt đối rating, cho phép khoảng +- 100 (vẫn trong khoảng 800-3500)
   if (candidates.length === 0) {
     for (const p of problems) {
       if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
+      if (p.rating < 800 || p.rating > 3500) continue;
       const key = `${p.contestId}${p.index}`;
       if (solvedSet.has(key)) continue;
 

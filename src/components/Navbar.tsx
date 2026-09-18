@@ -34,8 +34,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <svg className="w-6 h-6 text-gray-800" viewBox="0 0 32 32" fill="currentColor">
                 <path d="M11.5 6.5L4 16l7.5 9.5 2-1.6L7 16l6.5-7.9-2-1.6zm9 0l-2 1.6L25 16l-6.5 7.9 2 1.6L28 16l-7.5-9.5z"/>
               </svg>
-              <span className="text-xl tracking-tight text-gray-800 font-normal hidden sm:inline">
-                LibreOJ
+              <span className="text-xl tracking-tight text-gray-800 font-semibold hidden sm:inline">
+                CPSuggestor
               </span>
             </div>
 

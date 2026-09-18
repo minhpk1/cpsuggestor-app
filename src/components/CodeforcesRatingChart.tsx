@@ -28,7 +28,8 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
     if (rating < 1900) return '#0000ff'; // Expert (Blue)
     if (rating < 2100) return '#aa00aa'; // Candidate Master (Purple)
     if (rating < 2400) return '#ff8c00'; // Master (Orange)
-    return '#ff0000'; // Grandmaster (Red)
+    if (rating < 3000) return '#ff0000'; // Grandmaster (Red)
+    return '#a00000'; // Legendary Grandmaster (Dark Red)
   };
 
   return (
@@ -38,7 +39,7 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
         <div className="flex items-center space-x-2">
           <BarChart3 className="w-4 h-4 text-blue-600" />
           <h2 className="text-sm font-semibold text-gray-800 tracking-tight">
-            Phân bố Rating các bài đã giải trên Codeforces
+            Phân bố Rating các bài đã giải trên Codeforces (800 – 3500)
           </h2>
         </div>
         <span className="text-xs text-gray-500 font-mono">
@@ -68,61 +69,63 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
           </div>
         </div>
 
-        {/* Biểu đồ cột */}
-        <div className="mt-4">
-          <div className="h-48 sm:h-56 flex items-end gap-1 sm:gap-1.5 pt-6 pb-2 border-b border-gray-200 overflow-x-auto">
-            {distribution.map((bucket) => {
-              const heightPercent = Math.max(4, Math.round((bucket.count / maxCount) * 100));
-              const isRecommended = bucket.rating === recommendedRating;
-              const color = getRatingColor(bucket.rating);
+        {/* Biểu đồ cột rải từ 800 đến 3500 */}
+        <div className="mt-4 overflow-x-auto">
+          <div className="min-w-[760px]">
+            <div className="h-48 sm:h-56 flex items-end gap-1 sm:gap-1.5 pt-6 pb-2 border-b border-gray-200">
+              {distribution.map((bucket) => {
+                const heightPercent = Math.max(4, Math.round((bucket.count / maxCount) * 100));
+                const isRecommended = bucket.rating === recommendedRating;
+                const color = getRatingColor(bucket.rating);
 
-              return (
+                return (
+                  <div
+                    key={bucket.rating}
+                    className="flex-1 min-w-[20px] flex flex-col items-center group relative h-full justify-end"
+                  >
+                    {/* Tooltip khi hover */}
+                    <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 bg-gray-900 text-white text-[11px] py-1 px-2 rounded shadow whitespace-nowrap">
+                      Rating {bucket.rating}: {bucket.count} bài ({totalSolved > 0 ? Math.round((bucket.count / totalSolved) * 100) : 0}%)
+                      {isRecommended && ' • 🎯 Đề xuất'}
+                    </div>
+
+                    {/* Nhãn số bài trên đầu cột (nếu có bài) */}
+                    {bucket.count > 0 && (
+                      <span className="text-[10px] text-gray-500 font-mono mb-1 scale-90 group-hover:font-bold group-hover:text-blue-600 transition-colors">
+                        {bucket.count}
+                      </span>
+                    )}
+
+                    {/* Cột biểu đồ */}
+                    <div
+                      style={{
+                        height: `${heightPercent}%`,
+                        backgroundColor: isRecommended ? '#2563eb' : color,
+                        opacity: bucket.count === 0 ? 0.2 : (isRecommended ? 1 : 0.85),
+                      }}
+                      className={`w-full rounded-t transition-all group-hover:opacity-100 ${
+                        isRecommended ? 'ring-2 ring-blue-500 ring-offset-1' : ''
+                      }`}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Trục hoành (Rating Labels) */}
+            <div className="flex gap-1 sm:gap-1.5 pt-2 text-[10px] text-gray-500 font-mono">
+              {distribution.map((bucket) => (
                 <div
                   key={bucket.rating}
-                  className="flex-1 min-w-[24px] flex flex-col items-center group relative h-full justify-end"
+                  className={`flex-1 min-w-[20px] text-center truncate ${
+                    bucket.rating === recommendedRating ? 'font-bold text-blue-600' : ''
+                  }`}
+                  title={`Rating ${bucket.rating}`}
                 >
-                  {/* Tooltip khi hover */}
-                  <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 bg-gray-900 text-white text-[11px] py-1 px-2 rounded shadow whitespace-nowrap">
-                    Rating {bucket.rating}: {bucket.count} bài ({totalSolved > 0 ? Math.round((bucket.count / totalSolved) * 100) : 0}%)
-                    {isRecommended && ' • 🎯 Đề xuất'}
-                  </div>
-
-                  {/* Nhãn số bài trên đầu cột (nếu có bài) */}
-                  {bucket.count > 0 && (
-                    <span className="text-[10px] text-gray-500 font-mono mb-1 scale-90 group-hover:font-bold group-hover:text-blue-600 transition-colors">
-                      {bucket.count}
-                    </span>
-                  )}
-
-                  {/* Cột biểu đồ */}
-                  <div
-                    style={{
-                      height: `${heightPercent}%`,
-                      backgroundColor: isRecommended ? '#2563eb' : color,
-                      opacity: bucket.count === 0 ? 0.2 : (isRecommended ? 1 : 0.85),
-                    }}
-                    className={`w-full rounded-t transition-all group-hover:opacity-100 ${
-                      isRecommended ? 'ring-2 ring-blue-500 ring-offset-1' : ''
-                    }`}
-                  />
+                  {bucket.rating % 200 === 0 || bucket.rating === 3500 ? bucket.rating : ''}
                 </div>
-              );
-            })}
-          </div>
-
-          {/* Trục hoành (Rating Labels) */}
-          <div className="flex gap-1 sm:gap-1.5 pt-2 text-[10px] text-gray-500 font-mono overflow-x-auto">
-            {distribution.map((bucket) => (
-              <div
-                key={bucket.rating}
-                className={`flex-1 min-w-[24px] text-center truncate ${
-                  bucket.rating === recommendedRating ? 'font-bold text-blue-600' : ''
-                }`}
-                title={`Rating ${bucket.rating}`}
-              >
-                {bucket.rating % 200 === 0 ? bucket.rating : ''}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
@@ -154,7 +157,11 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#ff0000' }}></span>
-            <span>2400+ (Grandmaster)</span>
+            <span>2400-2999 (Grandmaster)</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#a00000' }}></span>
+            <span>3000+ (Legendary GM)</span>
           </div>
         </div>
 

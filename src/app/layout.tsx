@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'oj.uz Insight & Recommender — LibreOJ Style',
+  title: 'CPSuggestor — OJ.uz Checklist & Codeforces AI Recommender',
   description:
-    'Phân tích tài khoản oj.uz, chỉ ra điểm mạnh yếu theo chủ đề và gợi ý bài tập Olympic Tin học (OI/CP) tiếp theo kèm Activity Heatmap.',
+    'Nền tảng hỗ trợ học sinh Olympic Tin học (OI/CP): Checklist 12 kỳ thi OJ.uz và Huấn luyện viên AI phân tích Rating Codeforces.',
 };
 
 export default function RootLayout({
