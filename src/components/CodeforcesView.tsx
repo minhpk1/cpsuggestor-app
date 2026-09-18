@@ -5,9 +5,11 @@ import { CFProfileResponse, fetchCFProfileClientSide } from '@/lib/codeforcesCli
 import { CodeforcesRatingChart } from './CodeforcesRatingChart';
 import { CodeforcesTagStats } from './CodeforcesTagStats';
 import { CodeforcesRandomTrainer } from './CodeforcesRandomTrainer';
-import { Search, Loader2, AlertCircle, User, Award, Flame, ExternalLink, RefreshCw } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { Search, ExternalLink, Loader2, AlertCircle, Sparkles, RefreshCw } from 'lucide-react';
 
 export const CodeforcesView: React.FC = () => {
+  const { t } = useLanguage();
   const [handle, setHandle] = useState<string>('tourist');
   const [inputHandle, setInputHandle] = useState<string>('tourist');
   const [profile, setProfile] = useState<CFProfileResponse | null>(null);
@@ -86,7 +88,7 @@ export const CodeforcesView: React.FC = () => {
               type="text"
               value={inputHandle}
               onChange={(e) => setInputHandle(e.target.value)}
-              placeholder="Nhập handle Codeforces của bạn (ví dụ: tourist, Benq, Errichto)..."
+              placeholder={t('cf_input_placeholder')}
               className="w-full text-xs font-mono bg-[#fafbfc] border border-gray-300 rounded pl-9 pr-3 py-2 focus:outline-none focus:border-blue-500"
             />
           </div>
@@ -98,10 +100,10 @@ export const CodeforcesView: React.FC = () => {
             {loading ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>Đang phân tích...</span>
+                <span>{t('btn_loading_profile')}</span>
               </>
             ) : (
-              <span>Phân tích tài khoản</span>
+              <span>{t('btn_view_profile')}</span>
             )}
           </button>
         </form>
@@ -119,7 +121,7 @@ export const CodeforcesView: React.FC = () => {
       {loading && (
         <div className="p-4 bg-blue-50/70 border border-blue-200 rounded text-xs text-blue-700 flex items-center justify-center space-x-2">
           <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-          <span>Đang lấy lịch sử bài nộp và phân tích dữ liệu cho tài khoản "{inputHandle}"...</span>
+          <span>{t('btn_loading_profile')} "{inputHandle}"...</span>
         </div>
       )}
 
@@ -159,7 +161,7 @@ export const CodeforcesView: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-blue-600"
-                      title="Mở hồ sơ trên Codeforces"
+                      title="Codeforces profile"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -177,19 +179,19 @@ export const CodeforcesView: React.FC = () => {
               {/* Các thẻ chỉ số nhanh */}
               <div className="flex items-center space-x-3 text-center flex-wrap gap-y-2">
                 <div className="px-3 py-1.5 bg-[#fafbfc] border border-gray-200 rounded">
-                  <span className="block text-[11px] text-gray-500">Tổng bài AC</span>
+                  <span className="block text-[11px] text-gray-500">{t('cf_total_ac')}</span>
                   <span className="text-base font-bold font-mono text-emerald-600">
                     {profile.totalSolved}
                   </span>
                 </div>
                 <div className="px-3 py-1.5 bg-[#fafbfc] border border-gray-200 rounded">
-                  <span className="block text-[11px] text-gray-500">Lượt nộp bài</span>
+                  <span className="block text-[11px] text-gray-500">{t('cf_total_submissions')}</span>
                   <span className="text-base font-bold font-mono text-gray-800">
                     {profile.totalSubmissions}
                   </span>
                 </div>
                 <div className="px-3 py-1.5 bg-blue-50 border border-blue-200 rounded">
-                  <span className="block text-[11px] text-blue-600 font-medium">Rating đề xuất</span>
+                  <span className="block text-[11px] text-blue-600 font-medium">{t('cf_recommended_title')}</span>
                   <span className="text-base font-bold font-mono text-blue-700">
                     {profile.recommendedRating}
                   </span>

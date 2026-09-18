@@ -3,7 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { UserSubmission } from '../types';
 import { parsePastedOjuzSubmissions } from '@/lib/multiPlatformCrawler';
-import { Calendar, UploadCloud, Info, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { Calendar, UploadCloud, Info } from 'lucide-react';
 
 interface SubmissionHeatmapProps {
   dailyHeatmap: Record<string, number>;
@@ -17,20 +18,17 @@ interface SubmissionHeatmapProps {
 
 export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
   dailyHeatmap,
-  submissions,
   currentStreak,
-  longestStreak,
-  isRealSubmissionHistory = false,
-  submissionSourceInfo = '',
   onImportSubmissions,
 }) => {
+  const { t } = useLanguage();
   const [hoveredDay, setHoveredDay] = useState<{ date: string; count: number } | null>(null);
   const [isImportOpen, setIsImportOpen] = useState<boolean>(false);
   const [pasteText, setPasteText] = useState<string>('');
   const [importStatus, setImportStatus] = useState<string | null>(null);
 
   // 52 tuần (364 ngày)
-  const { weeks, monthLabels, totalSubmissions, activeDays } = useMemo(() => {
+  const { weeks, monthLabels, totalSubmissions } = useMemo(() => {
     const today = new Date();
     const days: { date: string; count: number; dayOfWeek: number; month: number }[] = [];
 
@@ -67,10 +65,11 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
       weeksArr.push(currentWeek);
     }
 
-    const monthNames = [
-      'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-      'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-    ];
+    const monthKeys = [
+      'month_1', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6',
+      'month_7', 'month_8', 'month_9', 'month_10', 'month_11', 'month_12'
+    ] as const;
+    const monthNames = monthKeys.map(k => t(k));
     const months: { name: string; weekIndex: number }[] = [];
     let lastMonth = -1;
 
@@ -95,7 +94,7 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
       totalSubmissions: sum,
       activeDays: active,
     };
-  }, [dailyHeatmap]);
+  }, [dailyHeatmap, t]);
 
   const getColorClass = (count: number) => {
     if (count === 0) return 'bg-[#ebedf0] border-transparent';
@@ -110,14 +109,14 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
     const parsed = parsePastedOjuzSubmissions(pasteText);
     if (parsed.length > 0) {
       onImportSubmissions(parsed);
-      setImportStatus(`Đã trích xuất thành công ${parsed.length} lượt nộp từ oj.uz!`);
+      setImportStatus(`${t('extract_success')} ${parsed.length} ${t('extract_success_suffix')}`);
       setTimeout(() => {
         setIsImportOpen(false);
         setPasteText('');
         setImportStatus(null);
       }, 1500);
     } else {
-      setImportStatus('Không tìm thấy dữ liệu. Hãy copy bảng hoặc mã nguồn trang oj.uz/submissions.');
+      setImportStatus(t('extract_failed'));
     }
   };
 
@@ -126,22 +125,22 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
       <div className="loj-card-header">
         <div className="flex items-center space-x-2">
           <Calendar className="w-4 h-4 text-gray-500" />
-          <span>Lịch nộp bài & Tần suất hoạt động trên oj.uz</span>
+          <span>{t('heatmap_title')}</span>
         </div>
 
         <div className="flex items-center space-x-3 text-xs">
           <span className="text-gray-500">
-            Tổng nộp: <strong className="text-gray-800 font-mono">{totalSubmissions}</strong>
+            {t('total_submissions')} <strong className="text-gray-800 font-mono">{totalSubmissions}</strong>
           </span>
           <span className="text-gray-500">
-            Streak: <strong className="text-rose-600 font-mono">{currentStreak} ngày</strong>
+            {t('streak_label')} <strong className="text-rose-600 font-mono">{currentStreak} {t('days_unit')}</strong>
           </span>
           <button
             onClick={() => setIsImportOpen(!isImportOpen)}
             className="text-blue-600 hover:text-blue-800 inline-flex items-center space-x-1"
           >
             <UploadCloud className="w-3.5 h-3.5" />
-            <span>{isImportOpen ? 'Đóng' : 'Dán bảng submissions'}</span>
+            <span>{isImportOpen ? t('btn_close_subs') : t('btn_paste_subs')}</span>
           </button>
         </div>
       </div>
@@ -154,11 +153,10 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
             <div className="flex items-start space-x-2 text-gray-700 mb-2">
               <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
               <p>
-                oj.uz chặn cào tự động trang <code>/submissions</code> bằng Cloudflare. Để đồng bộ 100% lịch sử nộp bài thật: Mở trang{' '}
+                {t('paste_subs_info')}{' '}
                 <a href="https://oj.uz/submissions" target="_blank" rel="noopener noreferrer" className="loj-link font-medium">
                   oj.uz/submissions
                 </a>
-                , bôi đen copy bảng nộp bài của bạn và dán vào ô bên dưới:
               </p>
             </div>
 
@@ -166,7 +164,7 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
               rows={3}
               value={pasteText}
               onChange={(e) => setPasteText(e.target.value)}
-              placeholder="Dán văn bản hoặc mã nguồn HTML từ oj.uz/submissions vào đây..."
+              placeholder={t('paste_subs_placeholder')}
               className="w-full p-2 border border-gray-300 rounded font-mono text-xs focus:outline-none focus:border-blue-500 bg-white"
             />
 
@@ -175,7 +173,7 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
                 onClick={handleImport}
                 className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium"
               >
-                Trích xuất & Cập nhật
+                {t('btn_extract_subs')}
               </button>
               {importStatus && (
                 <span className="text-emerald-700 font-medium">{importStatus}</span>
@@ -201,13 +199,13 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
 
             <div className="flex space-x-1">
               <div className="flex flex-col justify-between text-[10px] text-gray-400 pr-1 select-none">
-                <span>CN</span>
-                <span>T2</span>
-                <span>T3</span>
-                <span>T4</span>
-                <span>T5</span>
-                <span>T6</span>
-                <span>T7</span>
+                <span>{t('day_sun')}</span>
+                <span>{t('day_mon')}</span>
+                <span>{t('day_tue')}</span>
+                <span>{t('day_wed')}</span>
+                <span>{t('day_thu')}</span>
+                <span>{t('day_fri')}</span>
+                <span>{t('day_sat')}</span>
               </div>
 
               <div className="flex space-x-[2px]">
@@ -238,21 +236,21 @@ export const SubmissionHeatmap: React.FC<SubmissionHeatmapProps> = ({
               <div className="h-4">
                 {hoveredDay ? (
                   <span className="font-mono text-gray-800">
-                    <strong>{hoveredDay.count} bài nộp</strong> vào ngày {hoveredDay.date}
+                    <strong>{hoveredDay.count}</strong> {t('tooltip_submissions')} {hoveredDay.date}
                   </span>
                 ) : (
-                  <span className="text-gray-400">Rê chuột vào các ô để xem số bài nộp</span>
+                  <span className="text-gray-400">{t('tooltip_hover_hint')}</span>
                 )}
               </div>
 
               <div className="flex items-center space-x-1 text-[11px]">
-                <span>Less</span>
+                <span>{t('legend_less')}</span>
                 <div className="w-[10px] h-[10px] rounded-[1px] bg-[#ebedf0]" />
                 <div className="w-[10px] h-[10px] rounded-[1px] bg-[#9be9a8]" />
                 <div className="w-[10px] h-[10px] rounded-[1px] bg-[#40c463]" />
                 <div className="w-[10px] h-[10px] rounded-[1px] bg-[#30a14e]" />
                 <div className="w-[10px] h-[10px] rounded-[1px] bg-[#216e39]" />
-                <span>More</span>
+                <span>{t('legend_more')}</span>
               </div>
             </div>
 

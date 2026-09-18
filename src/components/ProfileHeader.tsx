@@ -1,8 +1,7 @@
-'use client';
-
 import React from 'react';
 import { UserProfileData } from '../types';
-import { Flame, Trophy, CheckCircle2, AlertCircle, RefreshCw, ExternalLink, Calendar, Code } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { Flame, Trophy, CheckCircle2, AlertCircle, RefreshCw, ExternalLink, Calendar } from 'lucide-react';
 
 interface ProfileHeaderProps {
   profile: UserProfileData;
@@ -17,6 +16,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   onSelectSampleUser,
   loading,
 }) => {
+  const { lang, t } = useLanguage();
   const initials = profile.handle.substring(0, 2).toUpperCase();
 
   return (
@@ -43,17 +43,17 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 <ExternalLink className="w-3 h-3" />
               </a>
               <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-medium">
-                Active Member
+                {t('active_member')}
               </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
               <Calendar className="w-3.5 h-3.5" />
-              Đồng bộ lúc: {new Date(profile.fetchedAt).toLocaleTimeString('vi-VN')} {new Date(profile.fetchedAt).toLocaleDateString('vi-VN')}
+              {t('synced_at')} {new Date(profile.fetchedAt).toLocaleTimeString(lang === 'vi' ? 'vi-VN' : 'en-US')} {new Date(profile.fetchedAt).toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US')}
             </p>
           </div>
         </div>
 
-        {/* Stats Pills kiểu LibreOJ */}
+        {/* Stats Pills */}
         <div className="flex flex-wrap items-center gap-3">
           
           {/* Solved Card */}
@@ -61,10 +61,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <div>
               <div className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
-                Đã giải quyết (AC)
+                {t('ac_problems')}
               </div>
               <div className="text-lg font-bold text-emerald-800 dark:text-emerald-200 font-mono leading-none mt-0.5">
-                {profile.totalSolved} <span className="text-xs font-normal">bài</span>
+                {profile.totalSolved} <span className="text-xs font-normal">{t('problems_unit')}</span>
               </div>
             </div>
           </div>
@@ -74,10 +74,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             <div>
               <div className="text-[11px] font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wider">
-                Chưa hoàn thành
+                {t('uncompleted_problems')}
               </div>
               <div className="text-lg font-bold text-amber-800 dark:text-amber-200 font-mono leading-none mt-0.5">
-                {profile.unsolvedProblemIds.length} <span className="text-xs font-normal">bài</span>
+                {profile.unsolvedProblemIds.length} <span className="text-xs font-normal">{t('problems_unit')}</span>
               </div>
             </div>
           </div>
@@ -87,10 +87,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400 animate-pulse" />
             <div>
               <div className="text-[11px] font-semibold text-rose-700 dark:text-rose-300 uppercase tracking-wider">
-                Streak hiện tại
+                {t('current_streak')}
               </div>
               <div className="text-lg font-bold text-rose-800 dark:text-rose-200 font-mono leading-none mt-0.5">
-                {profile.currentStreak} <span className="text-xs font-normal">ngày</span>
+                {profile.currentStreak} <span className="text-xs font-normal">{t('days_unit')}</span>
               </div>
             </div>
           </div>
@@ -100,10 +100,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <Trophy className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             <div>
               <div className="text-[11px] font-semibold text-purple-700 dark:text-purple-300 uppercase tracking-wider">
-                Kỷ lục Streak
+                {t('longest_streak')}
               </div>
               <div className="text-lg font-bold text-purple-800 dark:text-purple-200 font-mono leading-none mt-0.5">
-                {profile.longestStreak} <span className="text-xs font-normal">ngày</span>
+                {profile.longestStreak} <span className="text-xs font-normal">{t('days_unit')}</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       {/* Action Bar & Quick Profiles */}
       <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-          <span>Xem tài khoản mẫu:</span>
+          <span>{t('sample_users')}</span>
           <button
             onClick={() => onSelectSampleUser('Benq')}
             className="font-mono text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded font-medium"
@@ -136,7 +136,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          <span>{loading ? 'Đang cào dữ liệu...' : 'Làm mới từ oj.uz'}</span>
+          <span>{loading ? t('btn_refreshing') : t('btn_refresh_data')}</span>
         </button>
       </div>
     </div>

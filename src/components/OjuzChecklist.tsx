@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { OJProblem } from '@/types';
 import { OJUZ_PROBLEMS } from '@/data/problemset';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   CheckCircle2, 
   Circle, 
@@ -12,9 +13,6 @@ import {
   Search, 
   Trophy, 
   ListChecks, 
-  Sparkles,
-  ChevronRight,
-  Filter
 } from 'lucide-react';
 
 const CONTEST_LIST = [
@@ -44,6 +42,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
   unsolvedIds,
   initialContest = 'Tất cả',
 }) => {
+  const { t } = useLanguage();
   const [selectedContest, setSelectedContest] = useState<string>(initialContest);
   const [statusFilter, setStatusFilter] = useState<'all' | 'unsolved' | 'solved' | 'partial'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -123,7 +122,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
 
     if (pool.length === 0) {
       setRandomProblem(null);
-      setRandomMessage(`Bạn đã hoàn thành (AC) toàn bộ các bài trong kỳ thi ${randomContest}! 🎉`);
+      setRandomMessage(t('congrats_all_solved'));
       return;
     }
 
@@ -147,11 +146,11 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
           <div className="flex items-center space-x-2">
             <Dices className="w-4 h-4 text-blue-600" />
             <h2 className="text-sm font-semibold text-gray-800 tracking-tight">
-              Random bài tập OJ.uz chưa AC (Chọn theo kỳ thi)
+              {t('random_oj_title')}
             </h2>
           </div>
           <span className="text-xs text-gray-500 font-mono">
-            Còn <strong className="text-blue-600">{Math.max(0, totalProblems - totalSolved)}</strong> bài chưa AC
+            {t('random_oj_remaining')} <strong className="text-blue-600">{Math.max(0, totalProblems - totalSolved)}</strong> {t('random_oj_unsolved_count')}
           </span>
         </div>
 
@@ -159,16 +158,16 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
           <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-medium text-gray-600 mb-1">
-                Chọn Kỳ thi Olympic muốn luyện:
+                {t('select_contest_label')}
               </label>
               <select
                 value={randomContest}
                 onChange={(e) => setRandomContest(e.target.value)}
-                className="w-full text-xs bg-[#fafbfc] border border-gray-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-500 font-medium text-gray-800"
+                className="w-full text-xs bg-[#fafbfc] border border-gray-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-500 font-medium text-gray-800 font-mono"
               >
                 {CONTEST_LIST.map((c) => (
                   <option key={c} value={c}>
-                    {c} {c !== 'Tất cả' && contestStats[c] ? `(${contestStats[c].solved}/${contestStats[c].total} AC)` : ''}
+                    {c === 'Tất cả' ? t('all_contests') : c} {c !== 'Tất cả' && contestStats[c] ? `(${contestStats[c].solved}/${contestStats[c].total} AC)` : ''}
                   </option>
                 ))}
               </select>
@@ -180,7 +179,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                 className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition-colors flex items-center justify-center space-x-1.5 shadow-sm"
               >
                 <Dices className="w-3.5 h-3.5" />
-                <span>Random bài chưa AC</span>
+                <span>{t('btn_random_oj')}</span>
               </button>
             </div>
           </div>
@@ -215,12 +214,12 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                     {unsolvedSet.has(randomProblem.id) ? (
                       <span className="inline-flex items-center space-x-1 text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
                         <Clock className="w-3 h-3" />
-                        <span>Đã nộp nhưng chưa đạt 100 điểm</span>
+                        <span>{t('status_partial')}</span>
                       </span>
                     ) : (
                       <span className="inline-flex items-center space-x-1 text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
                         <Circle className="w-3 h-3 text-gray-400" />
-                        <span>Chưa giải</span>
+                        <span>{t('status_never_submitted')}</span>
                       </span>
                     )}
                   </div>
@@ -232,7 +231,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                     className="px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-300 rounded text-xs text-gray-700 font-medium transition-colors flex items-center space-x-1"
                   >
                     <Dices className="w-3.5 h-3.5" />
-                    <span>Đổi bài khác</span>
+                    <span>{t('btn_change_problem')}</span>
                   </button>
 
                   <a
@@ -241,7 +240,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                     rel="noopener noreferrer"
                     className="inline-flex items-center space-x-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition-colors shadow-sm"
                   >
-                    <span>Làm bài trên oj.uz</span>
+                    <span>{t('btn_open_ojuz')}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -259,11 +258,11 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
           <div className="flex items-center space-x-2">
             <Trophy className="w-4 h-4 text-blue-600" />
             <h2 className="text-sm font-semibold text-gray-800 tracking-tight">
-              Tiến độ giải bài theo Kỳ thi (OI Contests)
+              {t('contest_progress_title')}
             </h2>
           </div>
           <span className="text-xs text-gray-500 font-mono">
-            {totalSolved} / {totalProblems} bài AC ({totalProblems > 0 ? Math.round((totalSolved / totalProblems) * 100) : 0}%)
+            {totalSolved} / {totalProblems} {t('problems_unit')} AC ({totalProblems > 0 ? Math.round((totalSolved / totalProblems) * 100) : 0}%)
           </span>
         </div>
 
@@ -281,6 +280,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                     ? 'border-blue-500 bg-blue-50/50 shadow-sm'
                     : 'border-gray-200 bg-[#fafbfc] hover:border-gray-300'
                 }`}
+                title={t('filter_by_contest_hint')}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-semibold text-xs text-gray-800 font-mono">
@@ -316,7 +316,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
           <div className="flex items-center space-x-2">
             <ListChecks className="w-4 h-4 text-blue-600" />
             <h2 className="text-sm font-semibold text-gray-800 tracking-tight">
-              OI Checklist ({filteredProblems.length} bài)
+              OI Checklist ({filteredProblems.length} {t('problems_unit')})
             </h2>
           </div>
 
@@ -328,7 +328,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                 statusFilter === 'all' ? 'bg-[#f0f2f5] font-medium text-gray-900' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Tất cả
+              {t('all_filter')}
             </button>
             <button
               onClick={() => setStatusFilter('unsolved')}
@@ -336,7 +336,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                 statusFilter === 'unsolved' ? 'bg-[#f0f2f5] font-medium text-gray-900' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Chưa AC
+              {t('unsolved_filter')}
             </button>
             <button
               onClick={() => setStatusFilter('solved')}
@@ -344,7 +344,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                 statusFilter === 'solved' ? 'bg-[#f0f2f5] font-medium text-gray-900' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Đã AC
+              {t('solved_filter')}
             </button>
             <button
               onClick={() => setStatusFilter('partial')}
@@ -352,7 +352,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                 statusFilter === 'partial' ? 'bg-[#f0f2f5] font-medium text-gray-900' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Dở dang
+              {t('partial_filter')}
             </button>
           </div>
         </div>
@@ -365,13 +365,13 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm theo mã bài, tên bài (ví dụ: sequence, teams, postmen)..."
+              placeholder={t('search_problem_placeholder')}
               className="w-full text-xs bg-white border border-gray-300 rounded pl-8 pr-3 py-1.5 focus:outline-none focus:border-blue-500"
             />
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-xs text-gray-500 whitespace-nowrap">Kỳ thi:</span>
+            <span className="text-xs text-gray-500 whitespace-nowrap">{t('col_contest')}:</span>
             <select
               value={selectedContest}
               onChange={(e) => setSelectedContest(e.target.value)}
@@ -379,31 +379,31 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
             >
               {CONTEST_LIST.map((c) => (
                 <option key={c} value={c}>
-                  {c}
+                  {c === 'Tất cả' ? t('all_contests') : c}
                 </option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* Bảng danh sách bài tập chuẩn phong cách LibreOJ (Không tag, không độ khó) */}
+        {/* Bảng danh sách bài tập */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-[#e8e8e8] bg-[#fafafa] text-gray-600 font-medium">
-                <th className="py-2.5 px-3 w-12 text-center">Trạng thái</th>
-                <th className="py-2.5 px-3 w-36">Mã bài (ID)</th>
-                <th className="py-2.5 px-3">Tên bài tập</th>
-                <th className="py-2.5 px-3 w-32">Kỳ thi</th>
-                <th className="py-2.5 px-3 w-20 text-center">Điểm</th>
-                <th className="py-2.5 px-3 w-24 text-right">Làm bài</th>
+                <th className="py-2.5 px-3 w-12 text-center">{t('col_status')}</th>
+                <th className="py-2.5 px-3 w-36">ID</th>
+                <th className="py-2.5 px-3">{t('col_problem')}</th>
+                <th className="py-2.5 px-3 w-32">{t('col_contest')}</th>
+                <th className="py-2.5 px-3 w-20 text-center">Score</th>
+                <th className="py-2.5 px-3 w-24 text-right">{t('col_action')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#f0f0f0]">
               {filteredProblems.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-8 text-center text-gray-400">
-                    Không tìm thấy bài tập nào phù hợp với bộ lọc hiện tại.
+                    {t('no_problems_found')}
                   </td>
                 </tr>
               ) : (
@@ -421,15 +421,15 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                       {/* Trạng thái Checkbox */}
                       <td className="py-2 px-3 text-center">
                         {isAC ? (
-                          <span title="Đã đạt 100/100 điểm">
+                          <span title="100/100 AC">
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 inline" />
                           </span>
                         ) : isPartial ? (
-                          <span title="Đã nộp nhưng chưa full điểm">
+                          <span title="Partial score (<100)">
                             <Clock className="w-4 h-4 text-amber-500 inline" />
                           </span>
                         ) : (
-                          <span title="Chưa làm">
+                          <span title="Unsolved">
                             <Circle className="w-4 h-4 text-gray-300 inline" />
                           </span>
                         )}
@@ -462,7 +462,7 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
                         {isAC ? (
                           <span className="font-bold text-emerald-600">100</span>
                         ) : isPartial ? (
-                          <span className="font-semibold text-amber-600">30-70</span>
+                          <span className="font-semibold text-amber-600">&gt;0</span>
                         ) : (
                           <span className="text-gray-400">0</span>
                         )}
@@ -491,10 +491,10 @@ export const OjuzChecklist: React.FC<OjuzChecklistProps> = ({
         {/* Footer phân trang / đếm số lượng */}
         <div className="p-3 bg-[#fafafa] border-t border-[#e8e8e8] flex items-center justify-between text-xs text-gray-500">
           <span>
-            Hiển thị <strong>{filteredProblems.length}</strong> bài tập
+            {t('showing_problems')} <strong>{filteredProblems.length}</strong> {t('problems_unit')}
           </span>
           <span>
-            {totalSolved} AC · {totalPartial} Đang làm dở · {Math.max(0, totalProblems - totalSolved - totalPartial)} Chưa làm
+            {totalSolved} AC · {totalPartial} Partial · {Math.max(0, totalProblems - totalSolved - totalPartial)} Unsolved
           </span>
         </div>
       </div>

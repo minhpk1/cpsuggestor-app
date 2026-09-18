@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { CFRatingBucket } from '@/app/api/codeforces/profile/route';
-import { BarChart3, TrendingUp, Sparkles, Award } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { BarChart3, Sparkles } from 'lucide-react';
 
 interface CodeforcesRatingChartProps {
   distribution: CFRatingBucket[];
@@ -17,6 +18,8 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
   recommendedReason,
   totalSolved,
 }) => {
+  const { t } = useLanguage();
+
   // Tìm giá trị max để scale độ cao cột
   const maxCount = Math.max(...distribution.map(d => d.count), 1);
 
@@ -34,16 +37,16 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
 
   return (
     <div className="bg-white border border-[#e8e8e8] rounded shadow-sm overflow-hidden">
-      {/* Header phong cách LibreOJ */}
+      {/* Header */}
       <div className="bg-[#fafafa] px-4 py-3 border-b border-[#e8e8e8] flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center space-x-2">
           <BarChart3 className="w-4 h-4 text-blue-600" />
           <h2 className="text-sm font-semibold text-gray-800 tracking-tight">
-            Phân bố Rating các bài đã giải trên Codeforces (800 – 3500)
+            {t('cf_chart_title')}
           </h2>
         </div>
         <span className="text-xs text-gray-500 font-mono">
-          Tổng cộng: <strong className="text-gray-800">{totalSolved}</strong> bài AC
+          {t('cf_chart_total')} <strong className="text-gray-800">{totalSolved}</strong> {t('cf_chart_ac_unit')}
         </span>
       </div>
 
@@ -57,7 +60,7 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
           <div className="flex-1 text-xs text-gray-700 leading-relaxed">
             <div className="flex items-center space-x-2 mb-1">
               <span className="font-semibold text-gray-900 text-sm">
-                Rating đề xuất để luyện tập tiếp theo:
+                {t('cf_recommended_title')}
               </span>
               <span className="px-2 py-0.5 rounded font-mono font-bold text-white text-xs" style={{ backgroundColor: getRatingColor(recommendedRating) }}>
                 {recommendedRating}
@@ -85,8 +88,8 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
                   >
                     {/* Tooltip khi hover */}
                     <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 bg-gray-900 text-white text-[11px] py-1 px-2 rounded shadow whitespace-nowrap">
-                      Rating {bucket.rating}: {bucket.count} bài ({totalSolved > 0 ? Math.round((bucket.count / totalSolved) * 100) : 0}%)
-                      {isRecommended && ' • 🎯 Đề xuất'}
+                      Rating {bucket.rating}: {bucket.count} ({totalSolved > 0 ? Math.round((bucket.count / totalSolved) * 100) : 0}%)
+                      {isRecommended && ` • ${t('cf_tooltip_recommended')}`}
                     </div>
 
                     {/* Nhãn số bài trên đầu cột (nếu có bài) */}
@@ -133,35 +136,35 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
         <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-center flex-wrap gap-3 text-[11px] text-gray-600">
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#808080' }}></span>
-            <span>&lt;1200 (Newbie)</span>
+            <span>{t('cf_legend_newbie')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#008000' }}></span>
-            <span>1200-1399 (Pupil)</span>
+            <span>{t('cf_legend_pupil')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#03a89e' }}></span>
-            <span>1400-1599 (Specialist)</span>
+            <span>{t('cf_legend_specialist')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#0000ff' }}></span>
-            <span>1600-1899 (Expert)</span>
+            <span>{t('cf_legend_expert')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#aa00aa' }}></span>
-            <span>1900-2099 (CM)</span>
+            <span>{t('cf_legend_cm')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#ff8c00' }}></span>
-            <span>2100-2399 (Master)</span>
+            <span>{t('cf_legend_master')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#ff0000' }}></span>
-            <span>2400-2999 (Grandmaster)</span>
+            <span>{t('cf_legend_gm')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: '#a00000' }}></span>
-            <span>3000+ (Legendary GM)</span>
+            <span>{t('cf_legend_legendary_gm')}</span>
           </div>
         </div>
 

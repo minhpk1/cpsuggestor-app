@@ -9,8 +9,10 @@ import { CodeforcesView } from '@/components/CodeforcesView';
 import { Footer } from '@/components/Footer';
 import { UserProfileData, UserSubmission } from '@/types';
 import { Loader2, AlertCircle, Sparkles, BookOpen } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HomePage() {
+  const { t } = useLanguage();
   const [platform, setPlatform] = useState<'ojuz' | 'codeforces'>('ojuz');
   const [handle, setHandle] = useState<string>('Benq');
   const [profile, setProfile] = useState<UserProfileData | null>(null);
@@ -95,7 +97,7 @@ export default function HomePage() {
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-blue-600" />
-              <span>Olympic Tin học (OJ.uz Checklist)</span>
+              <span>{t('platform_switch_oj')}</span>
             </button>
 
             <button
@@ -107,14 +109,14 @@ export default function HomePage() {
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              <span>Luyện tập Codeforces & Gemini AI</span>
+              <span>{t('platform_switch_cf')}</span>
             </button>
           </div>
 
           <span className="text-[11px] text-gray-500 hidden sm:inline">
             {platform === 'ojuz'
-              ? 'OI Checklist & Random bài chưa AC theo kỳ thi APIO, IZhO, CEOI, BOI, IOI...'
-              : 'Thống kê Tags, Biểu đồ Rating & Random bài chưa AC kèm gợi ý AI'}
+              ? t('platform_switch_oj_sub')
+              : t('platform_switch_cf_sub')}
           </span>
         </div>
         
@@ -135,7 +137,7 @@ export default function HomePage() {
             {loading && (
               <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-700 flex items-center space-x-2">
                 <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
-                <span>Đang lấy dữ liệu từ oj.uz cho tài khoản "{handle}"...</span>
+                <span>{t('loading_oj_data')} "{handle}"...</span>
               </div>
             )}
 

@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Home, BookOpen, Trophy, Hourglass, Users, Sparkles, ChevronDown } from 'lucide-react';
+import { Sparkles, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface NavbarProps {
   currentHandle: string;
@@ -18,15 +19,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
 }) => {
+  const { lang, toggleLang, t } = useLanguage();
+
   return (
     <header className="bg-white border-b border-[#e8e8e8] sticky top-0 z-50">
       <div className="max-w-[1240px] mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           
-          {/* Left: LibreOJ Logo & Navigation Items */}
+          {/* Left: CPSuggestor Logo & Platform Selector */}
           <div className="flex items-center space-x-1 sm:space-x-3">
             
-            {/* LibreOJ Logo */}
+            {/* Logo */}
             <div 
               onClick={() => { setActiveTab('home'); }} 
               className="flex items-center space-x-2 mr-2 sm:mr-4 cursor-pointer select-none"
@@ -35,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <path d="M11.5 6.5L4 16l7.5 9.5 2-1.6L7 16l6.5-7.9-2-1.6zm9 0l-2 1.6L25 16l-6.5 7.9 2 1.6L28 16l-7.5-9.5z"/>
               </svg>
               <span className="text-xl tracking-tight text-gray-800 font-semibold hidden sm:inline">
-                CPSuggestor
+                {t('brand')}
               </span>
             </div>
 
@@ -49,8 +52,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                <span>OJ.uz</span>
-                <span className="text-[10px] text-gray-400 font-normal hidden md:inline">(OI)</span>
+                <span>{t('platform_ojuz')}</span>
+                <span className="text-[10px] text-gray-400 font-normal hidden md:inline">{t('platform_ojuz_sub')}</span>
               </button>
 
               <button
@@ -62,8 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Sparkles className="w-3 h-3 text-blue-500" />
-                <span>Codeforces</span>
-                <span className="text-[10px] text-blue-500 font-medium hidden md:inline">+ AI</span>
+                <span>{t('platform_cf')}</span>
+                <span className="text-[10px] text-blue-500 font-medium hidden md:inline">{t('platform_cf_sub')}</span>
               </button>
             </div>
 
@@ -78,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  Kho bài & Gợi ý
+                  {t('nav_oj_problems')}
                 </button>
                 <button
                   onClick={() => setActiveTab('skills')}
@@ -88,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  Đánh giá kỹ năng
+                  {t('nav_oj_skills')}
                 </button>
                 <button
                   onClick={() => setActiveTab('heatmap')}
@@ -98,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  Lịch sử nộp bài
+                  {t('nav_oj_heatmap')}
                 </button>
               </nav>
             )}
@@ -106,15 +109,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             {activePlatform === 'codeforces' && (
               <nav className="hidden lg:flex items-center space-x-1 text-[13px] ml-2">
                 <span className="px-2 py-1 text-xs text-gray-500">
-                  Phân tích Rating, Tags & Random bài luyện tập với Gemini AI
+                  {t('nav_cf_tagline')}
                 </span>
               </nav>
             )}
 
           </div>
 
-          {/* Right: Platform indicator & Username */}
-          <div className="flex items-center space-x-3 text-xs">
+          {/* Right: Language toggle & Username */}
+          <div className="flex items-center space-x-2 sm:space-x-3 text-xs">
+            
+            {/* Language Switcher Button */}
+            <button
+              onClick={toggleLang}
+              className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-[#f8f9fa] hover:bg-[#eaecef] border border-gray-200 text-gray-700 transition-colors text-xs font-medium cursor-pointer"
+              title={lang === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+            >
+              <Globe className="w-3.5 h-3.5 text-blue-600" />
+              <span>{lang === 'vi' ? '🇻🇳 Tiếng Việt' : '🇬🇧 English'}</span>
+            </button>
+
+            {/* Handle badge */}
             <div className="flex items-center space-x-1 text-gray-700 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded">
               <span className="text-gray-400 font-normal">
                 {activePlatform === 'ojuz' ? 'oj.uz' : 'CF'}:

@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     'Nền tảng hỗ trợ học sinh Olympic Tin học (OI/CP): Checklist 12 kỳ thi OJ.uz và Huấn luyện viên AI phân tích Rating Codeforces.',
 };
 
+import { LanguageProvider } from '@/context/LanguageContext';
+
 export default function RootLayout({
   children,
 }: {
@@ -15,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="vi" className="dark">
       <body className="antialiased min-h-screen selection:bg-blue-500 selection:text-white">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
