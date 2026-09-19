@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   CFRandomProblemItem, 
   CFGeminiHint, 
@@ -18,6 +18,11 @@ import {
   CheckCircle2, 
   AlertCircle, 
   Loader2, 
+  Tag,
+  Check,
+  X,
+  ChevronDown,
+  Search,
 } from 'lucide-react';
 
 export const ALL_CF_TAGS = [
@@ -62,6 +67,17 @@ export const ALL_CF_TAGS = [
   '*special',
 ];
 
+export const CF_TAG_LIST = ALL_CF_TAGS.filter(t => t !== 'Tất cả');
+
+export const POPULAR_COMBOS = [
+  { name: 'DP + Bitmasks', tags: ['dp', 'bitmasks'] },
+  { name: 'DP + Trees', tags: ['dp', 'trees'] },
+  { name: 'Graphs + Shortest Paths', tags: ['graphs', 'shortest paths'] },
+  { name: 'Math + Number Theory', tags: ['math', 'number theory'] },
+  { name: 'Data Structures + DSU', tags: ['data structures', 'dsu'] },
+  { name: 'Binary Search + Two Pointers', tags: ['binary search', 'two pointers'] },
+];
+
 const RATING_OPTIONS = [
   800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 
   1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
@@ -80,8 +96,12 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
   solvedProblemIds = [],
 }) => {
   const { t } = useLanguage();
-  const [selectedTag, setSelectedTag] = useState<string>('Tất cả');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [matchMode, setMatchMode] = useState<'AND' | 'OR'>('AND');
   const [selectedRating, setSelectedRating] = useState<number>(recommendedRating || 1200);
+  const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
+  const [tagSearchQuery, setTagSearchQuery] = useState('');
+  const tagDropdownRef = useRef<HTMLDivElement>(null);
   
   // State bài tập và gợi ý
   const [randomProblem, setRandomProblem] = useState<CFRandomProblemItem | null>(null);
@@ -97,6 +117,17 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
   const [geminiApiKey, setGeminiApiKey] = useState<string>('');
   const [showKey, setShowKey] = useState(false);
   const [keySaved, setKeySaved] = useState(false);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tagDropdownRef.current && !tagDropdownRef.current.contains(event.target as Node)) {
+        setIsTagDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Khởi tạo Gemini Key từ localStorage
   useEffect(() => {
@@ -126,6 +157,30 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
     }
   };
 
+  const handleToggleTag = (tag: string) => {
+    setSelectedTags(prev => {
+      if (prev.includes(tag)) {
+        return prev.filter(t => t !== tag);
+      } else {
+        return [...prev, tag];
+      }
+    });
+  };
+
+  const handleRemoveTag = (tag: string) => {
+    setSelectedTags(prev => prev.filter(t => t !== tag));
+  };
+
+  const handleClearTags = () => {
+    setSelectedTags([]);
+  };
+
+  const handleSelectCombo = (tags: string[]) => {
+    setSelectedTags(tags);
+    setMatchMode('AND');
+    setIsTagDropdownOpen(false);
+  };
+
   // 1. Random bài tập Codeforces tức thì (dưới 300ms, không bao giờ bị treo!)
   const handleRandomize = async () => {
     setLoadingRandom(true);
@@ -135,9 +190,10 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
     try {
       const problem = await getRandomCFProblem(
-        selectedTag,
+        selectedTags,
         selectedRating,
-        solvedProblemIds
+        solvedProblemIds,
+        matchMode
       );
       setRandomProblem(problem);
 
@@ -245,73 +301,254 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
           </div>
         </div>
         
-        {/* Hàng điều khiển Chọn Tag, Rating và Nút Random */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 p-3.5 bg-[#fafbfc] border border-gray-200 rounded">
+        {/* Hàng điều khiển Chọn & Gộp Tag, Rating và Nút Random */}
+        <div className="p-3.5 bg-[#fafbfc] border border-gray-200 rounded space-y-3">
           
-          {/* Chọn Tag */}
-          <div className="md:col-span-4">
-            <label className="block text-[11px] font-medium text-gray-700 mb-1">
-              {t('step1_tag')}
-            </label>
-            <select
-              value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
-              className="w-full text-xs bg-white border border-gray-300 rounded px-2.5 py-1.5 focus:outline-none focus:border-blue-500"
-            >
-              {ALL_CF_TAGS.map((tTag) => (
-                <option key={tTag} value={tTag}>
-                  {tTag === 'Tất cả' ? t('all_filter') : tTag}
-                </option>
-              ))}
-            </select>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+            
+            {/* Chọn và gộp Tag */}
+            <div className="md:col-span-6 relative" ref={tagDropdownRef}>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-medium text-gray-700 flex items-center space-x-1">
+                  <Tag className="w-3 h-3 text-blue-600" />
+                  <span>{t('step1_tag')}</span>
+                </label>
+                {selectedTags.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleClearTags}
+                    className="text-[10px] text-rose-600 hover:underline font-medium"
+                  >
+                    {t('btn_clear_tags')} ({selectedTags.length})
+                  </button>
+                )}
+              </div>
 
-          {/* Chọn Rating */}
-          <div className="md:col-span-4">
-            <div className="flex items-center justify-between mb-1">
-              <label className="text-[11px] font-medium text-gray-700">
-                {t('step2_rating')}
-              </label>
+              {/* Tag Selector Trigger Button */}
               <button
                 type="button"
-                onClick={() => setSelectedRating(recommendedRating)}
-                className="text-[10px] text-blue-600 hover:underline font-medium"
+                onClick={() => setIsTagDropdownOpen(!isTagDropdownOpen)}
+                className="w-full text-left text-xs bg-white border border-gray-300 rounded px-2.5 py-2 flex items-center justify-between hover:border-blue-400 focus:outline-none focus:border-blue-500 transition-colors shadow-sm"
               >
-                {t('btn_use_recommended')} ({recommendedRating})
+                <div className="flex items-center space-x-1.5 truncate">
+                  {selectedTags.length === 0 ? (
+                    <span className="text-gray-500">{t('all_tags_label')} (38 tags)</span>
+                  ) : (
+                    <span className="font-medium text-blue-700">
+                      {t('selected_tags_prefix')} {selectedTags.length} tag: {selectedTags.join(', ')}
+                    </span>
+                  )}
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-gray-400 shrink-0 transition-transform ${isTagDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Popover */}
+              {isTagDropdownOpen && (
+                <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-30 p-2 space-y-2 max-h-72 flex flex-col">
+                  {/* Search box */}
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={tagSearchQuery}
+                      onChange={(e) => setTagSearchQuery(e.target.value)}
+                      placeholder={t('select_tags_placeholder')}
+                      className="w-full text-xs pl-7 pr-2 py-1.5 border border-gray-200 rounded focus:outline-none focus:border-blue-500"
+                      autoFocus
+                    />
+                    {tagSearchQuery && (
+                      <button
+                        type="button"
+                        onClick={() => setTagSearchQuery('')}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Actions in Dropdown */}
+                  <div className="flex items-center justify-between text-[11px] px-1 text-gray-500 border-b border-gray-100 pb-1.5">
+                    <span>
+                      {t('selected_tags_prefix')}: <strong className="text-blue-600">{selectedTags.length}</strong> / {CF_TAG_LIST.length}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleClearTags}
+                      className="text-gray-500 hover:text-gray-700 hover:underline"
+                    >
+                      {t('all_tags_label')}
+                    </button>
+                  </div>
+
+                  {/* Tag Checkbox List */}
+                  <div className="overflow-y-auto flex-1 space-y-0.5 pr-1 text-xs">
+                    {CF_TAG_LIST
+                      .filter(tag => tag.toLowerCase().includes(tagSearchQuery.toLowerCase()))
+                      .map(tag => {
+                        const isChecked = selectedTags.includes(tag);
+                        return (
+                          <div
+                            key={tag}
+                            onClick={() => handleToggleTag(tag)}
+                            className={`flex items-center justify-between px-2 py-1.5 rounded cursor-pointer transition-colors ${
+                              isChecked
+                                ? 'bg-blue-50 text-blue-800 font-medium'
+                                : 'hover:bg-gray-50 text-gray-700'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-2">
+                              <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center ${
+                                isChecked ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-300 bg-white'
+                              }`}>
+                                {isChecked && <Check className="w-2.5 h-2.5" />}
+                              </div>
+                              <span>{tag}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Chọn Rating */}
+            <div className="md:col-span-3">
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-medium text-gray-700">
+                  {t('step2_rating')}
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setSelectedRating(recommendedRating)}
+                  className="text-[10px] text-blue-600 hover:underline font-medium"
+                >
+                  {t('btn_use_recommended')} ({recommendedRating})
+                </button>
+              </div>
+              <select
+                value={selectedRating}
+                onChange={(e) => setSelectedRating(Number(e.target.value))}
+                className="w-full text-xs bg-white border border-gray-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-500 font-mono shadow-sm"
+              >
+                {RATING_OPTIONS.map((r) => (
+                  <option key={r} value={r}>
+                    {r} {r === recommendedRating ? '★' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Nút bấm Random */}
+            <div className="md:col-span-3 flex items-end">
+              <button
+                onClick={handleRandomize}
+                disabled={loadingRandom}
+                className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition-colors flex items-center justify-center space-x-1.5 disabled:opacity-50 shadow-sm"
+              >
+                {loadingRandom ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>{t('btn_randoming_cf')}</span>
+                  </>
+                ) : (
+                  <>
+                    <Dices className="w-3.5 h-3.5" />
+                    <span>{t('btn_random_cf')}</span>
+                  </>
+                )}
               </button>
             </div>
-            <select
-              value={selectedRating}
-              onChange={(e) => setSelectedRating(Number(e.target.value))}
-              className="w-full text-xs bg-white border border-gray-300 rounded px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-mono"
-            >
-              {RATING_OPTIONS.map((r) => (
-                <option key={r} value={r}>
-                  {r} {r === recommendedRating ? '★' : ''}
-                </option>
-              ))}
-            </select>
+
           </div>
 
-          {/* Nút bấm Random */}
-          <div className="md:col-span-4 flex items-end">
-            <button
-              onClick={handleRandomize}
-              disabled={loadingRandom}
-              className="w-full py-1.5 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium transition-colors flex items-center justify-center space-x-1.5 disabled:opacity-50 shadow-sm"
-            >
-              {loadingRandom ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  <span>{t('btn_randoming_cf')}</span>
-                </>
-              ) : (
-                <>
-                  <Dices className="w-3.5 h-3.5" />
-                  <span>{t('btn_random_cf')}</span>
-                </>
+          {/* Hàng hiển thị các Tag đã chọn + Chế độ gộp (AND / OR) */}
+          {selectedTags.length > 0 && (
+            <div className="pt-2 border-t border-gray-200 flex items-center justify-between flex-wrap gap-2 text-xs">
+              
+              {/* Selected Tag Badges */}
+              <div className="flex items-center flex-wrap gap-1.5">
+                <span className="text-[11px] text-gray-500 font-medium">
+                  {t('selected_tags_prefix')}:
+                </span>
+                {selectedTags.map(tag => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[11px] font-mono bg-blue-100 text-blue-800 border border-blue-200"
+                  >
+                    <span>{tag}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTag(tag)}
+                      className="text-blue-600 hover:text-blue-900 focus:outline-none ml-0.5"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+
+              {/* Chế độ gộp bài (AND / OR) khi chọn >= 2 tags */}
+              {selectedTags.length >= 2 && (
+                <div className="flex items-center space-x-1.5 bg-gray-100 p-0.5 rounded border border-gray-200">
+                  <span className="text-[10px] text-gray-600 px-1 font-medium">
+                    {t('match_mode_label')}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setMatchMode('AND')}
+                    title={t('match_mode_and_tooltip')}
+                    className={`px-2 py-0.5 rounded text-[10px] font-medium transition-colors ${
+                      matchMode === 'AND'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    {t('match_mode_and')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMatchMode('OR')}
+                    title={t('match_mode_or_tooltip')}
+                    className={`px-2 py-0.5 rounded text-[10px] font-medium transition-colors ${
+                      matchMode === 'OR'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    {t('match_mode_or')}
+                  </button>
+                </div>
               )}
-            </button>
+
+            </div>
+          )}
+
+          {/* Hàng gợi ý các cặp Tag kinh điển */}
+          <div className="pt-1.5 flex items-center flex-wrap gap-1.5 text-[11px] text-gray-500">
+            <span className="font-medium text-gray-600 flex items-center space-x-1">
+              <Sparkles className="w-3 h-3 text-amber-500" />
+              <span>{t('popular_combos_label')}</span>
+            </span>
+            {POPULAR_COMBOS.map((combo) => {
+              const isActive = combo.tags.length === selectedTags.length &&
+                combo.tags.every(t => selectedTags.includes(t));
+              return (
+                <button
+                  key={combo.name}
+                  type="button"
+                  onClick={() => handleSelectCombo(combo.tags)}
+                  className={`px-2 py-0.5 rounded text-[10px] border transition-colors ${
+                    isActive
+                      ? 'bg-blue-600 text-white border-blue-600 font-medium'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-700'
+                  }`}
+                >
+                  {combo.name}
+                </button>
+              );
+            })}
           </div>
 
         </div>

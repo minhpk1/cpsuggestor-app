@@ -13,9 +13,15 @@ export interface CFRandomProblem {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const handle = searchParams.get('handle') || '';
-  const tag = searchParams.get('tag') || '';
+  const tagsParam = searchParams.get('tags') || searchParams.get('tag') || '';
+  const matchMode = ((searchParams.get('matchMode') || 'AND').toUpperCase() === 'OR' ? 'OR' : 'AND') as 'AND' | 'OR';
   const ratingStr = searchParams.get('rating');
   const targetRating = ratingStr ? parseInt(ratingStr, 10) : undefined;
+
+  const rawTags = tagsParam
+    .split(/[;,]/)
+    .map(t => t.trim().toLowerCase())
+    .filter(t => t && t !== 'tất cả' && t !== 'all');
 
   try {
     // 1. Lấy danh sách các bài user đã giải nếu có handle
@@ -39,33 +45,83 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // 2. Lấy kho bài từ Codeforces API theo tag (nếu có)
-    const tagQuery = tag && tag.toLowerCase() !== 'all' && tag !== 'Tất cả'
-      ? `?tags=${encodeURIComponent(tag.trim().toLowerCase())}`
-      : '';
-    const probRes = await fetch(`https://codeforces.com/api/problemset.problems${tagQuery}`, {
-      next: { revalidate: 300 }, // Cache 5 phút
-    });
-    const probData = await probRes.json();
+    // 2. Lấy kho bài từ Codeforces API theo các tag
+    let problems: any[] = [];
+    let statistics: any[] = [];
 
-    if (probData.status !== 'OK' || !Array.isArray(probData.result?.problems)) {
+    if (rawTags.length === 0) {
+      const probRes = await fetch(`https://codeforces.com/api/problemset.problems`, {
+        next: { revalidate: 300 },
+      });
+      const probData = await probRes.json();
+      if (probData.status === 'OK' && Array.isArray(probData.result?.problems)) {
+        problems = probData.result.problems;
+        statistics = Array.isArray(probData.result.problemStatistics) ? probData.result.problemStatistics : [];
+      }
+    } else if (matchMode === 'AND' || rawTags.length === 1) {
+      const tagQuery = `?tags=${rawTags.map(encodeURIComponent).join(';')}`;
+      const probRes = await fetch(`https://codeforces.com/api/problemset.problems${tagQuery}`, {
+        next: { revalidate: 300 },
+      });
+      const probData = await probRes.json();
+      if (probData.status === 'OK' && Array.isArray(probData.result?.problems)) {
+        problems = probData.result.problems;
+        statistics = Array.isArray(probData.result.problemStatistics) ? probData.result.problemStatistics : [];
+      }
+    } else {
+      // matchMode === 'OR' với nhiều tags
+      const responses = await Promise.all(
+        rawTags.map(t =>
+          fetch(`https://codeforces.com/api/problemset.problems?tags=${encodeURIComponent(t)}`, {
+            next: { revalidate: 300 },
+          })
+            .then(r => r.json())
+            .catch(() => null)
+        )
+      );
+
+      const seenMap = new Map<string, any>();
+      for (const resp of responses) {
+        if (resp?.status === 'OK' && Array.isArray(resp.result?.problems)) {
+          for (const prob of resp.result.problems) {
+            const key = `${prob.contestId}${prob.index}`;
+            if (!seenMap.has(key)) {
+              seenMap.set(key, prob);
+            }
+          }
+          if (Array.isArray(resp.result?.problemStatistics)) {
+            for (const stat of resp.result.problemStatistics) {
+              statistics.push(stat);
+            }
+          }
+        }
+      }
+      problems = Array.from(seenMap.values());
+    }
+
+    if (problems.length === 0) {
       return NextResponse.json(
         { error: 'Không thể tải danh sách bài tập từ Codeforces API.' },
         { status: 502 }
       );
     }
 
-    const problems = probData.result.problems;
-    const statistics = Array.isArray(probData.result.problemStatistics)
-      ? probData.result.problemStatistics
-      : [];
-
     const statsMap = new Map<string, number>();
     for (const stat of statistics) {
       statsMap.set(`${stat.contestId}${stat.index}`, stat.solvedCount);
     }
 
-    // 3. Lọc bài chưa AC và phù hợp Rating
+    // 3. Lọc bài chưa AC và phù hợp Rating + Tag
+    const checkTagMatch = (probTags: string[]) => {
+      if (rawTags.length === 0) return true;
+      const lower = (probTags || []).map(t => t.toLowerCase());
+      if (matchMode === 'AND') {
+        return rawTags.every(rt => lower.includes(rt));
+      } else {
+        return rawTags.some(rt => lower.includes(rt));
+      }
+    };
+
     const eligibleProblems: CFRandomProblem[] = [];
 
     for (const p of problems) {
@@ -73,13 +129,10 @@ export async function GET(request: NextRequest) {
       if (p.rating < 800 || p.rating > 3500) continue;
       
       const probKey = `${p.contestId}${p.index}`;
-      
-      // Bỏ qua nếu đã AC
       if (solvedSet.has(probKey)) continue;
+      if (!checkTagMatch(p.tags)) continue;
 
-      // Lọc theo rating
       if (targetRating) {
-        // Cho phép dung sai +- 100 nếu không có bài đúng tuyệt đối, nhưng ưu tiên đúng rating
         if (p.rating !== targetRating) continue;
       }
 
@@ -94,13 +147,14 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Nếu lọc chính xác rating không có (rất hiếm), mở rộng khoảng +- 100
+    // Nếu lọc chính xác rating không có, mở rộng +- 100
     if (eligibleProblems.length === 0 && targetRating) {
       for (const p of problems) {
         if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
         if (p.rating < 800 || p.rating > 3500) continue;
         const probKey = `${p.contestId}${p.index}`;
         if (solvedSet.has(probKey)) continue;
+        if (!checkTagMatch(p.tags)) continue;
 
         if (Math.abs(p.rating - targetRating) <= 100) {
           eligibleProblems.push({
@@ -117,10 +171,11 @@ export async function GET(request: NextRequest) {
     }
 
     if (eligibleProblems.length === 0) {
+      const tagDisplay = rawTags.length > 0 ? ` [${rawTags.join(matchMode === 'AND' ? ' + ' : ' / ')}]` : ' Tất cả';
       return NextResponse.json(
         {
           success: false,
-          error: `Không tìm thấy bài tập nào chưa AC với tag "${tag || 'Tất cả'}" và rating ${targetRating || 'bất kỳ'}.`,
+          error: `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${targetRating || 'bất kỳ'}.`,
         },
         { status: 404 }
       );

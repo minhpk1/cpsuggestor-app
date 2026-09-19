@@ -174,21 +174,54 @@ export async function fetchCFProfileClientSide(handle: string): Promise<CFProfil
  * loại trừ 100% các bài user đã giải (AC).
  */
 export async function getRandomCFProblem(
-  tag: string,
+  tags: string[] | string,
   rating: number,
-  solvedProblemIds: string[] = []
+  solvedProblemIds: string[] = [],
+  matchMode: 'AND' | 'OR' = 'AND'
 ): Promise<CFRandomProblemItem> {
   const solvedSet = new Set(solvedProblemIds);
-  const isAll = !tag || tag === 'Tất cả' || tag.toLowerCase() === 'all';
-  const tagParam = !isAll ? `?tags=${encodeURIComponent(tag.trim().toLowerCase())}` : '';
-  
+  const tagList = Array.isArray(tags) ? tags : [tags];
+  const activeTags = tagList
+    .map(t => t.trim())
+    .filter(t => t && t !== 'Tất cả' && t.toLowerCase() !== 'all');
+
   // 1. Thử gọi trực tiếp Codeforces API từ client (CORS *)
   let problems: any[] = [];
   try {
-    const res = await fetch(`https://codeforces.com/api/problemset.problems${tagParam}`);
-    const data = await res.json();
-    if (data.status === 'OK' && Array.isArray(data.result?.problems)) {
-      problems = data.result.problems;
+    if (activeTags.length === 0) {
+      const res = await fetch(`https://codeforces.com/api/problemset.problems`);
+      const data = await res.json();
+      if (data.status === 'OK' && Array.isArray(data.result?.problems)) {
+        problems = data.result.problems;
+      }
+    } else if (matchMode === 'AND' || activeTags.length === 1) {
+      const queryStr = `?tags=${activeTags.map(t => encodeURIComponent(t.toLowerCase())).join(';')}`;
+      const res = await fetch(`https://codeforces.com/api/problemset.problems${queryStr}`);
+      const data = await res.json();
+      if (data.status === 'OK' && Array.isArray(data.result?.problems)) {
+        problems = data.result.problems;
+      }
+    } else {
+      // matchMode === 'OR' với nhiều tags
+      const responses = await Promise.all(
+        activeTags.map(t =>
+          fetch(`https://codeforces.com/api/problemset.problems?tags=${encodeURIComponent(t.toLowerCase())}`)
+            .then(r => r.json())
+            .catch(() => null)
+        )
+      );
+      const seenMap = new Map<string, any>();
+      for (const resp of responses) {
+        if (resp?.status === 'OK' && Array.isArray(resp.result?.problems)) {
+          for (const prob of resp.result.problems) {
+            const key = `${prob.contestId}${prob.index}`;
+            if (!seenMap.has(key)) {
+              seenMap.set(key, prob);
+            }
+          }
+        }
+      }
+      problems = Array.from(seenMap.values());
     }
   } catch (e) {
     console.warn('Client-side CF fetch failed, falling back to local API route:', e);
@@ -196,7 +229,8 @@ export async function getRandomCFProblem(
 
   // 2. Nếu client fetch bị chặn mạng, fallback sang local API route
   if (problems.length === 0) {
-    const res = await fetch(`/api/codeforces/random?tag=${encodeURIComponent(isAll ? '' : tag)}&rating=${rating}`);
+    const tagsParam = encodeURIComponent(activeTags.join(';'));
+    const res = await fetch(`/api/codeforces/random?tags=${tagsParam}&rating=${rating}&matchMode=${matchMode}`);
     const json = await res.json();
     if (json.success && json.problem) {
       return json.problem;
@@ -204,13 +238,24 @@ export async function getRandomCFProblem(
     throw new Error(json.error || 'Không tìm thấy bài tập phù hợp.');
   }
 
-  // 3. Lọc bài chưa AC và đúng mốc rating (chỉ tính bài có rating chính thức từ 800 đến 3500)
+  // 3. Lọc bài chưa AC và đúng mốc rating, khớp tag chuẩn xác
+  const checkTagMatch = (probTags: string[]) => {
+    if (activeTags.length === 0) return true;
+    const lower = (probTags || []).map(t => t.toLowerCase());
+    if (matchMode === 'AND') {
+      return activeTags.every(t => lower.includes(t.toLowerCase()));
+    } else {
+      return activeTags.some(t => lower.includes(t.toLowerCase()));
+    }
+  };
+
   let candidates: CFRandomProblemItem[] = [];
   for (const p of problems) {
     if (!p.contestId || !p.index || typeof p.rating !== 'number') continue;
     if (p.rating < 800 || p.rating > 3500) continue;
     const key = `${p.contestId}${p.index}`;
     if (solvedSet.has(key)) continue;
+    if (!checkTagMatch(p.tags)) continue;
 
     if (p.rating === rating) {
       candidates.push({
@@ -231,6 +276,7 @@ export async function getRandomCFProblem(
       if (p.rating < 800 || p.rating > 3500) continue;
       const key = `${p.contestId}${p.index}`;
       if (solvedSet.has(key)) continue;
+      if (!checkTagMatch(p.tags)) continue;
 
       if (Math.abs(p.rating - rating) <= 100) {
         candidates.push({
@@ -246,7 +292,8 @@ export async function getRandomCFProblem(
   }
 
   if (candidates.length === 0) {
-    throw new Error(`Không tìm thấy bài tập nào chưa AC với tag "${tag}" và rating ${rating}.`);
+    const tagDisplay = activeTags.length > 0 ? ` [${activeTags.join(matchMode === 'AND' ? ' + ' : ' / ')}]` : '';
+    throw new Error(`Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${rating}.`);
   }
 
   const randomIdx = Math.floor(Math.random() * candidates.length);
