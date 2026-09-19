@@ -179,7 +179,8 @@ export async function getRandomCFProblem(
   solvedProblemIds: string[] = []
 ): Promise<CFRandomProblemItem> {
   const solvedSet = new Set(solvedProblemIds);
-  const tagParam = tag && tag !== 'Tất cả' ? `?tags=${encodeURIComponent(tag.trim().toLowerCase())}` : '';
+  const isAll = !tag || tag === 'Tất cả' || tag.toLowerCase() === 'all';
+  const tagParam = !isAll ? `?tags=${encodeURIComponent(tag.trim().toLowerCase())}` : '';
   
   // 1. Thử gọi trực tiếp Codeforces API từ client (CORS *)
   let problems: any[] = [];
@@ -195,7 +196,7 @@ export async function getRandomCFProblem(
 
   // 2. Nếu client fetch bị chặn mạng, fallback sang local API route
   if (problems.length === 0) {
-    const res = await fetch(`/api/codeforces/random?tag=${encodeURIComponent(tag === 'Tất cả' ? '' : tag)}&rating=${rating}`);
+    const res = await fetch(`/api/codeforces/random?tag=${encodeURIComponent(isAll ? '' : tag)}&rating=${rating}`);
     const json = await res.json();
     if (json.success && json.problem) {
       return json.problem;

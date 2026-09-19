@@ -129,6 +129,9 @@ export const translations = {
     cf_tag_status_strong: 'Thế mạnh',
     cf_tag_status_balanced: 'Đồng đều',
     cf_tag_status_weak: 'Cần cải thiện',
+    cf_show_less: 'Thu gọn',
+    cf_show_more: 'Xem thêm',
+    cf_other_tags: 'tags khác',
 
     // Codeforces Random Trainer
     cf_trainer_title: 'Random bài tập Codeforces & Định hướng tư duy',
@@ -291,6 +294,9 @@ export const translations = {
     cf_tag_status_strong: 'Strong',
     cf_tag_status_balanced: 'Balanced',
     cf_tag_status_weak: 'Needs Focus',
+    cf_show_less: 'Show less',
+    cf_show_more: 'Show more',
+    cf_other_tags: 'more tags',
 
     // Codeforces Random Trainer
     cf_trainer_title: 'Codeforces Random Problem & Pedagogical Guidance',

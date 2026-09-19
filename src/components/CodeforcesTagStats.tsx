@@ -83,7 +83,11 @@ export const CodeforcesTagStats: React.FC<CodeforcesTagStatsProps> = ({
               onClick={() => setShowAll(!showAll)}
               className="inline-flex items-center space-x-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
             >
-              <span>{showAll ? 'Thu gọn' : `Xem thêm (${tagStats.length - 12} tags khác)`}</span>
+              <span>
+                {showAll 
+                  ? t('cf_show_less') 
+                  : `${t('cf_show_more')} (${tagStats.length - 12} ${t('cf_other_tags')})`}
+              </span>
               {showAll ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
           </div>

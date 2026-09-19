@@ -20,31 +20,46 @@ import {
   Loader2, 
 } from 'lucide-react';
 
-const COMMON_CF_TAGS = [
+export const ALL_CF_TAGS = [
   'Tất cả',
-  'dp',
-  'greedy',
-  'data structures',
+  'implementation',
   'math',
-  'graphs',
-  'constructive algorithms',
+  'greedy',
+  'dp',
+  'data structures',
   'brute force',
+  'constructive algorithms',
+  'graphs',
+  'sortings',
+  'binary search',
+  'dfs and similar',
+  'trees',
   'strings',
   'number theory',
-  'trees',
-  'binary search',
   'combinatorics',
-  'geometry',
   'two pointers',
-  'dfs and similar',
   'bitmasks',
+  'geometry',
+  'dsu',
   'shortest paths',
-  'games',
-  'matrices',
-  'hashing',
-  'interactive',
-  'flows',
+  'probabilities',
   'divide and conquer',
+  'hashing',
+  'games',
+  'flows',
+  'interactive',
+  'matrices',
+  'string suffix structures',
+  'fft',
+  'graph matchings',
+  'ternary search',
+  'expression parsing',
+  'meet-in-the-middle',
+  '2-sat',
+  'chinese remainder theorem',
+  'schedules',
+  'communication',
+  '*special',
 ];
 
 const RATING_OPTIONS = [
@@ -243,9 +258,9 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
               onChange={(e) => setSelectedTag(e.target.value)}
               className="w-full text-xs bg-white border border-gray-300 rounded px-2.5 py-1.5 focus:outline-none focus:border-blue-500"
             >
-              {COMMON_CF_TAGS.map((tTag) => (
+              {ALL_CF_TAGS.map((tTag) => (
                 <option key={tTag} value={tTag}>
-                  {tTag === 'Tất cả' ? t('all_contests') : tTag}
+                  {tTag === 'Tất cả' ? t('all_filter') : tTag}
                 </option>
               ))}
             </select>
