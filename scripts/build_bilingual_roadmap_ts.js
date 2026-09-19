@@ -7,6 +7,13 @@ const phase3 = require('./roadmap_phase3');
 const phase4 = require('./roadmap_phase4');
 const phase5 = require('./roadmap_phase5');
 
+const trans1 = require('./translations_phase1');
+const trans2 = require('./translations_phase2');
+const trans3 = require('./translations_phase3');
+const trans4 = require('./translations_phase4');
+const trans5 = require('./translations_phase5');
+const allTranslations = { ...trans1, ...trans2, ...trans3, ...trans4, ...trans5 };
+
 function cleanMath(text) {
   if (!text) return '';
   return text
@@ -138,19 +145,25 @@ for (const pm of phasesMeta) {
   for (const t of pm.topics) {
     topicIds.push(t.id);
 
+    const tEn = allTranslations[t.id] || {};
     const cleanEssenceVi = t.essence.map(cleanMath);
-    const cleanComplexity = cleanMath(t.complexity);
+    const cleanEssenceEn = (tEn.essenceEn || t.essence).map(cleanMath);
+    const cleanComplexityVi = cleanMath(t.complexity);
+    const cleanComplexityEn = cleanMath(tEn.complexityEn || t.complexity);
 
-    const enrichedProblems = t.problems.map(p => {
+    const enrichedProblems = t.problems.map((p, pIdx) => {
       const match = p.code.match(/CF\s*(\d+)([A-Z0-9]+)/i);
-      const cleanComment = cleanMath(p.comment);
+      const cleanCommentVi = cleanMath(p.comment);
+      const cleanCommentEn = cleanMath(
+        tEn.commentsEn && tEn.commentsEn[pIdx] ? tEn.commentsEn[pIdx] : p.comment
+      );
       return {
         code: p.code,
         name: p.name,
         rating: p.rating,
         url: p.url,
-        commentVi: cleanComment,
-        commentEn: cleanComment, // Cleaned math comment is easily understood internationally
+        commentVi: cleanCommentVi,
+        commentEn: cleanCommentEn,
         contestId: match ? parseInt(match[1], 10) : 0,
         index: match ? match[2].toUpperCase() : ''
       };
@@ -168,9 +181,9 @@ for (const pm of phasesMeta) {
                     .replace('Candidate Master ➔ Master', 'Candidate Master to Master')
                     .replace('Master ➔ GM / IGM', 'Master to Grandmaster'),
       essenceVi: cleanEssenceVi,
-      essenceEn: cleanEssenceVi,
-      complexityVi: cleanComplexity,
-      complexityEn: cleanComplexity,
+      essenceEn: cleanEssenceEn,
+      complexityVi: cleanComplexityVi,
+      complexityEn: cleanComplexityEn,
       blogs: t.blogs,
       problems: enrichedProblems
     });
