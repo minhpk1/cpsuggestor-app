@@ -23,6 +23,15 @@ import {
   X,
   ChevronDown,
   Search,
+  Lock,
+  Unlock,
+  BookOpen,
+  Lightbulb,
+  Compass,
+  AlertTriangle,
+  Code2,
+  Copy,
+  Cpu,
 } from 'lucide-react';
 
 export const ALL_CF_TAGS = [
@@ -179,6 +188,67 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
     setSelectedTags(tags);
     setMatchMode('AND');
     setIsTagDropdownOpen(false);
+  };
+
+  // Trạng thái mở từng bậc thang gợi ý
+  const [revealedTiers, setRevealedTiers] = useState<{ [key: string]: boolean }>({
+    hint1: false,
+    hint2: false,
+    hint3: false,
+    hint4: false,
+    edgeCases: false,
+    solution: false,
+  });
+
+  const [copiedCode, setCopiedCode] = useState(false);
+
+  const TIERS_ORDER = ['hint1', 'hint2', 'hint3', 'hint4', 'edgeCases', 'solution'];
+
+  const toggleTier = (tierKey: string) => {
+    setRevealedTiers(prev => ({
+      ...prev,
+      [tierKey]: !prev[tierKey],
+    }));
+  };
+
+  const handleRevealNext = () => {
+    for (const key of TIERS_ORDER) {
+      if (!revealedTiers[key]) {
+        setRevealedTiers(prev => ({ ...prev, [key]: true }));
+        break;
+      }
+    }
+  };
+
+  const handleRevealAll = () => {
+    setRevealedTiers({
+      hint1: true,
+      hint2: true,
+      hint3: true,
+      hint4: true,
+      edgeCases: true,
+      solution: true,
+    });
+  };
+
+  const handleHideAll = () => {
+    setRevealedTiers({
+      hint1: false,
+      hint2: false,
+      hint3: false,
+      hint4: false,
+      edgeCases: false,
+      solution: false,
+    });
+  };
+
+  const unlockedCount = TIERS_ORDER.filter(key => revealedTiers[key]).length;
+
+  const handleCopyCode = (code: string) => {
+    if (!code) return;
+    navigator.clipboard.writeText(code);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
   };
 
   // 1. Random bài tập Codeforces tức thì (dưới 300ms, không bao giờ bị treo!)
@@ -660,67 +730,320 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
               </div>
             )}
 
-            {/* Tóm tắt đề bài ngắn gọn */}
-            {geminiHint?.briefSummary && (
-              <div className="p-3 bg-gray-50/80 rounded border border-gray-200 text-xs text-gray-700 leading-relaxed">
-                <span className="font-semibold text-gray-900 block mb-1">{t('hint_brief_summary')}</span>
-                {geminiHint.briefSummary}
-              </div>
-            )}
-
-            {/* Khung Định hướng tư duy từ Gemini AI */}
+            {/* Khung Bậc thang gợi ý tư duy & Lời giải từ Gemini AI */}
             {geminiHint && (
-              <div className="p-4 bg-blue-50/40 border border-blue-200 rounded-md space-y-3">
-                <div className="flex items-center space-x-1.5 text-xs font-semibold text-blue-900 pb-2 border-b border-blue-100">
-                  <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span>{t('ai_hint_header')}</span>
-                </div>
-
-                {/* 1. Quan sát then chốt */}
-                {geminiHint.keyObservation && (
-                  <div className="text-xs space-y-1">
-                    <span className="font-bold text-gray-900 text-[11px] uppercase tracking-wide flex items-center space-x-1">
-                      <span>{t('hint_key_observation')}</span>
-                    </span>
-                    <p className="text-gray-700 leading-relaxed pl-3 border-l-2 border-amber-400 whitespace-pre-line">
-                      {geminiHint.keyObservation}
-                    </p>
-                  </div>
-                )}
-
-                {/* 2. Hướng tiếp cận từng bước */}
-                {geminiHint.stepByStepHint && (
-                  <div className="text-xs space-y-1">
-                    <span className="font-bold text-gray-900 text-[11px] uppercase tracking-wide flex items-center space-x-1">
-                      <span>{t('hint_step_by_step')}</span>
-                    </span>
-                    <div className="text-gray-700 leading-relaxed whitespace-pre-line pl-3 border-l-2 border-blue-400">
-                      {geminiHint.stepByStepHint}
+              <div className="border border-blue-200 bg-white rounded-md overflow-hidden shadow-sm space-y-0">
+                
+                {/* Header bậc thang gợi ý */}
+                <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 px-4 py-3 border-b border-blue-200 flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center space-x-2">
+                    <Sparkles className="w-4 h-4 text-blue-600" />
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-900 flex items-center space-x-2">
+                        <span>{t('hints_ladder_title')}</span>
+                        <span className="px-2 py-0.5 bg-blue-600 text-white rounded text-[10px] font-mono">
+                          {unlockedCount}/6 {t('hints_unlocked')}
+                        </span>
+                      </h4>
+                      <p className="text-[11px] text-gray-500">
+                        {t('hints_ladder_subtitle')}
+                      </p>
                     </div>
                   </div>
-                )}
 
-                {/* 3. Trường hợp biên & Bẫy test */}
-                {geminiHint.edgeCases && (
-                  <div className="text-xs space-y-1">
-                    <span className="font-bold text-gray-900 text-[11px] uppercase tracking-wide flex items-center space-x-1">
-                      <span>{t('hint_edge_cases')}</span>
-                    </span>
-                    <p className="text-gray-700 leading-relaxed pl-3 border-l-2 border-rose-400">
-                      {geminiHint.edgeCases}
-                    </p>
+                  {/* Thanh nút điều khiển mở gợi ý */}
+                  <div className="flex items-center space-x-1.5 flex-wrap">
+                    {unlockedCount < 6 && (
+                      <button
+                        type="button"
+                        onClick={handleRevealNext}
+                        className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[11px] font-medium transition-colors flex items-center space-x-1 shadow-xs"
+                      >
+                        <Unlock className="w-3 h-3" />
+                        <span>{t('btn_reveal_next')}</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={handleRevealAll}
+                      className="px-2 py-1 bg-white hover:bg-gray-100 border border-gray-200 text-gray-700 rounded text-[11px] font-medium transition-colors flex items-center space-x-1"
+                    >
+                      <Eye className="w-3 h-3" />
+                      <span>{t('btn_reveal_all')}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleHideAll}
+                      className="px-2 py-1 bg-white hover:bg-gray-100 border border-gray-200 text-gray-700 rounded text-[11px] font-medium transition-colors flex items-center space-x-1"
+                    >
+                      <EyeOff className="w-3 h-3" />
+                      <span>{t('btn_hide_all')}</span>
+                    </button>
                   </div>
-                )}
+                </div>
 
-                {/* 4. Độ phức tạp mục tiêu */}
-                {geminiHint.targetComplexity && (
-                  <div className="pt-2 border-t border-blue-100/70 flex items-center justify-between text-xs text-gray-600">
-                    <span className="font-medium text-gray-700">{t('hint_target_complexity')}</span>
-                    <span className="font-mono font-semibold text-blue-700 bg-white px-2 py-0.5 rounded border border-blue-200">
-                      {geminiHint.targetComplexity}
-                    </span>
-                  </div>
-                )}
+                {/* Progress bar */}
+                <div className="w-full bg-gray-100 h-1">
+                  <div 
+                    className="bg-blue-600 h-1 transition-all duration-300"
+                    style={{ width: `${(unlockedCount / 6) * 100}%` }}
+                  />
+                </div>
+
+                <div className="p-4 space-y-3.5 bg-[#fafbfc]">
+
+                  {/* Tóm tắt đề bài & Bản chất bài toán (Luôn mở) */}
+                  {geminiHint.briefSummary && (
+                    <div className="p-3 bg-white rounded border border-gray-200 shadow-2xs text-xs text-gray-700 leading-relaxed">
+                      <span className="font-bold text-gray-900 flex items-center space-x-1.5 mb-1 text-[11px]">
+                        <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+                        <span>{t('hint_brief_summary')}</span>
+                      </span>
+                      <p className="text-gray-700 whitespace-pre-line">{geminiHint.briefSummary}</p>
+                    </div>
+                  )}
+
+                  {/* 1. Gợi ý 1: Quan sát ban đầu */}
+                  {(geminiHint.hint1_basic || geminiHint.keyObservation) && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.hint1 ? 'bg-white border-emerald-300 shadow-2xs' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('hint1')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.hint1 ? (
+                            <Unlock className="w-3.5 h-3.5 text-emerald-600" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-gray-400" />
+                          )}
+                          <span className="text-xs font-bold text-gray-800">
+                            {t('hint_tier_1_title')}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-blue-600 hover:underline font-medium">
+                          {revealedTiers.hint1 ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.hint1 && (
+                        <div className="px-3.5 pb-3 pt-1 border-t border-emerald-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line">
+                          {geminiHint.hint1_basic || geminiHint.keyObservation}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 2. Gợi ý 2: Quy đổi mô hình (nếu có) */}
+                  {geminiHint.hint2_reduction && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.hint2 ? 'bg-white border-blue-300 shadow-2xs' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('hint2')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.hint2 ? (
+                            <Compass className="w-3.5 h-3.5 text-blue-600" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-gray-400" />
+                          )}
+                          <span className="text-xs font-bold text-gray-800">
+                            {t('hint_tier_2_title')}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-blue-600 hover:underline font-medium">
+                          {revealedTiers.hint2 ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.hint2 && (
+                        <div className="px-3.5 pb-3 pt-1 border-t border-blue-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line">
+                          {geminiHint.hint2_reduction}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 3. Gợi ý 3: QUAN SÁT THEN CHỐT (Aha Moment) */}
+                  {(geminiHint.hint3_key || geminiHint.keyObservation) && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.hint3 ? 'bg-amber-50/30 border-amber-300 shadow-2xs' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('hint3')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.hint3 ? (
+                            <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-amber-500/80" />
+                          )}
+                          <div className="flex items-center space-x-1.5">
+                            <span className="text-xs font-bold text-gray-900">
+                              {t('hint_tier_3_title')}
+                            </span>
+                            <span className="px-1.5 py-0.2 bg-amber-100 text-amber-800 rounded font-semibold text-[9px]">
+                              Crucial
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[11px] text-amber-700 hover:underline font-medium">
+                          {revealedTiers.hint3 ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.hint3 && (
+                        <div className="px-3.5 pb-3 pt-1 border-t border-amber-200/60 text-xs text-gray-800 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-amber-400">
+                          {geminiHint.hint3_key || geminiHint.keyObservation}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 4. Gợi ý 4: Thuật toán & Các bước chi tiết */}
+                  {(geminiHint.hint4_algorithm || geminiHint.stepByStepHint) && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.hint4 ? 'bg-white border-purple-300 shadow-2xs' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('hint4')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.hint4 ? (
+                            <Unlock className="w-3.5 h-3.5 text-purple-600" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-gray-400" />
+                          )}
+                          <span className="text-xs font-bold text-gray-800">
+                            {t('hint_tier_4_title')}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-purple-600 hover:underline font-medium">
+                          {revealedTiers.hint4 ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.hint4 && (
+                        <div className="px-3.5 pb-3 pt-1 border-t border-purple-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-purple-400">
+                          {geminiHint.hint4_algorithm || geminiHint.stepByStepHint}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 5. Gợi ý 5: Bẫy test & Trường hợp biên */}
+                  {geminiHint.edgeCases && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.edgeCases ? 'bg-white border-rose-300 shadow-2xs' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('edgeCases')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.edgeCases ? (
+                            <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-gray-400" />
+                          )}
+                          <span className="text-xs font-bold text-gray-800">
+                            {t('hint_tier_5_title')}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-rose-600 hover:underline font-medium">
+                          {revealedTiers.edgeCases ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.edgeCases && (
+                        <div className="px-3.5 pb-3 pt-1 border-t border-rose-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-rose-400">
+                          {geminiHint.edgeCases}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 6. Lời giải hoàn chỉnh & Code mẫu (Full Solution Editorial) */}
+                  {geminiHint.solutionCode && (
+                    <div className={`rounded-md border transition-colors ${
+                      revealedTiers.solution ? 'bg-white border-indigo-400 shadow-sm' : 'bg-gray-50/70 border-gray-200'
+                    }`}>
+                      <div 
+                        onClick={() => toggleTier('solution')}
+                        className="px-3.5 py-2.5 flex items-center justify-between cursor-pointer select-none"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {revealedTiers.solution ? (
+                            <Code2 className="w-3.5 h-3.5 text-indigo-600" />
+                          ) : (
+                            <Lock className="w-3.5 h-3.5 text-indigo-500" />
+                          )}
+                          <div className="flex items-center space-x-1.5">
+                            <span className="text-xs font-bold text-gray-900">
+                              {t('hint_tier_6_title')}
+                            </span>
+                            <span className="px-1.5 py-0.2 bg-rose-100 text-rose-800 rounded font-semibold text-[9px]">
+                              Spoiler
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[11px] text-indigo-600 hover:underline font-medium">
+                          {revealedTiers.solution ? t('btn_collapse_hint') : t('btn_reveal_hint')}
+                        </span>
+                      </div>
+
+                      {revealedTiers.solution && (
+                        <div className="px-3.5 pb-4 pt-2 border-t border-indigo-100 space-y-3">
+                          <div className="flex items-center justify-between text-[11px] text-gray-500">
+                            <span className="text-amber-800 font-medium">
+                              {t('warning_spoiler')}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleCopyCode(geminiHint.solutionCode)}
+                              className="inline-flex items-center space-x-1 px-2.5 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded text-[11px] text-gray-700 transition-colors"
+                            >
+                              {copiedCode ? (
+                                <>
+                                  <Check className="w-3 h-3 text-emerald-600" />
+                                  <span className="text-emerald-700 font-medium">{t('btn_copied')}</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="w-3 h-3" />
+                                  <span>{t('btn_copy_code')}</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+
+                          <pre className="p-3 bg-[#1e1e2e] text-gray-100 rounded text-[11px] font-mono overflow-x-auto leading-relaxed whitespace-pre shadow-inner">
+                            {geminiHint.solutionCode}
+                          </pre>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 7. Đánh giá độ phức tạp mục tiêu */}
+                  {(geminiHint.complexity || geminiHint.targetComplexity) && (
+                    <div className="p-2.5 bg-white rounded border border-gray-200 flex items-center justify-between text-xs text-gray-600 shadow-2xs">
+                      <span className="font-medium text-gray-700 flex items-center space-x-1.5">
+                        <Cpu className="w-3.5 h-3.5 text-blue-600" />
+                        <span>{t('hint_target_complexity')}</span>
+                      </span>
+                      <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                        {geminiHint.complexity || geminiHint.targetComplexity}
+                      </span>
+                    </div>
+                  )}
+
+                </div>
 
               </div>
             )}
