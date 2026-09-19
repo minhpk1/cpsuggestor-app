@@ -184,7 +184,8 @@ export async function getRandomCFProblem(
   tags: string[] | string,
   rating: number,
   solvedProblemIds: string[] = [],
-  matchMode: 'AND' | 'OR' = 'AND'
+  matchMode: 'AND' | 'OR' = 'AND',
+  lang: 'vi' | 'en' = 'vi'
 ): Promise<CFRandomProblemItem> {
   const solvedSet = new Set(solvedProblemIds);
   const tagList = Array.isArray(tags) ? tags : [tags];
@@ -242,7 +243,7 @@ export async function getRandomCFProblem(
     if (json.success && json.problem) {
       return json.problem;
     }
-    throw new Error(json.error || 'Không tìm thấy bài tập phù hợp.');
+    throw new Error(json.error || (lang === 'en' ? 'No matching problem found.' : 'Không tìm thấy bài tập phù hợp.'));
   }
 
   // 3. Lọc bài chưa AC và đúng mốc rating, khớp tag chuẩn xác
@@ -300,7 +301,11 @@ export async function getRandomCFProblem(
 
   if (candidates.length === 0) {
     const tagDisplay = activeTags.length > 0 ? ` [${activeTags.join(matchMode === 'AND' ? ' + ' : ' / ')}]` : '';
-    throw new Error(`Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${rating}.`);
+    throw new Error(
+      lang === 'en'
+        ? `No un-AC problems found with tags${tagDisplay} and rating ${rating}.`
+        : `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${rating}.`
+    );
   }
 
   const randomIdx = Math.floor(Math.random() * candidates.length);
@@ -308,19 +313,160 @@ export async function getRandomCFProblem(
 }
 
 /**
+ * Trích xuất an toàn một trường JSON chuỗi kể cả khi JSON bị cắt ngắn hoặc có ký tự escape lỗi
+ */
+function extractCleanJsonField(text: string, key: string): string {
+  const regex = new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 's');
+  const match = text.match(regex);
+  if (match && match[1]) {
+    return match[1]
+      .replace(/\\n/g, '\n')
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, '\\')
+      .replace(/\\t/g, '\t')
+      .trim();
+  }
+  const openRegex = new RegExp(`"${key}"\\s*:\\s*"([\\s\\S]*?)(?=(?:"\\s*,\\s*"[a-zA-Z0-9_]+"\\s*:|"$|(?:"\\s*\\})))`, 's');
+  const openMatch = text.match(openRegex);
+  if (openMatch && openMatch[1]) {
+    return openMatch[1]
+      .replace(/\\n/g, '\n')
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, '\\')
+      .replace(/\\t/g, '\t')
+      .trim();
+  }
+  return '';
+}
+
+/**
+ * Phân tích đối tượng gợi ý từ kết quả Gemini một cách an toàn tuyệt đối
+ * Không bao giờ làm lộ cấu trúc JSON thô ra ngoài giao diện người dùng
+ */
+export function parseGeminiHintJson(
+  clean: string,
+  problem: CFRandomProblemItem,
+  lang: 'vi' | 'en' = 'vi'
+): CFGeminiHint {
+  const isEn = lang === 'en';
+  const defaultSummary = isEn ? `Problem ${problem.name}` : `Bài toán ${problem.name}`;
+  const defaultHint1 = isEn 
+    ? 'Analyze sample test cases and observe patterns for small constraints.' 
+    : 'Phân tích các test ví dụ và quan sát quy luật cho các trường hợp nhỏ.';
+  const defaultHint3 = isEn
+    ? 'Focus on invariants, greedy properties, or key data structures.'
+    : 'Tập trung vào tính chất bất biến, tham lam tối ưu hoặc cấu trúc dữ liệu chìa khóa.';
+  const defaultHint4 = isEn
+    ? 'Construct the step-by-step algorithm and transitions.'
+    : 'Xây dựng thuật toán từng bước và các công thức chuyển trạng thái.';
+  const defaultEdge = isEn
+    ? 'Watch out for corner cases with small N and 64-bit integer overflow.'
+    : 'Lưu ý các trường hợp biên N nhỏ và tràn số 64-bit (long long trong C++).';
+  const defaultCode = isEn
+    ? `// Complete editorial and solutions available at: ${problem.url}`
+    : `// Chi tiết lời giải và thảo luận trên Codeforces: ${problem.url}`;
+  const defaultComplexity = 'O(N) / O(N log N)';
+
+  // 1. Thử JSON.parse chuẩn xác
+  try {
+    const parsed = JSON.parse(clean);
+    return {
+      briefSummary: parsed.briefSummary || defaultSummary,
+      hint1_basic: parsed.hint1_basic || parsed.keyObservation || defaultHint1,
+      hint2_reduction: parsed.hint2_reduction || '',
+      hint3_key: parsed.hint3_key || parsed.keyObservation || defaultHint3,
+      hint4_algorithm: parsed.hint4_algorithm || parsed.stepByStepHint || defaultHint4,
+      edgeCases: parsed.edgeCases || defaultEdge,
+      solutionCode: parsed.solutionCode || defaultCode,
+      complexity: parsed.complexity || parsed.targetComplexity || defaultComplexity,
+      keyObservation: parsed.hint3_key || parsed.keyObservation || defaultHint3,
+      stepByStepHint: parsed.hint4_algorithm || parsed.stepByStepHint || defaultHint4,
+      targetComplexity: parsed.complexity || parsed.targetComplexity || defaultComplexity,
+    };
+  } catch {}
+
+  // 2. Thử substring từ '{' tới '}'
+  const start = clean.indexOf('{');
+  const end = clean.lastIndexOf('}');
+  if (start !== -1 && end !== -1 && end > start) {
+    try {
+      const subParsed = JSON.parse(clean.slice(start, end + 1));
+      return {
+        briefSummary: subParsed.briefSummary || defaultSummary,
+        hint1_basic: subParsed.hint1_basic || subParsed.keyObservation || defaultHint1,
+        hint2_reduction: subParsed.hint2_reduction || '',
+        hint3_key: subParsed.hint3_key || subParsed.keyObservation || defaultHint3,
+        hint4_algorithm: subParsed.hint4_algorithm || subParsed.stepByStepHint || defaultHint4,
+        edgeCases: subParsed.edgeCases || defaultEdge,
+        solutionCode: subParsed.solutionCode || defaultCode,
+        complexity: subParsed.complexity || subParsed.targetComplexity || defaultComplexity,
+        keyObservation: subParsed.hint3_key || subParsed.keyObservation || defaultHint3,
+        stepByStepHint: subParsed.hint4_algorithm || subParsed.stepByStepHint || defaultHint4,
+        targetComplexity: subParsed.complexity || subParsed.targetComplexity || defaultComplexity,
+      };
+    } catch {}
+  }
+
+  // 3. Trích xuất từng trường độc lập bằng Regex
+  const briefSummary = extractCleanJsonField(clean, 'briefSummary');
+  const hint1 = extractCleanJsonField(clean, 'hint1_basic');
+  const hint2 = extractCleanJsonField(clean, 'hint2_reduction');
+  const hint3 = extractCleanJsonField(clean, 'hint3_key');
+  const hint4 = extractCleanJsonField(clean, 'hint4_algorithm');
+  const edgeCases = extractCleanJsonField(clean, 'edgeCases');
+  const solutionCode = extractCleanJsonField(clean, 'solutionCode');
+  const complexity = extractCleanJsonField(clean, 'complexity');
+
+  if (hint1 || hint3 || hint4 || briefSummary) {
+    return {
+      briefSummary: briefSummary || defaultSummary,
+      hint1_basic: hint1 || defaultHint1,
+      hint2_reduction: hint2 || '',
+      hint3_key: hint3 || defaultHint3,
+      hint4_algorithm: hint4 || defaultHint4,
+      edgeCases: edgeCases || defaultEdge,
+      solutionCode: solutionCode || defaultCode,
+      complexity: complexity || defaultComplexity,
+      keyObservation: hint3 || defaultHint3,
+      stepByStepHint: hint4 || defaultHint4,
+      targetComplexity: complexity || defaultComplexity,
+    };
+  }
+
+  // 4. Fallback an toàn: Không bao giờ gán chuỗi JSON thô vào hint1_basic!
+  const looksLikeJson = clean.trim().startsWith('{') || clean.includes('"briefSummary"') || clean.includes('"hint');
+  const safeHint1 = looksLikeJson ? defaultHint1 : clean;
+
+  return {
+    briefSummary: defaultSummary,
+    hint1_basic: safeHint1,
+    hint2_reduction: '',
+    hint3_key: defaultHint3,
+    hint4_algorithm: defaultHint4,
+    edgeCases: defaultEdge,
+    solutionCode: defaultCode,
+    complexity: defaultComplexity,
+    keyObservation: defaultHint3,
+    stepByStepHint: defaultHint4,
+    targetComplexity: defaultComplexity,
+  };
+}
+
+/**
  * Gọi Gemini API với bậc thang gợi ý sư phạm và lời giải chi tiết
- * Sử dụng Gemini 2.5 Flash / 2.0 Flash / 1.5 Flash
+ * Hỗ trợ song ngữ (Tiếng Việt và Tiếng Anh)
  */
 export async function getGeminiHintWithTimeout(
   apiKey: string,
-  problem: CFRandomProblemItem
+  problem: CFRandomProblemItem,
+  lang: 'vi' | 'en' = 'vi'
 ): Promise<CFGeminiHint> {
   const cleanKey = apiKey.trim();
   if (!cleanKey) {
-    throw new Error('Chưa nhập Gemini API Key.');
+    throw new Error(lang === 'en' ? 'Gemini API Key is missing.' : 'Chưa nhập Gemini API Key.');
   }
 
-  const prompt = `Bạn là Huấn luyện viên trưởng Olympic Tin học (IOI Coach) và Chuyên gia Competitive Programming (Grandmaster Codeforces).
+  const promptVi = `Bạn là Huấn luyện viên trưởng Olympic Tin học (IOI Coach) và Chuyên gia Competitive Programming (Grandmaster Codeforces).
 Nhiệm vụ của bạn là phân tích sâu, giải chi tiết bài toán Codeforces sau và phân chia lời giải thành các bậc thang gợi ý sư phạm:
 
 THÔNG TIN BÀI TOÁN CODEFORCES:
@@ -343,9 +489,37 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   "solutionCode": "Lời giải hoàn chỉnh và Code C++: Phân tích đầy đủ logic giải tối ưu kèm theo toàn bộ mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt).",
   "complexity": "Độ phức tạp thời gian O(...) và bộ nhớ O(...), kèm giải thích tại sao vượt qua được giới hạn thời gian (Time Limit)."
 }
-3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết thật chi tiết, có tâm, tránh nói chung chung hay qua loa. Người học cần nắm vững cả tư duy lẫn cách cài đặt bài toán này!`;
+3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.`;
 
-  // Thử các mô hình Gemini phổ biến, ưu tiên phản hồi chất lượng và nhanh
+  const promptEn = `You are an elite International Olympiad in Informatics (IOI) Coach and Codeforces Legendary Grandmaster.
+Your task is to analyze deeply, solve accurately, and structure the pedagogical hints and complete editorial for the following Codeforces problem:
+
+CODEFORCES PROBLEM DETAILS:
+- Problem ID: ${problem.contestId}${problem.index}
+- Title: ${problem.name}
+- Difficulty Rating: ${problem.rating}
+- Tags: ${problem.tags.join(', ')}
+- URL: ${problem.url}
+
+PEDAGOGICAL RULES & OUTPUT FORMAT:
+1. Provide the optimal, accepted solution and editorial for "${problem.contestId}${problem.index} - ${problem.name}".
+2. All explanations and commentary must be written 100% in English.
+3. Return ONLY a single valid JSON object (escape inner quotes with \\", newlines with \\n):
+{
+  "briefSummary": "Brief summary of the problem statement in 2-3 concise sentences: What is given, what to find, and the underlying mathematical/algorithmic model.",
+  "hint1_basic": "Hint 1 (Basic): Initial observations upon reading the problem, analysis of small N or sample tests without spoiling the full solution.",
+  "hint2_reduction": "Hint 2 (Model Reduction): How to reframe or simplify the problem into a standard algorithmic form (graph, DP, greedy, math).",
+  "hint3_key": "Hint 3 (KEY OBSERVATION / Aha! Moment): The pivotal insight needed to crack the problem! Monotonicity, invariant, greedy choice, or key data structure.",
+  "hint4_algorithm": "Hint 4 (Step-by-Step Algorithm): Detailed algorithmic procedure: precomputation, transitions, data structures, state definitions, and result extraction.",
+  "edgeCases": "Corner cases & Pitfalls: N=1, 64-bit integer overflow (long long in C++), empty sets, disconnected components, boundary values.",
+  "solutionCode": "Complete Solution & C++ Code: In-depth solution breakdown followed by full, clean, working C++ code (C++17/20, Fast I/O, clean English comments).",
+  "complexity": "Time complexity O(...) and Space complexity O(...), with proof of why it easily passes within the time limit."
+}
+4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.`;
+
+  const prompt = lang === 'en' ? promptEn : promptVi;
+
+  // Thử các mô hình Gemini phổ biến
   const models = [
     'gemini-2.5-flash',
     'gemini-2.0-flash',
@@ -356,7 +530,7 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   for (const model of models) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 25000); // 25s timeout cho generation chi tiết
+      const timer = setTimeout(() => controller.abort(), 25000); // 25s timeout
 
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(cleanKey)}`;
       const res = await fetch(url, {
@@ -384,60 +558,10 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
           clean = jsonMatch[1].trim();
         }
 
-        try {
-          const parsed = JSON.parse(clean);
-          return {
-            briefSummary: parsed.briefSummary || ('Bài toán ' + problem.name),
-            hint1_basic: parsed.hint1_basic || parsed.keyObservation || '',
-            hint2_reduction: parsed.hint2_reduction || '',
-            hint3_key: parsed.hint3_key || parsed.keyObservation || '',
-            hint4_algorithm: parsed.hint4_algorithm || parsed.stepByStepHint || '',
-            edgeCases: parsed.edgeCases || 'Lưu ý các trường hợp biên N nhỏ và tràn số 64-bit int.',
-            solutionCode: parsed.solutionCode || '',
-            complexity: parsed.complexity || parsed.targetComplexity || 'O(N)',
-            keyObservation: parsed.hint3_key || parsed.keyObservation || '',
-            stepByStepHint: parsed.hint4_algorithm || parsed.stepByStepHint || '',
-            targetComplexity: parsed.complexity || parsed.targetComplexity || 'O(N)',
-          };
-        } catch {
-          // Nếu JSON parse lỗi, thử trích xuất substring từ '{' tới '}'
-          const start = clean.indexOf('{');
-          const end = clean.lastIndexOf('}');
-          if (start !== -1 && end !== -1 && end > start) {
-            try {
-              const subParsed = JSON.parse(clean.slice(start, end + 1));
-              return {
-                briefSummary: subParsed.briefSummary || ('Bài toán ' + problem.name),
-                hint1_basic: subParsed.hint1_basic || subParsed.keyObservation || '',
-                hint2_reduction: subParsed.hint2_reduction || '',
-                hint3_key: subParsed.hint3_key || subParsed.keyObservation || '',
-                hint4_algorithm: subParsed.hint4_algorithm || subParsed.stepByStepHint || '',
-                edgeCases: subParsed.edgeCases || 'Lưu ý các trường hợp biên N nhỏ và tràn số.',
-                solutionCode: subParsed.solutionCode || '',
-                complexity: subParsed.complexity || subParsed.targetComplexity || 'O(N)',
-                keyObservation: subParsed.hint3_key || subParsed.keyObservation || '',
-                stepByStepHint: subParsed.hint4_algorithm || subParsed.stepByStepHint || '',
-                targetComplexity: subParsed.complexity || subParsed.targetComplexity || 'O(N)',
-              };
-            } catch {}
-          }
-          
-          return {
-            briefSummary: 'Bài toán ' + problem.name,
-            hint1_basic: clean,
-            hint3_key: 'Tập trung vào tính chất và dữ kiện đề bài.',
-            hint4_algorithm: 'Xây dựng thuật toán theo nhận xét.',
-            edgeCases: 'Lưu ý các trường hợp biên N nhỏ và tràn số.',
-            solutionCode: '// Chi tiết lời giải trên Codeforces: ' + problem.url,
-            complexity: 'O(N) hoặc O(N log N)',
-            keyObservation: clean,
-            stepByStepHint: 'Xem chi tiết trong phần nhận xét.',
-            targetComplexity: 'O(N)',
-          };
-        }
+        return parseGeminiHintJson(clean, problem, lang);
       }
     } catch (err: any) {
-      // Bỏ qua lỗi và thử model tiếp theo
+      // Thử model tiếp theo
     }
   }
 
@@ -446,26 +570,21 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
     const res = await fetch('/api/gemini/hint', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ apiKey: cleanKey, problem }),
+      body: JSON.stringify({ apiKey: cleanKey, problem, lang }),
     });
     const data = await res.json();
     if (data.success && data.hint) {
-      const h = data.hint;
-      return {
-        briefSummary: h.briefSummary || ('Bài toán ' + problem.name),
-        hint1_basic: h.hint1_basic || h.keyObservation || (typeof h === 'string' ? h : ''),
-        hint2_reduction: h.hint2_reduction || '',
-        hint3_key: h.hint3_key || h.keyObservation || '',
-        hint4_algorithm: h.hint4_algorithm || h.stepByStepHint || '',
-        edgeCases: h.edgeCases || 'Cẩn thận tràn số 64-bit int và biên N=1.',
-        solutionCode: h.solutionCode || '',
-        complexity: h.complexity || h.targetComplexity || 'O(N)',
-        keyObservation: h.hint3_key || h.keyObservation || '',
-        stepByStepHint: h.hint4_algorithm || h.stepByStepHint || '',
-        targetComplexity: h.complexity || h.targetComplexity || 'O(N)',
-      };
+      return parseGeminiHintJson(
+        typeof data.hint === 'string' ? data.hint : JSON.stringify(data.hint),
+        problem,
+        lang
+      );
     }
   } catch {}
 
-  throw new Error('Không thể kết nối tới Gemini AI (quá thời gian chờ hoặc API Key không hợp lệ). Bạn vẫn có thể làm bài theo link trên!');
+  throw new Error(
+    lang === 'en'
+      ? 'Could not connect to Gemini AI (request timed out or invalid API Key). You can still solve the problem using the link above!'
+      : 'Không thể kết nối tới Gemini AI (quá thời gian chờ hoặc API Key không hợp lệ). Bạn vẫn có thể làm bài theo link trên!'
+  );
 }

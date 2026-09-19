@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { parseGeminiHintJson } from '@/lib/codeforcesClient';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { apiKey, problem } = body;
+    const { apiKey, problem, lang = 'vi' } = body;
 
     const geminiKey = apiKey?.trim() || process.env.GEMINI_API_KEY;
 
     if (!geminiKey) {
       return NextResponse.json(
         {
-          error: 'Chưa có Gemini API Key. Vui lòng nhập API Key của bạn vào ô cài đặt hoặc cấu hình biến môi trường GEMINI_API_KEY.',
+          error: lang === 'en' 
+            ? 'Gemini API Key missing. Please provide your API Key or set GEMINI_API_KEY.'
+            : 'Chưa có Gemini API Key. Vui lòng nhập API Key của bạn vào ô cài đặt hoặc cấu hình biến môi trường GEMINI_API_KEY.',
         },
         { status: 400 }
       );
@@ -18,19 +21,19 @@ export async function POST(request: NextRequest) {
 
     if (!problem || !problem.name) {
       return NextResponse.json(
-        { error: 'Thiếu thông tin bài tập cần nhận gợi ý.' },
+        { error: lang === 'en' ? 'Missing problem data.' : 'Thiếu thông tin bài tập cần nhận gợi ý.' },
         { status: 400 }
       );
     }
 
-    const prompt = `Bạn là Huấn luyện viên trưởng Olympic Tin học (IOI Coach) và Chuyên gia Competitive Programming (Grandmaster Codeforces).
+    const promptVi = `Bạn là Huấn luyện viên trưởng Olympic Tin học (IOI Coach) và Chuyên gia Competitive Programming (Grandmaster Codeforces).
 Nhiệm vụ của bạn là phân tích sâu, giải chi tiết bài toán Codeforces sau và phân chia lời giải thành các bậc thang gợi ý sư phạm:
 
 THÔNG TIN BÀI TOÁN CODEFORCES:
 - Mã bài: ${problem.contestId}${problem.index}
 - Tên bài: ${problem.name}
 - Mức độ (Rating): ${problem.rating}
-- Tags: ${problem.tags.join(', ')}
+- Tags: ${problem.tags?.join(', ') || ''}
 - Link bài: ${problem.url}
 
 QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
@@ -46,7 +49,35 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   "solutionCode": "Lời giải hoàn chỉnh và Code C++: Phân tích đầy đủ logic giải tối ưu kèm theo toàn bộ mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt).",
   "complexity": "Độ phức tạp thời gian O(...) và bộ nhớ O(...), kèm giải thích tại sao vượt qua được giới hạn thời gian (Time Limit)."
 }
-3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết thật chi tiết, có tâm, tránh nói chung chung hay qua loa. Người học cần nắm vững cả tư duy lẫn cách cài đặt bài toán này!`;
+3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.`;
+
+    const promptEn = `You are an elite International Olympiad in Informatics (IOI) Coach and Codeforces Legendary Grandmaster.
+Your task is to analyze deeply, solve accurately, and structure the pedagogical hints and complete editorial for the following Codeforces problem:
+
+CODEFORCES PROBLEM DETAILS:
+- Problem ID: ${problem.contestId}${problem.index}
+- Title: ${problem.name}
+- Difficulty Rating: ${problem.rating}
+- Tags: ${problem.tags?.join(', ') || ''}
+- URL: ${problem.url}
+
+PEDAGOGICAL RULES & OUTPUT FORMAT:
+1. Provide the optimal, accepted solution and editorial for "${problem.contestId}${problem.index} - ${problem.name}".
+2. All explanations and commentary must be written 100% in English.
+3. Return ONLY a single valid JSON object (escape inner quotes with \\", newlines with \\n):
+{
+  "briefSummary": "Brief summary of the problem statement in 2-3 concise sentences: What is given, what to find, and the underlying mathematical/algorithmic model.",
+  "hint1_basic": "Hint 1 (Basic): Initial observations upon reading the problem, analysis of small N or sample tests without spoiling the full solution.",
+  "hint2_reduction": "Hint 2 (Model Reduction): How to reframe or simplify the problem into a standard algorithmic form (graph, DP, greedy, math).",
+  "hint3_key": "Hint 3 (KEY OBSERVATION / Aha! Moment): The pivotal insight needed to crack the problem! Monotonicity, invariant, greedy choice, or key data structure.",
+  "hint4_algorithm": "Hint 4 (Step-by-Step Algorithm): Detailed algorithmic procedure: precomputation, transitions, data structures, state definitions, and result extraction.",
+  "edgeCases": "Corner cases & Pitfalls: N=1, 64-bit integer overflow (long long in C++), empty sets, disconnected components, boundary values.",
+  "solutionCode": "Complete Solution & C++ Code: In-depth solution breakdown followed by full, clean, working C++ code (C++17/20, Fast I/O, clean English comments).",
+  "complexity": "Time complexity O(...) and Space complexity O(...), with proof of why it easily passes within the time limit."
+}
+4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.`;
+
+    const prompt = lang === 'en' ? promptEn : promptVi;
 
     // Gọi Gemini API - Thử các model mới nhất
     const modelsToTry = [
@@ -87,31 +118,10 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
             clean = jsonMatch[1].trim();
           }
 
-          try {
-            hintObj = JSON.parse(clean);
-            break;
-          } catch {
-            const start = clean.indexOf('{');
-            const end = clean.lastIndexOf('}');
-            if (start !== -1 && end !== -1 && end > start) {
-              try {
-                hintObj = JSON.parse(clean.slice(start, end + 1));
-                break;
-              } catch {}
-            }
-            hintObj = {
-              briefSummary: 'Bài toán ' + problem.name,
-              hint1_basic: clean,
-              hint3_key: 'Quan sát các dữ kiện then chốt của bài toán.',
-              hint4_algorithm: 'Xây dựng thuật toán theo quan sát.',
-              edgeCases: 'Lưu ý các trường hợp N nhỏ và tràn số 64-bit.',
-              solutionCode: '// Chi tiết lời giải trên Codeforces: ' + problem.url,
-              complexity: 'O(N) hoặc O(N log N)',
-            };
-            break;
-          }
+          hintObj = parseGeminiHintJson(clean, problem, lang);
+          break;
         } else {
-          lastError = data.error?.message || `Mã lỗi ${res.status}`;
+          lastError = data.error?.message || `Status ${res.status}`;
         }
       } catch (err: any) {
         lastError = err.message;
@@ -121,7 +131,7 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
     if (!hintObj) {
       return NextResponse.json(
         {
-          error: `Không thể kết nối tới Gemini API. Lỗi từ Google: ${lastError || 'Unknown error'}. Vui lòng kiểm tra lại API Key.`,
+          error: `Google Gemini API Error: ${lastError || 'Unknown error'}.`,
         },
         { status: 500 }
       );
@@ -135,7 +145,7 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   } catch (err: any) {
     console.error('Gemini Hint API Error:', err);
     return NextResponse.json(
-      { error: err.message || 'Lỗi xử lý yêu cầu Gemini AI.' },
+      { error: err.message || 'Error processing Gemini AI request.' },
       { status: 500 }
     );
   }

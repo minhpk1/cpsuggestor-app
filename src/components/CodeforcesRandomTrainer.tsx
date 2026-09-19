@@ -104,7 +104,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
   recommendedRating,
   solvedProblemIds = [],
 }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [matchMode, setMatchMode] = useState<'AND' | 'OR'>('AND');
   const [selectedRating, setSelectedRating] = useState<number>(recommendedRating || 1200);
@@ -263,31 +263,32 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
         selectedTags,
         selectedRating,
         solvedProblemIds,
-        matchMode
+        matchMode,
+        lang
       );
       setRandomProblem(problem);
 
       // Nếu có API key, tự động yêu cầu gợi ý từ Gemini AI luôn
       if (geminiApiKey.trim()) {
-        fetchHint(problem, geminiApiKey.trim());
+        fetchHint(problem, geminiApiKey.trim(), lang);
       }
     } catch (err: any) {
-      setRandomError(err.message || 'Lỗi khi chọn bài tập.');
+      setRandomError(err.message || t('err_random_failed'));
     } finally {
       setLoadingRandom(false);
     }
   };
 
-  // 2. Lấy gợi ý tư duy từ Gemini AI với timeout 8 giây
-  const fetchHint = async (prob: CFRandomProblemItem, key: string) => {
+  // 2. Lấy gợi ý tư duy từ Gemini AI với hỗ trợ ngôn ngữ
+  const fetchHint = async (prob: CFRandomProblemItem, key: string, language: 'vi' | 'en' = lang) => {
     setLoadingHint(true);
     setHintError(null);
 
     try {
-      const hint = await getGeminiHintWithTimeout(key, prob);
+      const hint = await getGeminiHintWithTimeout(key, prob, language);
       setGeminiHint(hint);
     } catch (err: any) {
-      setHintError(err.message || 'Không thể lấy gợi ý AI.');
+      setHintError(err.message || t('err_hint_failed'));
     } finally {
       setLoadingHint(false);
     }
@@ -405,7 +406,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                     <span className="text-gray-500">{t('all_tags_label')} (38 tags)</span>
                   ) : (
                     <span className="font-medium text-blue-700">
-                      {t('selected_tags_prefix')} {selectedTags.length} tag: {selectedTags.join(', ')}
+                      {t('selected_tags_prefix')} {selectedTags.length} tag{selectedTags.length > 1 && lang === 'en' ? 's' : ''}: {selectedTags.join(', ')}
                     </span>
                   )}
                 </div>
@@ -414,23 +415,26 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
               {/* Dropdown Popover */}
               {isTagDropdownOpen && (
-                <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-30 p-2 space-y-2 max-h-72 flex flex-col">
+                <div 
+                  className="absolute left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-md shadow-xl z-30 p-2.5 space-y-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   {/* Search box */}
                   <div className="relative">
-                    <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2 top-1/2 -translate-y-1/2" />
+                    <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       value={tagSearchQuery}
                       onChange={(e) => setTagSearchQuery(e.target.value)}
                       placeholder={t('select_tags_placeholder')}
-                      className="w-full text-xs pl-7 pr-2 py-1.5 border border-gray-200 rounded focus:outline-none focus:border-blue-500"
+                      className="w-full text-xs pl-8 pr-7 py-1.5 border border-gray-200 rounded focus:outline-none focus:border-blue-500"
                       autoFocus
                     />
                     {tagSearchQuery && (
                       <button
                         type="button"
                         onClick={() => setTagSearchQuery('')}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -442,26 +446,38 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                     <span>
                       {t('selected_tags_prefix')}: <strong className="text-blue-600">{selectedTags.length}</strong> / {CF_TAG_LIST.length}
                     </span>
-                    <button
-                      type="button"
-                      onClick={handleClearTags}
-                      className="text-gray-500 hover:text-gray-700 hover:underline"
-                    >
-                      {t('all_tags_label')}
-                    </button>
+                    {selectedTags.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={handleClearTags}
+                        className="text-rose-600 hover:underline font-medium"
+                      >
+                        {t('btn_clear_tags')}
+                      </button>
+                    )}
                   </div>
 
                   {/* Tag Checkbox List */}
-                  <div className="overflow-y-auto flex-1 space-y-0.5 pr-1 text-xs">
-                    {CF_TAG_LIST
-                      .filter(tag => tag.toLowerCase().includes(tagSearchQuery.toLowerCase()))
-                      .map(tag => {
+                  <div className="max-h-60 min-h-[140px] overflow-y-auto space-y-0.5 pr-1 text-xs">
+                    {(() => {
+                      const query = tagSearchQuery.trim().toLowerCase();
+                      const filteredTags = CF_TAG_LIST.filter(tag =>
+                        tag.toLowerCase().includes(query)
+                      );
+                      if (filteredTags.length === 0) {
+                        return (
+                          <div className="py-8 text-center text-gray-400 text-xs italic">
+                            {t('no_tags_match')}
+                          </div>
+                        );
+                      }
+                      return filteredTags.map(tag => {
                         const isChecked = selectedTags.includes(tag);
                         return (
                           <div
                             key={tag}
                             onClick={() => handleToggleTag(tag)}
-                            className={`flex items-center justify-between px-2 py-1.5 rounded cursor-pointer transition-colors ${
+                            className={`flex items-center justify-between px-2.5 py-1.5 rounded cursor-pointer transition-colors ${
                               isChecked
                                 ? 'bg-blue-50 text-blue-800 font-medium'
                                 : 'hover:bg-gray-50 text-gray-700'
@@ -473,11 +489,12 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                               }`}>
                                 {isChecked && <Check className="w-2.5 h-2.5" />}
                               </div>
-                              <span>{tag}</span>
+                              <span className="capitalize">{tag}</span>
                             </div>
                           </div>
                         );
-                      })}
+                      });
+                    })()}
                   </div>
                 </div>
               )}
@@ -649,7 +666,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                 </div>
                 <div className="flex items-center space-x-2 mt-2 flex-wrap gap-1.5">
                   <span className={`px-2 py-0.5 rounded text-xs font-mono font-bold border ${getRatingBadgeClass(randomProblem.rating)}`}>
-                    Rating {randomProblem.rating}
+                    {t('rating_label')} {randomProblem.rating}
                   </span>
                   {randomProblem.tags.map((tTag) => (
                     <span
@@ -694,10 +711,10 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                 <button
                   onClick={() => {
                     if (!geminiApiKey.trim()) {
-                      setHintError(t('err_missing_key'));
+                      setHintError(t('err_missing_gemini_key'));
                       return;
                     }
-                    fetchHint(randomProblem, geminiApiKey.trim());
+                    fetchHint(randomProblem, geminiApiKey.trim(), lang);
                   }}
                   className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-medium transition-colors flex items-center space-x-1 shadow-sm"
                 >
@@ -723,7 +740,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                   <span>{hintError}</span>
                   {!geminiApiKey && (
                     <span className="block mt-0.5 text-gray-600 font-normal">
-                      {t('err_missing_key')}
+                      {t('err_missing_gemini_key')}
                     </span>
                   )}
                 </div>
@@ -887,7 +904,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                               {t('hint_tier_3_title')}
                             </span>
                             <span className="px-1.5 py-0.2 bg-amber-100 text-amber-800 rounded font-semibold text-[9px]">
-                              Crucial
+                              {t('badge_crucial')}
                             </span>
                           </div>
                         </div>
@@ -988,7 +1005,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                               {t('hint_tier_6_title')}
                             </span>
                             <span className="px-1.5 py-0.2 bg-rose-100 text-rose-800 rounded font-semibold text-[9px]">
-                              Spoiler
+                              {t('badge_spoiler')}
                             </span>
                           </div>
                         </div>

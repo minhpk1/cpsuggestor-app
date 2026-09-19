@@ -185,7 +185,15 @@ export const translations = {
     hint_edge_cases: '⚠️ Lưu ý trường hợp biên (Edge cases):',
     hint_target_complexity: '⚡ Độ phức tạp mục tiêu:',
     hint_brief_summary: '📖 Tóm tắt đề bài & Bản chất bài toán:',
-    err_missing_key: 'Vui lòng nhập Gemini API Key ở ô cấu hình phía trên.',
+    badge_crucial: 'Then chốt',
+    badge_spoiler: 'Lời giải',
+    no_tags_match: 'Không tìm thấy chủ đề nào phù hợp',
+    rating_label: 'Rating',
+    err_random_failed: 'Lỗi khi chọn bài tập.',
+    err_hint_failed: 'Không thể lấy gợi ý AI.',
+    err_no_unsolved_problem: 'Không tìm thấy bài tập nào chưa AC với tiêu chí đã chọn.',
+    err_missing_gemini_key: 'Vui lòng nhập Gemini API Key ở ô cấu hình phía trên.',
+    err_gemini_timeout: 'Không thể kết nối tới Gemini AI (quá thời gian chờ hoặc API Key không hợp lệ). Bạn vẫn có thể làm bài theo link trên!',
 
     // Footer
     footer_desc: 'Nền tảng hỗ trợ học sinh Olympic Tin học (OI) và Luyện thi Codeforces',
@@ -379,7 +387,15 @@ export const translations = {
     hint_edge_cases: '⚠️ Edge Cases & Pitfalls:',
     hint_target_complexity: '⚡ Target Complexity:',
     hint_brief_summary: '📖 Problem Summary & Core Objective:',
-    err_missing_key: 'Please provide a Gemini API Key in the settings above.',
+    badge_crucial: 'Crucial',
+    badge_spoiler: 'Spoiler',
+    no_tags_match: 'No matching tags found',
+    rating_label: 'Rating',
+    err_random_failed: 'Error selecting random problem.',
+    err_hint_failed: 'Failed to fetch AI guidance.',
+    err_no_unsolved_problem: 'No un-AC problems found matching your criteria.',
+    err_missing_gemini_key: 'Please enter your Gemini API Key in the settings above.',
+    err_gemini_timeout: 'Could not connect to Gemini AI (timeout or invalid API Key). You can still solve the problem via the direct link!',
 
     // Footer
     footer_desc: 'Olympiad in Informatics (OI) & Codeforces Training Platform',

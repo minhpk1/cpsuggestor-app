@@ -205,6 +205,7 @@ export const CodeforcesView: React.FC = () => {
             distribution={profile.ratingDistribution}
             recommendedRating={profile.recommendedRating}
             recommendedReason={profile.recommendedRatingReason}
+            currentRating={profile.rating}
             totalSolved={profile.totalSolved}
           />
 

@@ -10,6 +10,7 @@ interface CodeforcesRatingChartProps {
   recommendedRating: number;
   recommendedReason: string;
   totalSolved: number;
+  currentRating?: number;
 }
 
 export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
@@ -17,8 +18,25 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
   recommendedRating,
   recommendedReason,
   totalSolved,
+  currentRating = 0,
 }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+
+  const displayReason = React.useMemo(() => {
+    if (currentRating > 0) {
+      return lang === 'en'
+        ? `Based on your current contest rating (${currentRating}), training on rating ${recommendedRating} problems is your ideal sweet spot for algorithmic growth.`
+        : `Dựa trên rating thi đấu hiện tại (${currentRating}), luyện các bài ${recommendedRating} sẽ giúp bạn mở rộng tư duy giải thuật mà không bị quá ngợp.`;
+    }
+    if (totalSolved > 0) {
+      return lang === 'en'
+        ? `Based on your distribution of ${totalSolved} solved problems, rating ${recommendedRating} is your next ideal challenge.`
+        : `Dựa trên phân bố ${totalSolved} bài bạn đã giải, mức ${recommendedRating} là thử thách lý tưởng tiếp theo.`;
+    }
+    return lang === 'en'
+      ? 'Start with rating 1000 problems to get accustomed to Codeforces problem styles.'
+      : 'Khởi đầu với các bài rating 1000 để làm quen với phong cách bài tập Codeforces.';
+  }, [currentRating, recommendedRating, totalSolved, lang]);
 
   // Tìm giá trị max để scale độ cao cột
   const maxCount = Math.max(...distribution.map(d => d.count), 1);
@@ -67,7 +85,7 @@ export const CodeforcesRatingChart: React.FC<CodeforcesRatingChartProps> = ({
               </span>
             </div>
             <p className="text-gray-600">
-              {recommendedReason}
+              {displayReason}
             </p>
           </div>
         </div>
