@@ -6,14 +6,15 @@ import { OjuzChecklist } from '@/components/OjuzChecklist';
 import { SubmissionHeatmap } from '@/components/SubmissionHeatmap';
 import { SidebarWidgets } from '@/components/SidebarWidgets';
 import { CodeforcesView } from '@/components/CodeforcesView';
+import { RoadmapView } from '@/components/RoadmapView';
 import { Footer } from '@/components/Footer';
 import { UserProfileData, UserSubmission } from '@/types';
-import { Loader2, AlertCircle, Sparkles, BookOpen } from 'lucide-react';
+import { Loader2, AlertCircle, Sparkles, BookOpen, Layers } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function HomePage() {
   const { t } = useLanguage();
-  const [platform, setPlatform] = useState<'ojuz' | 'codeforces'>('ojuz');
+  const [platform, setPlatform] = useState<'ojuz' | 'codeforces' | 'roadmap'>('ojuz');
   const [handle, setHandle] = useState<string>('Benq');
   const [profile, setProfile] = useState<UserProfileData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -87,7 +88,7 @@ export default function HomePage() {
 
         {/* Thanh chọn Nền tảng (OJ.uz vs Codeforces) */}
         <div className="mb-5 flex items-center justify-between border-b border-[#e8e8e8] pb-3 flex-wrap gap-2">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-wrap gap-y-2">
             <button
               onClick={() => setPlatform('ojuz')}
               className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
@@ -111,12 +112,26 @@ export default function HomePage() {
               <Sparkles className="w-3.5 h-3.5 text-blue-500" />
               <span>{t('platform_switch_cf')}</span>
             </button>
+
+            <button
+              onClick={() => setPlatform('roadmap')}
+              className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
+                platform === 'roadmap'
+                  ? 'bg-white text-emerald-700 border border-emerald-300 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{t('platform_switch_roadmap')}</span>
+            </button>
           </div>
 
-          <span className="text-[11px] text-gray-500 hidden sm:inline">
+          <span className="text-[11px] text-gray-500 hidden xl:inline">
             {platform === 'ojuz'
               ? t('platform_switch_oj_sub')
-              : t('platform_switch_cf_sub')}
+              : platform === 'codeforces'
+              ? t('platform_switch_cf_sub')
+              : t('platform_switch_roadmap_sub')}
           </span>
         </div>
         
@@ -190,6 +205,13 @@ export default function HomePage() {
         {/* ============================================================== */}
         {platform === 'codeforces' && (
           <CodeforcesView />
+        )}
+
+        {/* ============================================================== */}
+        {/* PHÂN HỆ 3: LỘ TRÌNH THUẬT TOÁN CP (28 CHỦ ĐỀ & 280 BÀI TẬP)   */}
+        {/* ============================================================== */}
+        {platform === 'roadmap' && (
+          <RoadmapView initialHandle={handle} />
         )}
 
       </main>

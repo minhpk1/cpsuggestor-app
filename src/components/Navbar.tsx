@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Sparkles, Globe } from 'lucide-react';
+import { Sparkles, Globe, Layers } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface NavbarProps {
   currentHandle: string;
-  activePlatform: 'ojuz' | 'codeforces';
-  setActivePlatform: (platform: 'ojuz' | 'codeforces') => void;
+  activePlatform: 'ojuz' | 'codeforces' | 'roadmap';
+  setActivePlatform: (platform: 'ojuz' | 'codeforces' | 'roadmap') => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </div>
 
-            {/* Platform Selector Buttons (OJ.uz vs Codeforces) */}
+            {/* Platform Selector Buttons (OJ.uz vs Codeforces vs Roadmap) */}
             <div className="flex items-center bg-[#f0f2f5] p-1 rounded border border-gray-200 text-xs">
               <button
                 onClick={() => setActivePlatform('ojuz')}
@@ -67,6 +67,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Sparkles className="w-3 h-3 text-blue-500" />
                 <span>{t('platform_cf')}</span>
                 <span className="text-[10px] text-blue-500 font-medium hidden md:inline">{t('platform_cf_sub')}</span>
+              </button>
+
+              <button
+                onClick={() => setActivePlatform('roadmap')}
+                className={`px-3 py-1 rounded transition-all flex items-center space-x-1.5 ${
+                  activePlatform === 'roadmap'
+                    ? 'bg-white text-emerald-700 font-semibold shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Layers className="w-3 h-3 text-emerald-600" />
+                <span>{t('platform_roadmap')}</span>
+                <span className="text-[10px] text-emerald-600 font-medium hidden md:inline">{t('platform_roadmap_sub')}</span>
               </button>
             </div>
 
@@ -110,6 +123,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               <nav className="hidden lg:flex items-center space-x-1 text-[13px] ml-2">
                 <span className="px-2 py-1 text-xs text-gray-500">
                   {t('nav_cf_tagline')}
+                </span>
+              </nav>
+            )}
+
+            {activePlatform === 'roadmap' && (
+              <nav className="hidden lg:flex items-center space-x-1 text-[13px] ml-2">
+                <span className="px-2 py-1 text-xs text-emerald-700 font-medium">
+                  {t('roadmap_nav_tagline')}
                 </span>
               </nav>
             )}
