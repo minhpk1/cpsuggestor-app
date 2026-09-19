@@ -6,22 +6,24 @@ import {
   ROADMAP_TOPICS,
   RoadmapTopic,
   RoadmapProblem,
-  RoadmapPhase
+  RoadmapPhase,
 } from '@/data/roadmapData';
 import { useLanguage } from '@/context/LanguageContext';
 import {
-  Search,
-  Check,
-  ChevronDown,
+  ChevronLeft,
   ChevronRight,
+  ChevronDown,
   ExternalLink,
+  Check,
   RefreshCw,
-  SlidersHorizontal,
-  Layers,
+  ChevronsLeft,
+  ChevronsRight,
   BookOpen,
-  Filter,
   CheckCircle2,
-  ListFilter
+  ListOrdered,
+  Sparkles,
+  Info,
+  MoreVertical,
 } from 'lucide-react';
 
 interface RoadmapViewProps {
@@ -31,26 +33,26 @@ interface RoadmapViewProps {
 export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq' }) => {
   const { t, lang } = useLanguage();
 
-  // Handle & Sync State
+  // Active topic & Phase selection
+  const [selectedTopicId, setSelectedTopicId] = useState<number>(1);
+  const [selectedPhaseId, setSelectedPhaseId] = useState<number>(1);
+
+  // Sidebar collapse state (like USACO Guide `<<` button)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+
+  // Solved problems set (keys: `${contestId}_${index}`)
+  const [solvedSet, setSolvedSet] = useState<Set<string>>(new Set());
+
+  // Handle & Codeforces Sync State
   const [handle, setHandle] = useState<string>(initialHandle);
   const [syncing, setSyncing] = useState<boolean>(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
 
-  // Solved problems set: stores keys formatted as `${contestId}_${index}`
-  const [solvedSet, setSolvedSet] = useState<Set<string>>(new Set());
+  // Dropdown states
+  const [isPhaseDropdownOpen, setIsPhaseDropdownOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Search & Filter State
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'unsolved' | 'solved'>('all');
-  const [selectedPhase, setSelectedPhase] = useState<number | 'all'>('all');
-
-  // Expanded topics state: map topicId -> boolean
-  const [expandedTopics, setExpandedTopics] = useState<Record<number, boolean>>({});
-
-  // Active topic highlighted in sidebar
-  const [activeTopicId, setActiveTopicId] = useState<number>(1);
-
-  // Initialize from LocalStorage
+  // Load saved state from LocalStorage on mount
   useEffect(() => {
     try {
       const savedSolved = localStorage.getItem('roadmap_ac_problems');
@@ -61,23 +63,75 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
         }
       }
 
+      const savedTopic = localStorage.getItem('roadmap_active_topic');
+      if (savedTopic) {
+        const topicId = parseInt(savedTopic, 10);
+        if (topicId >= 1 && topicId <= 28) {
+          setSelectedTopicId(topicId);
+          const found = ROADMAP_TOPICS.find((t) => t.id === topicId);
+          if (found) {
+            setSelectedPhaseId(found.phaseId);
+          }
+        }
+      }
+
       const savedHandle = localStorage.getItem('cf_saved_handle') || initialHandle;
       if (savedHandle) {
         setHandle(savedHandle);
       }
-
-      // Default expand the first 3 topics for clean initial view
-      const initialExpanded: Record<number, boolean> = {};
-      ROADMAP_TOPICS.slice(0, 3).forEach((topic) => {
-        initialExpanded[topic.id] = true;
-      });
-      setExpandedTopics(initialExpanded);
     } catch (e) {
-      console.error('Failed to load roadmap state from localStorage', e);
+      console.error('Failed to load state from localStorage', e);
     }
   }, [initialHandle]);
 
-  // Persist solvedSet changes
+  // Close phase dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsPhaseDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Select a topic and update localStorage
+  const selectTopic = (id: number) => {
+    setSelectedTopicId(id);
+    localStorage.setItem('roadmap_active_topic', id.toString());
+    const found = ROADMAP_TOPICS.find((t) => t.id === id);
+    if (found) {
+      setSelectedPhaseId(found.phaseId);
+    }
+    // Scroll content container to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Switch Phase via USACO Guide dropdown
+  const selectPhase = (phaseId: number) => {
+    setSelectedPhaseId(phaseId);
+    setIsPhaseDropdownOpen(false);
+    // Find first topic in this phase
+    const firstTopic = ROADMAP_TOPICS.find((t) => t.phaseId === phaseId);
+    if (firstTopic) {
+      selectTopic(firstTopic.id);
+    }
+  };
+
+  // Next / Prev Topic navigation
+  const goToPrevTopic = () => {
+    if (selectedTopicId > 1) {
+      selectTopic(selectedTopicId - 1);
+    }
+  };
+
+  const goToNextTopic = () => {
+    if (selectedTopicId < ROADMAP_TOPICS.length) {
+      selectTopic(selectedTopicId + 1);
+    }
+  };
+
+  // Toggle problem solved state
   const toggleProblemSolved = (contestId: number, index: string) => {
     const key = `${contestId}_${index}`;
     setSolvedSet((prev) => {
@@ -109,26 +163,17 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
         throw new Error(data.comment || 'Không thể kết nối API Codeforces');
       }
 
-      // Collect all AC submissions
       const cfSolved = new Set<string>();
       for (const sub of data.result) {
-        if (sub.verdict === 'OK' && sub.problem && sub.problem.contestId && sub.problem.index) {
+        if (sub.verdict === 'OK' && sub.problem?.contestId && sub.problem?.index) {
           cfSolved.add(`${sub.problem.contestId}_${sub.problem.index.toUpperCase()}`);
         }
       }
 
-      // Merge with existing solved problems
       setSolvedSet((prev) => {
         const merged = new Set(prev);
-        let newlyAdded = 0;
-        cfSolved.forEach((key) => {
-          if (!merged.has(key)) {
-            newlyAdded++;
-          }
-          merged.add(key);
-        });
+        cfSolved.forEach((key) => merged.add(key));
 
-        // Count how many of the 280 roadmap problems are solved
         let roadmapSolvedCount = 0;
         for (const topic of ROADMAP_TOPICS) {
           for (const prob of topic.problems) {
@@ -141,8 +186,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
         localStorage.setItem('roadmap_ac_problems', JSON.stringify(Array.from(merged)));
         setSyncMessage(
           lang === 'vi'
-            ? `Đã đồng bộ thành công! Bạn đã hoàn thành ${roadmapSolvedCount}/280 bài tập.`
-            : `Sync complete! You have solved ${roadmapSolvedCount}/280 problems.`
+            ? `Đã đồng bộ! Bạn đã AC ${roadmapSolvedCount}/280 bài tập.`
+            : `Sync complete! Solved ${roadmapSolvedCount}/280 problems.`
         );
         return merged;
       });
@@ -150,43 +195,34 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
       console.error(err);
       setSyncMessage(
         lang === 'vi'
-          ? `Lỗi đồng bộ: ${err.message || 'Không thể lấy dữ liệu từ Codeforces'}`
-          : `Sync error: ${err.message || 'Could not fetch data from Codeforces'}`
+          ? `Lỗi: ${err.message || 'Không thể lấy dữ liệu'}`
+          : `Error: ${err.message || 'Could not fetch data'}`
       );
     } finally {
       setSyncing(false);
     }
   };
 
-  // Toggle single topic expand/collapse
-  const toggleTopic = (id: number) => {
-    setExpandedTopics((prev) => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
+  // Active topic & phase objects
+  const currentTopic = useMemo(
+    () => ROADMAP_TOPICS.find((t) => t.id === selectedTopicId) || ROADMAP_TOPICS[0],
+    [selectedTopicId]
+  );
 
-  // Expand / Collapse all
-  const setAllExpanded = (expand: boolean) => {
-    const next: Record<number, boolean> = {};
-    ROADMAP_TOPICS.forEach((t) => {
-      next[t.id] = expand;
-    });
-    setExpandedTopics(next);
-  };
+  const currentPhase = useMemo(
+    () => ROADMAP_PHASES.find((p) => p.id === currentTopic.phaseId) || ROADMAP_PHASES[0],
+    [currentTopic]
+  );
 
-  // Smooth scroll to topic element
-  const scrollToTopic = (id: number) => {
-    setActiveTopicId(id);
-    setExpandedTopics((prev) => ({ ...prev, [id]: true }));
-    const el = document.getElementById(`topic-card-${id}`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  // Solved count in current topic
+  const currentTopicSolvedCount = useMemo(() => {
+    return currentTopic.problems.filter((p) =>
+      solvedSet.has(`${p.contestId}_${p.index}`)
+    ).length;
+  }, [currentTopic, solvedSet]);
 
-  // Statistics
-  const totalSolvedRoadmap = useMemo(() => {
+  // Overall statistics
+  const totalSolvedCount = useMemo(() => {
     let count = 0;
     for (const t of ROADMAP_TOPICS) {
       for (const p of t.problems) {
@@ -198,606 +234,612 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
     return count;
   }, [solvedSet]);
 
-  const totalProblemsCount = 280;
-  const overallPercentage = Math.round((totalSolvedRoadmap / totalProblemsCount) * 100);
+  // Topics in current phase
+  const phaseTopics = useMemo(
+    () => ROADMAP_TOPICS.filter((t) => t.phaseId === selectedPhaseId),
+    [selectedPhaseId]
+  );
 
-  // Filter logic
-  const filteredTopics = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-
-    return ROADMAP_TOPICS.filter((topic) => {
-      // Phase filter
-      if (selectedPhase !== 'all' && topic.phaseId !== selectedPhase) {
-        return false;
-      }
-
-      // Search matching topic name or essence
-      const matchesTopic =
-        topic.name.toLowerCase().includes(query) ||
-        topic.tier.toLowerCase().includes(query) ||
-        topic.complexity.toLowerCase().includes(query);
-
-      // Search matching problems
-      const matchingProblems = topic.problems.filter((p) => {
-        const matchesQuery =
-          !query ||
-          p.code.toLowerCase().includes(query) ||
-          p.name.toLowerCase().includes(query) ||
-          p.rating.toString().includes(query) ||
-          p.comment.toLowerCase().includes(query);
-
-        const isSolved = solvedSet.has(`${p.contestId}_${p.index}`);
-        const matchesStatus =
-          statusFilter === 'all' ||
-          (statusFilter === 'solved' && isSolved) ||
-          (statusFilter === 'unsolved' && !isSolved);
-
-        return matchesQuery && matchesStatus;
-      });
-
-      if (query || statusFilter !== 'all') {
-        return matchingProblems.length > 0;
-      }
-
-      return matchesTopic;
-    });
-  }, [searchQuery, statusFilter, selectedPhase, solvedSet]);
-
-  // Color helper for rating badges (muted technical tones)
-  const getRatingBadgeClass = (rating: number) => {
-    if (rating < 1200) {
-      return 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700';
+  // Status text for the topic dropdown button
+  const topicStatusInfo = useMemo(() => {
+    if (currentTopicSolvedCount === 0) {
+      return { text: 'Not Started', color: 'text-gray-600 border-gray-300 bg-white' };
     }
-    if (rating < 1400) {
-      return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800';
+    if (currentTopicSolvedCount === 10) {
+      return { text: 'Complete', color: 'text-emerald-700 border-emerald-300 bg-emerald-50' };
     }
-    if (rating < 1600) {
-      return 'bg-cyan-50 text-cyan-700 border-cyan-200 dark:bg-cyan-950/40 dark:text-cyan-300 dark:border-cyan-800';
-    }
-    if (rating < 1900) {
-      return 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800';
-    }
-    if (rating < 2200) {
-      return 'bg-violet-50 text-violet-700 border-violet-200 dark:bg-violet-950/40 dark:text-violet-300 dark:border-violet-800';
-    }
-    if (rating < 2400) {
-      return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800';
-    }
-    return 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800';
+    return { text: 'In Progress', color: 'text-blue-700 border-blue-300 bg-blue-50' };
+  }, [currentTopicSolvedCount]);
+
+  // Rating badge styling
+  const getRatingBadge = (rating: number) => {
+    if (rating < 1200) return 'text-gray-600 bg-gray-100 border-gray-200';
+    if (rating < 1400) return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+    if (rating < 1600) return 'text-cyan-700 bg-cyan-50 border-cyan-200';
+    if (rating < 1900) return 'text-blue-700 bg-blue-50 border-blue-200';
+    if (rating < 2200) return 'text-violet-700 bg-violet-50 border-violet-200';
+    if (rating < 2400) return 'text-amber-800 bg-amber-50 border-amber-200';
+    return 'text-rose-700 bg-rose-50 border-rose-200';
   };
 
   return (
-    <div className="space-y-6">
+    <div className="bg-white min-h-screen border border-[#e5e7eb] rounded-lg shadow-xs overflow-hidden flex flex-col font-sans text-[#1f2937]">
       
-      {/* Top Banner & Header Summary */}
-      <div className="bg-white border border-[#e8e8e8] rounded p-4 sm:p-5 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center space-x-2 mb-1">
-              <span className="text-[11px] font-mono uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
-                CURRICULUM 28
-              </span>
-              <span className="text-xs text-gray-500">
-                Newbie ➔ Grandmaster
-              </span>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
-              {t('platform_switch_roadmap')}
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-600 mt-1 max-w-3xl leading-relaxed">
-              {t('platform_switch_roadmap_sub')}
-            </p>
-          </div>
-
-          {/* Global Progress Card */}
-          <div className="bg-[#f8f9fa] border border-[#e8e8e8] rounded p-3 sm:p-4 min-w-[240px] shrink-0">
-            <div className="flex items-center justify-between text-xs mb-1.5">
-              <span className="text-gray-600 font-medium">
-                {t('roadmap_total_solved')}
-              </span>
-              <span className="font-mono font-bold text-gray-900 tabular-nums">
-                {totalSolvedRoadmap} / {totalProblemsCount} ({overallPercentage}%)
-              </span>
-            </div>
-            {/* Subtle 4px progress track */}
-            <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-              <div
-                className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
-                style={{ width: `${overallPercentage}%` }}
-              />
-            </div>
-          </div>
+      {/* ========================================================================= */}
+      {/* USACO GUIDE TOP UTILITY BAR (SYNC & TOTAL PROGRESS)                        */}
+      {/* ========================================================================= */}
+      <div className="bg-[#f9fafb] border-b border-[#e5e7eb] px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between text-xs text-gray-600 gap-2">
+        <div className="flex items-center space-x-2">
+          <span className="font-semibold text-gray-800">CP Roadmap</span>
+          <span className="text-gray-300">•</span>
+          <span className="font-mono text-gray-500">28 Topics / 280 Problems</span>
+          <span className="text-gray-300">•</span>
+          <span className="font-mono text-emerald-700 font-medium">
+            Total Solved: {totalSolvedCount} / 280 ({Math.round((totalSolvedCount / 280) * 100)}%)
+          </span>
         </div>
 
-        {/* Sync with CF Handle Bar */}
-        <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center space-x-2 flex-wrap gap-y-2">
-            <span className="text-gray-600 font-medium">Codeforces Handle:</span>
-            <div className="flex items-center space-x-1.5">
-              <input
-                type="text"
-                value={handle}
-                onChange={(e) => setHandle(e.target.value)}
-                placeholder="vd: tourist, Benq..."
-                className="px-2.5 py-1 text-xs border border-gray-300 rounded font-mono focus:outline-none focus:border-blue-500 w-36 sm:w-44"
-              />
-              <button
-                onClick={syncWithCodeforces}
-                disabled={syncing}
-                className="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded font-medium flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer"
-                title={t('roadmap_sync_tooltip')}
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${syncing ? 'animate-spin' : ''}`} />
-                <span>{syncing ? t('roadmap_syncing') : t('roadmap_sync_cf')}</span>
-              </button>
-            </div>
-          </div>
-
+        {/* Codeforces Sync Control */}
+        <div className="flex items-center space-x-2">
+          <span className="text-gray-500 font-medium hidden sm:inline">CF Handle:</span>
+          <input
+            type="text"
+            value={handle}
+            onChange={(e) => setHandle(e.target.value)}
+            placeholder="Handle..."
+            className="px-2 py-0.5 text-xs border border-gray-300 rounded font-mono w-28 sm:w-32 bg-white focus:outline-none focus:border-blue-500"
+          />
+          <button
+            onClick={syncWithCodeforces}
+            disabled={syncing}
+            className="px-2.5 py-0.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium flex items-center space-x-1 cursor-pointer transition-colors disabled:opacity-50"
+            title="Đồng bộ các bài đã giải từ tài khoản Codeforces"
+          >
+            <RefreshCw className={`w-3 h-3 ${syncing ? 'animate-spin' : ''}`} />
+            <span>{syncing ? 'Syncing...' : 'Sync CF'}</span>
+          </button>
           {syncMessage && (
-            <div className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded flex items-center space-x-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>{syncMessage}</span>
-            </div>
+            <span className="text-[11px] text-emerald-600 font-medium truncate max-w-xs">
+              {syncMessage}
+            </span>
           )}
         </div>
       </div>
 
-      {/* Control Bar: Search & Status Filters */}
-      <div className="bg-white border border-[#e8e8e8] rounded p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+      {/* ========================================================================= */}
+      {/* MAIN CONTAINER: SIDEBAR + CONTENT CANVAS                                  */}
+      {/* ========================================================================= */}
+      <div className="flex-1 flex overflow-hidden">
         
-        {/* Left: Search Input */}
-        <div className="relative flex-1 min-w-[220px] max-w-md">
-          <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t('roadmap_search_placeholder')}
-            className="w-full pl-8 pr-3 py-1.5 text-xs border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        {/* Middle: Status Filter Pills */}
-        <div className="flex items-center space-x-1 bg-gray-100 p-0.5 rounded border border-gray-200">
-          <button
-            onClick={() => setStatusFilter('all')}
-            className={`px-2.5 py-1 rounded transition-colors text-xs font-medium cursor-pointer ${
-              statusFilter === 'all'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            {t('roadmap_filter_all')}
-          </button>
-          <button
-            onClick={() => setStatusFilter('unsolved')}
-            className={`px-2.5 py-1 rounded transition-colors text-xs font-medium cursor-pointer ${
-              statusFilter === 'unsolved'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            {t('roadmap_filter_unsolved')}
-          </button>
-          <button
-            onClick={() => setStatusFilter('solved')}
-            className={`px-2.5 py-1 rounded transition-colors text-xs font-medium cursor-pointer ${
-              statusFilter === 'solved'
-                ? 'bg-white text-emerald-700 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            {t('roadmap_filter_solved')}
-          </button>
-        </div>
-
-        {/* Right: Expand / Collapse Toggle */}
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={() => setAllExpanded(true)}
-            className="px-2 py-1 text-gray-600 hover:text-gray-900 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer text-xs"
-          >
-            {t('roadmap_expand_all')}
-          </button>
-          <button
-            onClick={() => setAllExpanded(false)}
-            className="px-2 py-1 text-gray-600 hover:text-gray-900 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer text-xs"
-          >
-            {t('roadmap_collapse_all')}
-          </button>
-        </div>
-
-      </div>
-
-      {/* Main 2-Column Content Layout: Left Sidebar (Sticky) + Right Canvas */}
-      <div className="grid grid-cols-12 gap-5 items-start">
-        
-        {/* ========================================================================= */}
-        {/* LEFT COLUMN: STICKY TOC NAVIGATION & PHASE FILTER (4 COLS)                */}
-        {/* ========================================================================= */}
-        <div className="col-span-12 lg:col-span-4 space-y-4">
-          
-          <div className="bg-white border border-[#e8e8e8] rounded p-4 sticky top-20 shadow-sm max-h-[calc(100vh-100px)] overflow-y-auto">
-            
-            <div className="flex items-center justify-between pb-2 mb-3 border-b border-gray-100">
-              <span className="text-xs font-semibold text-gray-800 flex items-center space-x-1.5">
-                <ListFilter className="w-3.5 h-3.5 text-gray-500" />
-                <span>Mục lục 28 Chủ đề</span>
+        {/* ======================================================================= */}
+        {/* LEFT SIDEBAR: USACO GUIDE TIMELINE TREE & PHASE DROPDOWN                */}
+        {/* ======================================================================= */}
+        <aside
+          className={`${
+            isSidebarCollapsed ? 'w-0 hidden md:w-0 md:hidden' : 'w-72 lg:w-80'
+          } shrink-0 bg-[#fafafa] border-r border-[#e5e7eb] flex flex-col transition-all duration-200 select-none`}
+        >
+          {/* Sidebar Header: Phase Selector Dropdown */}
+          <div className="p-3 border-b border-[#e5e7eb] relative" ref={dropdownRef}>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+                Division / Phase
               </span>
-              <span className="font-mono text-[11px] text-gray-400">
-                28 topics
-              </span>
-            </div>
-
-            {/* Phase Selector Tabs */}
-            <div className="mb-3">
               <button
-                onClick={() => setSelectedPhase('all')}
-                className={`w-full text-left px-2.5 py-1.5 rounded text-xs transition-colors flex items-center justify-between mb-1 ${
-                  selectedPhase === 'all'
-                    ? 'bg-slate-900 text-white font-medium'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
+                onClick={() => setIsSidebarCollapsed(true)}
+                className="text-gray-400 hover:text-gray-700 p-1 rounded hover:bg-gray-200 transition-colors"
+                title="Collapse Sidebar"
               >
-                <span>{t('roadmap_filter_phase_all')}</span>
-                <span className="font-mono text-[10px] opacity-80">
-                  {totalSolvedRoadmap}/280
-                </span>
+                <ChevronsLeft className="w-4 h-4" />
               </button>
-
-              {ROADMAP_PHASES.map((phase) => {
-                // Calculate solved count in this phase
-                const phaseTopics = ROADMAP_TOPICS.filter((t) => t.phaseId === phase.id);
-                let phaseSolved = 0;
-                let phaseTotal = phaseTopics.length * 10;
-                for (const t of phaseTopics) {
-                  for (const p of t.problems) {
-                    if (solvedSet.has(`${p.contestId}_${p.index}`)) {
-                      phaseSolved++;
-                    }
-                  }
-                }
-
-                const isPhaseSelected = selectedPhase === phase.id;
-
-                return (
-                  <button
-                    key={phase.id}
-                    onClick={() => setSelectedPhase(isPhaseSelected ? 'all' : phase.id)}
-                    className={`w-full text-left px-2.5 py-1.5 rounded text-xs transition-colors flex items-center justify-between mb-0.5 ${
-                      isPhaseSelected
-                        ? 'bg-blue-50 text-blue-700 font-medium border border-blue-200'
-                        : 'text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    <span className="truncate pr-2">
-                      P{phase.id}: {phase.title.split('(')[0]}
-                    </span>
-                    <span className="font-mono text-[10px] text-gray-500 shrink-0">
-                      {phaseSolved}/{phaseTotal}
-                    </span>
-                  </button>
-                );
-              })}
             </div>
 
-            <div className="pt-2 border-t border-gray-100 space-y-0.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block px-2 mb-1">
-                Danh sách Chủ đề (Click để nhảy tới)
+            {/* Dropdown Button (like USACO Guide "Advanced v") */}
+            <button
+              onClick={() => setIsPhaseDropdownOpen(!isPhaseDropdownOpen)}
+              className="w-full bg-white border border-[#d1d5db] hover:border-blue-500 rounded px-3 py-2 text-left text-sm font-semibold text-gray-900 shadow-xs flex items-center justify-between transition-colors cursor-pointer"
+            >
+              <span className="truncate">
+                P{currentPhase.id}: {currentPhase.title.split(':')[1]?.split('(')[0]?.trim() || currentPhase.title}
               </span>
+              <ChevronDown className="w-4 h-4 text-gray-500 shrink-0 ml-1" />
+            </button>
 
-              {ROADMAP_TOPICS.map((topic) => {
-                // Calculate topic AC count
-                const solvedCount = topic.problems.filter((p) =>
-                  solvedSet.has(`${p.contestId}_${p.index}`)
-                ).length;
-
-                const isCompleted = solvedCount === 10;
-                const isCurrentActive = activeTopicId === topic.id;
-
-                return (
-                  <button
-                    key={topic.id}
-                    onClick={() => scrollToTopic(topic.id)}
-                    className={`w-full text-left px-2 py-1 rounded text-xs transition-all flex items-center justify-between group ${
-                      isCurrentActive
-                        ? 'bg-gray-100 text-gray-900 font-medium'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                  >
-                    <span className="truncate pr-2 flex items-center space-x-1.5">
-                      <span className="font-mono text-[10px] text-gray-400 w-4 inline-block">
-                        {String(topic.id).padStart(2, '0')}.
-                      </span>
-                      <span className="truncate">{topic.name.split('(')[0]}</span>
-                    </span>
-
-                    {/* AC Badge */}
-                    <span
-                      className={`font-mono text-[10px] px-1.5 py-0.2 rounded shrink-0 tabular-nums ${
-                        isCompleted
-                          ? 'bg-emerald-100 text-emerald-800 font-semibold'
-                          : solvedCount > 0
-                          ? 'bg-slate-100 text-slate-700'
-                          : 'text-gray-400'
+            {/* Dropdown Menu */}
+            {isPhaseDropdownOpen && (
+              <div className="absolute left-3 right-3 top-[72px] bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1 divide-y divide-gray-100 text-xs">
+                {ROADMAP_PHASES.map((phase) => {
+                  const isPhaseActive = phase.id === selectedPhaseId;
+                  return (
+                    <button
+                      key={phase.id}
+                      onClick={() => selectPhase(phase.id)}
+                      className={`w-full text-left px-3 py-2 transition-colors flex items-center justify-between ${
+                        isPhaseActive
+                          ? 'bg-blue-50 text-blue-700 font-semibold'
+                          : 'text-gray-700 hover:bg-gray-50'
                       }`}
                     >
-                      {solvedCount}/10
+                      <div>
+                        <div className="font-medium text-gray-900">
+                          {phase.title.split('(')[0]}
+                        </div>
+                        <div className="text-[11px] text-gray-500 font-mono">
+                          Rating: {phase.ratingRange}
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-mono text-gray-400">
+                        {phase.topicIds.length} topics
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Sidebar Topics List: USACO Guide Vertical Timeline Tree */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            
+            <div>
+              <div className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-3 flex items-center justify-between">
+                <span>Modules & Topics</span>
+                <span className="text-[11px] font-mono text-gray-400 font-normal">
+                  {phaseTopics.length} topics
+                </span>
+              </div>
+
+              {/* Vertical Guide Line Tree */}
+              <div className="relative pl-3 border-l-2 border-gray-200 space-y-3 ml-2">
+                {phaseTopics.map((topic) => {
+                  const isTopicActive = topic.id === selectedTopicId;
+                  const solvedCount = topic.problems.filter((p) =>
+                    solvedSet.has(`${p.contestId}_${p.index}`)
+                  ).length;
+                  const isCompleted = solvedCount === 10;
+
+                  return (
+                    <div key={topic.id} className="relative flex items-start group">
+                      
+                      {/* Timeline Dot on the vertical line */}
+                      <span
+                        className={`absolute -left-[19px] top-1.5 w-2.5 h-2.5 rounded-full transition-all ${
+                          isTopicActive
+                            ? 'bg-blue-600 ring-4 ring-blue-100'
+                            : isCompleted
+                            ? 'bg-emerald-500 ring-2 ring-emerald-100'
+                            : solvedCount > 0
+                            ? 'bg-amber-500'
+                            : 'bg-gray-300 group-hover:bg-gray-400'
+                        }`}
+                      />
+
+                      {/* Topic Link Text */}
+                      <button
+                        onClick={() => selectTopic(topic.id)}
+                        className={`text-left text-xs transition-colors block pl-2 cursor-pointer leading-snug w-full ${
+                          isTopicActive
+                            ? 'font-bold text-blue-600'
+                            : 'text-gray-700 hover:text-blue-600'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="truncate">
+                            {topic.name.split('(')[0]}
+                          </span>
+                          <span
+                            className={`font-mono text-[10px] tabular-nums shrink-0 ml-1 ${
+                              isCompleted
+                                ? 'text-emerald-600 font-semibold'
+                                : solvedCount > 0
+                                ? 'text-gray-600'
+                                : 'text-gray-400'
+                            }`}
+                          >
+                            {solvedCount}/10
+                          </span>
+                        </div>
+                      </button>
+
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Quick Switch to Other Phases */}
+            <div className="pt-4 border-t border-gray-200">
+              <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider block mb-2">
+                Tất cả giai đoạn (All Phases)
+              </span>
+              <div className="space-y-1">
+                {ROADMAP_PHASES.map((p) => (
+                  <button
+                    key={p.id}
+                    onClick={() => selectPhase(p.id)}
+                    className={`w-full text-left px-2.5 py-1.5 rounded text-xs transition-colors flex items-center justify-between ${
+                      p.id === selectedPhaseId
+                        ? 'bg-gray-200 font-semibold text-gray-900'
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="truncate">
+                      P{p.id}: {p.title.split(':')[1]?.split('(')[0]?.trim()}
+                    </span>
+                    <span className="text-[10px] font-mono text-gray-400">
+                      {p.ratingRange}
                     </span>
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
           </div>
 
-        </div>
+          {/* Sidebar Footer */}
+          <div className="p-3 border-t border-[#e5e7eb] text-[11px] text-gray-500 flex items-center justify-between">
+            <span>CPSuggestor Roadmap</span>
+            <span className="font-mono">USACO Guide Layout</span>
+          </div>
 
-        {/* ========================================================================= */}
-        {/* RIGHT COLUMN: DETAILED TOPIC CARDS & 10 PROBLEMS TABLE (8 COLS)          */}
-        {/* ========================================================================= */}
-        <div className="col-span-12 lg:col-span-8 space-y-5">
+        </aside>
+
+        {/* ======================================================================= */}
+        {/* MAIN READING CANVAS (EXACT USACO GUIDE LAYOUT)                          */}
+        {/* ======================================================================= */}
+        <main className="flex-1 overflow-y-auto px-4 sm:px-8 lg:px-12 py-6 max-w-4xl mx-auto w-full">
           
-          {filteredTopics.length === 0 ? (
-            <div className="bg-white border border-gray-200 rounded p-8 text-center text-gray-500 text-xs">
-              {t('roadmap_no_match')}
+          {/* Expand sidebar button (when collapsed) */}
+          {isSidebarCollapsed && (
+            <button
+              onClick={() => setIsSidebarCollapsed(false)}
+              className="mb-4 inline-flex items-center space-x-1 text-xs text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+            >
+              <ChevronsRight className="w-4 h-4" />
+              <span>Show Sidebar</span>
+            </button>
+          )}
+
+          {/* Top Breadcrumb Navigation Row (Prev | Breadcrumb | Next) */}
+          <div className="flex items-center justify-between text-xs text-gray-500 pb-3 mb-6 border-b border-gray-200">
+            {/* Prev button */}
+            <button
+              onClick={goToPrevTopic}
+              disabled={selectedTopicId === 1}
+              className="flex items-center space-x-1 font-medium hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Prev</span>
+            </button>
+
+            {/* Breadcrumb text */}
+            <div className="flex items-center space-x-1.5 text-xs truncate max-w-xs sm:max-w-md">
+              <span className="text-gray-400">Lộ trình CP</span>
+              <span className="text-gray-300">/</span>
+              <span className="text-gray-600 truncate">{currentPhase.title.split('(')[0]}</span>
+              <span className="text-gray-300">/</span>
+              <span className="text-gray-900 font-semibold truncate">{currentTopic.name.split('(')[0]}</span>
             </div>
-          ) : (
-            filteredTopics.map((topic) => {
-              const isExpanded = expandedTopics[topic.id] !== false; // Default true unless collapsed
 
-              // Calculate topic progress
-              const topicSolvedCount = topic.problems.filter((p) =>
-                solvedSet.has(`${p.contestId}_${p.index}`)
-              ).length;
-              const isAllSolved = topicSolvedCount === 10;
+            {/* Next button */}
+            <button
+              onClick={goToNextTopic}
+              disabled={selectedTopicId === ROADMAP_TOPICS.length}
+              className="flex items-center space-x-1 font-medium hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
+            >
+              <span>Next</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
 
-              return (
+          {/* ===================================================================== */}
+          {/* TOPIC HEADER (USACO GUIDE STYLE)                                      */}
+          {/* ===================================================================== */}
+          <div className="mb-6 space-y-3">
+            
+            {/* Top Meta Row: Frequency/Difficulty Dots on Left, Progress on Right */}
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              
+              {/* Frequency / Level indicator (like USACO Guide "•••• Rare") */}
+              <div className="flex items-center space-x-1.5 text-xs">
+                <span className="text-orange-500 font-bold tracking-tight">● ● ● ●</span>
+                <span className="font-semibold text-orange-600 ml-1">
+                  {currentTopic.tier}
+                </span>
+              </div>
+
+              {/* Right: Progress Track & Status Badge */}
+              <div className="flex items-center space-x-3">
+                {/* Rounded progress pill track (like USACO Guide "0/6") */}
+                <div className="flex items-center space-x-2" title={`${currentTopicSolvedCount}/10 bài đã AC`}>
+                  <div className="w-24 bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                    <div
+                      className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
+                      style={{ width: `${(currentTopicSolvedCount / 10) * 100}%` }}
+                    />
+                  </div>
+                  <span className="font-mono text-xs font-semibold text-gray-700 tabular-nums">
+                    {currentTopicSolvedCount}/10
+                  </span>
+                </div>
+
+                {/* Status Dropdown / Badge (like USACO Guide "Not Started v") */}
                 <div
-                  key={topic.id}
-                  id={`topic-card-${topic.id}`}
-                  className="bg-white border border-[#e8e8e8] rounded shadow-xs overflow-hidden transition-all"
+                  className={`px-2.5 py-1 rounded border text-xs font-semibold shadow-2xs flex items-center space-x-1 select-none ${topicStatusInfo.color}`}
                 >
-                  
-                  {/* Topic Header: Title, Tier, 10-Dash Matrix, Expand Chevron */}
-                  <div
-                    onClick={() => toggleTopic(topic.id)}
-                    className="p-3 sm:p-4 bg-white hover:bg-gray-50/70 border-b border-gray-100 transition-colors cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
-                  >
-                    
-                    {/* Left: ID, Name, Tier Badge */}
-                    <div className="flex items-start sm:items-center space-x-2.5">
-                      <button className="text-gray-400 hover:text-gray-700 mt-0.5 sm:mt-0">
-                        {isExpanded ? (
-                          <ChevronDown className="w-4 h-4" />
-                        ) : (
-                          <ChevronRight className="w-4 h-4" />
-                        )}
-                      </button>
+                  <span>{topicStatusInfo.text}</span>
+                  <ChevronDown className="w-3 h-3 opacity-60" />
+                </div>
+              </div>
 
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          <span className="font-mono text-xs font-semibold text-slate-500">
-                            TOPIC {String(topic.id).padStart(2, '0')}
-                          </span>
-                          <span className="text-[11px] font-medium px-2 py-0.2 rounded bg-slate-100 text-slate-700 border border-slate-200">
-                            {topic.tier}
-                          </span>
-                        </div>
-                        <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight mt-0.5">
-                          {topic.name}
-                        </h2>
+            </div>
+
+            {/* Main H1 Title */}
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight leading-tight">
+              {currentTopic.name}
+            </h1>
+
+            {/* Subtitle / Authorship info */}
+            <div className="text-xs text-gray-500">
+              <span>Độ phức tạp mục tiêu: </span>
+              <span className="font-mono font-semibold text-gray-800">{currentTopic.complexity}</span>
+            </div>
+
+            {/* Language / Resources Row */}
+            <div className="pt-2 pb-3 border-b border-gray-100 flex flex-wrap items-center justify-between text-xs text-gray-600 gap-2">
+              <div className="flex items-center space-x-2">
+                <span className="font-medium">Ngôn ngữ tham chiếu: C++</span>
+                <span className="text-gray-300">•</span>
+                <span>Phân hạng: <strong className="text-gray-900">{currentTopic.tier}</strong></span>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <span className="text-gray-400">Tài liệu chuẩn:</span>
+                {currentTopic.blogs.map((b, idx) => (
+                  <a
+                    key={idx}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 hover:underline flex items-center space-x-1"
+                  >
+                    <span>{b.title.split('(')[0]?.trim()}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* ===================================================================== */}
+          {/* INLINE TABLE OF CONTENTS                                              */}
+          {/* ===================================================================== */}
+          <div className="mb-8">
+            <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2">
+              TABLE OF CONTENTS
+            </div>
+            <ul className="space-y-1 text-xs text-gray-700">
+              <li>
+                <a href="#essence-section" className="text-blue-600 hover:underline">
+                  1. Bản chất thuật toán & Bất biến toán học
+                </a>
+              </li>
+              <li>
+                <a href="#focus-problem-section" className="text-blue-600 hover:underline">
+                  2. Bài tập trọng tâm (Focus Problem: {currentTopic.problems[0]?.code})
+                </a>
+              </li>
+              <li>
+                <a href="#practice-problems-section" className="text-blue-600 hover:underline">
+                  3. Danh sách 9 bài tập rèn luyện phân cấp (Practice Problems)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ===================================================================== */}
+          {/* SECTION 1: ESSENCE & THEORY (BẢN CHẤT CỐT LÕI)                        */}
+          {/* ===================================================================== */}
+          <section id="essence-section" className="mb-8 space-y-3">
+            <h2 className="text-lg font-bold text-gray-900 tracking-tight pb-1 border-b border-gray-100">
+              Bản chất thuật toán & Phương pháp tiếp cận
+            </h2>
+
+            <div className="bg-[#fcfcfd] border border-gray-200 rounded p-4 text-xs leading-relaxed space-y-2.5">
+              <ul className="list-disc list-inside space-y-1.5 text-gray-800 font-sans">
+                {currentTopic.essence.map((item, idx) => (
+                  <li key={idx} className="leading-relaxed">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-2 border-t border-gray-100 text-[11px] text-gray-600">
+                <span className="font-semibold text-gray-700">Ghi chú độ phức tạp: </span>
+                <span className="font-mono text-gray-800">{currentTopic.complexity}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* ===================================================================== */}
+          {/* SECTION 2: FOCUS PROBLEM (SIGNATURE USACO GUIDE BLUE TOP-BORDER CARD)  */}
+          {/* ===================================================================== */}
+          {currentTopic.problems[0] && (() => {
+            const focusProb = currentTopic.problems[0];
+            const isFocusSolved = solvedSet.has(`${focusProb.contestId}_${focusProb.index}`);
+
+            return (
+              <section id="focus-problem-section" className="mb-8 space-y-2">
+                <div className="text-xs text-gray-500 italic">
+                  Note: Hãy giải bài toán trọng tâm này trước khi tiếp tục các bài tập khác...
+                </div>
+
+                {/* The Signature USACO Guide Card */}
+                <div className="border-t-[3px] border-blue-600 bg-white border-x border-b border-[#e5e7eb] rounded-b-md shadow-xs p-4 sm:p-5 transition-all">
+                  
+                  <div className="flex items-start justify-between gap-3">
+                    
+                    {/* Left details */}
+                    <div className="space-y-1">
+                      {/* Title with External Link */}
+                      <a
+                        href={focusProb.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base sm:text-lg font-bold text-gray-900 hover:text-blue-600 flex items-center space-x-1.5 group"
+                      >
+                        <span className="font-mono text-blue-600">{focusProb.code}</span>
+                        <span>- {focusProb.name}</span>
+                        <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
+                      </a>
+
+                      {/* Subtitle & Rating */}
+                      <div className="flex items-center space-x-2 text-xs text-gray-500">
+                        <span className={`px-2 py-0.2 rounded border font-mono text-[11px] font-semibold ${getRatingBadge(focusProb.rating)}`}>
+                          Rating {focusProb.rating}
+                        </span>
+                        <span>•</span>
+                        <span className="font-medium text-gray-600">Focus Problem</span>
+                      </div>
+
+                      {/* Focus problem note in italics (like USACO Guide) */}
+                      <div className="text-xs text-gray-500 italic pt-1">
+                        Focus Problem – Thử sức phân tích và nộp AC bài tập này trước khi tiếp tục!
+                      </div>
+
+                      {/* Key Observation */}
+                      <div className="pt-2 text-xs leading-relaxed text-gray-700 bg-gray-50 border border-gray-100 rounded p-2.5 mt-2">
+                        <strong className="text-gray-900 block mb-0.5">Nhận xét then chốt:</strong>
+                        {focusProb.comment}
                       </div>
                     </div>
 
-                    {/* Right: SEGMENTED 10-DASH MATRIX (The user's requested AC display) */}
-                    <div className="flex items-center space-x-3 self-end sm:self-auto pl-6 sm:pl-0">
-                      
-                      {/* The 10-dash micro progress bar */}
-                      <div
-                        className="flex items-center space-x-1"
-                        title={`${topicSolvedCount}/10 bài đã AC`}
-                      >
-                        {topic.problems.map((prob, pIdx) => {
-                          const isProbSolved = solvedSet.has(`${prob.contestId}_${prob.index}`);
-                          return (
-                            <span
-                              key={pIdx}
-                              className={`w-1.5 sm:w-2 h-2 sm:h-2.5 rounded-[1px] transition-colors ${
-                                isProbSolved
-                                  ? 'bg-emerald-500'
-                                  : 'bg-gray-200'
-                              }`}
-                            />
-                          );
-                        })}
-                      </div>
+                    {/* Right side: 3-dots menu & Circular Status Button */}
+                    <div className="flex items-center space-x-2 shrink-0">
+                      <button className="text-gray-400 hover:text-gray-600 p-1 rounded hover:bg-gray-100">
+                        <MoreVertical className="w-4 h-4" />
+                      </button>
 
-                      {/* Fractional Monospace Badge */}
-                      <span
-                        className={`font-mono text-xs tabular-nums font-semibold px-2 py-0.5 rounded border ${
-                          isAllSolved
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : topicSolvedCount > 0
-                            ? 'bg-slate-50 text-slate-800 border-slate-200'
-                            : 'bg-gray-50 text-gray-400 border-gray-200'
+                      {/* Circular AC button (like USACO Guide circle) */}
+                      <button
+                        onClick={() => toggleProblemSolved(focusProb.contestId, focusProb.index)}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
+                          isFocusSolved
+                            ? 'bg-emerald-500 border-emerald-500 text-white shadow-xs'
+                            : 'border-gray-300 hover:border-blue-500 bg-gray-100 hover:bg-blue-50 text-transparent'
                         }`}
+                        title={isFocusSolved ? 'Đánh dấu chưa giải' : 'Đánh dấu đã AC bài này'}
                       >
-                        {String(topicSolvedCount).padStart(2, '0')} / 10
-                      </span>
-
+                        <Check className={`w-4 h-4 stroke-[2.5] ${isFocusSolved ? 'block' : 'hidden'}`} />
+                      </button>
                     </div>
 
                   </div>
 
-                  {/* Expanded Body: Essence, Complexity, Reference Blogs, Problem Table */}
-                  {isExpanded && (
-                    <div className="p-3 sm:p-4 space-y-4 text-xs">
+                </div>
+              </section>
+            );
+          })()}
+
+          {/* ===================================================================== */}
+          {/* SECTION 3: PRACTICE PROBLEMS SET (USACO GUIDE STYLE TABLE/CARDS)      */}
+          {/* ===================================================================== */}
+          <section id="practice-problems-section" className="mb-10 space-y-3">
+            <div className="flex items-center justify-between pb-1 border-b border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 tracking-tight">
+                Problems
+              </h2>
+              <span className="text-xs font-mono text-gray-500">
+                {currentTopic.problems.slice(1).length} practice problems
+              </span>
+            </div>
+
+            {/* Problem List Items (USACO Guide Style Problem Cards) */}
+            <div className="space-y-2.5">
+              {currentTopic.problems.slice(1).map((prob, idx) => {
+                const isProbSolved = solvedSet.has(`${prob.contestId}_${prob.index}`);
+
+                return (
+                  <div
+                    key={idx}
+                    className={`border border-[#e5e7eb] rounded-md p-3 sm:p-3.5 bg-white hover:border-gray-300 transition-all ${
+                      isProbSolved ? 'bg-emerald-50/15 border-emerald-200' : ''
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
                       
-                      {/* Summary & Theory Metadata Block */}
-                      <div className="bg-[#fcfcfd] border border-gray-100 rounded p-3 space-y-2.5">
-                        
-                        {/* Essence bullets */}
-                        <div>
-                          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-gray-500 block mb-1">
-                            {t('roadmap_essence_title')}
+                      {/* Left: Code, Title, Rating, Comment */}
+                      <div className="space-y-1 flex-1">
+                        <div className="flex items-center space-x-2 flex-wrap gap-y-1">
+                          <a
+                            href={prob.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-bold text-sm text-gray-900 hover:text-blue-600 flex items-center space-x-1.5 group"
+                          >
+                            <span className="font-mono text-blue-600">{prob.code}</span>
+                            <span>- {prob.name}</span>
+                            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </a>
+
+                          <span className={`px-2 py-0.2 rounded border font-mono text-[11px] font-semibold ${getRatingBadge(prob.rating)}`}>
+                            {prob.rating}
                           </span>
-                          <ul className="space-y-1 text-gray-700 leading-relaxed list-disc list-inside">
-                            {topic.essence.map((ess, essIdx) => (
-                              <li key={essIdx} className="text-xs">
-                                {ess}
-                              </li>
-                            ))}
-                          </ul>
                         </div>
 
-                        {/* Complexity & Blogs Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-gray-100 text-[11px]">
-                          <div>
-                            <span className="font-semibold text-gray-500 block">
-                              {t('roadmap_complexity_title')}:
-                            </span>
-                            <span className="font-mono text-slate-800">
-                              {topic.complexity}
-                            </span>
-                          </div>
-
-                          <div>
-                            <span className="font-semibold text-gray-500 block">
-                              {t('roadmap_resources_title')}:
-                            </span>
-                            <div className="space-y-0.5 mt-0.5">
-                              {topic.blogs.map((blog, bIdx) => (
-                                <a
-                                  key={bIdx}
-                                  href={blog.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-600 hover:text-blue-800 hover:underline flex items-center space-x-1 truncate"
-                                >
-                                  <ExternalLink className="w-3 h-3 shrink-0" />
-                                  <span className="truncate">{blog.title}</span>
-                                </a>
-                              ))}
-                            </div>
-                          </div>
+                        {/* Pedagogical comment */}
+                        <div className="text-xs text-gray-600 leading-relaxed pt-0.5">
+                          {prob.comment}
                         </div>
-
                       </div>
 
-                      {/* 10 Curated Problems Table */}
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-gray-600">
-                            {t('roadmap_problems_title')}
-                          </span>
-                          <span className="text-[11px] text-gray-400 font-mono">
-                            10 problems
-                          </span>
-                        </div>
-
-                        {/* Flat Minimalist Table */}
-                        <div className="border border-[#e8e8e8] rounded overflow-x-auto">
-                          <table className="w-full text-left border-collapse text-xs">
-                            <thead>
-                              <tr className="bg-[#fafafa] border-b border-[#e8e8e8] text-gray-600 text-[11px]">
-                                <th className="py-2 px-2.5 w-10 text-center">
-                                  {t('roadmap_col_status')}
-                                </th>
-                                <th className="py-2 px-3 w-56 sm:w-64">
-                                  {t('roadmap_col_problem')}
-                                </th>
-                                <th className="py-2 px-2.5 w-20 text-center">
-                                  {t('roadmap_col_rating')}
-                                </th>
-                                <th className="py-2 px-3">
-                                  {t('roadmap_col_insight')}
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-100">
-                              {topic.problems.map((prob, pIdx) => {
-                                const isSolved = solvedSet.has(
-                                  `${prob.contestId}_${prob.index}`
-                                );
-
-                                return (
-                                  <tr
-                                    key={pIdx}
-                                    className={`hover:bg-gray-50/80 transition-colors ${
-                                      isSolved ? 'bg-emerald-50/20 text-gray-500' : 'text-gray-800'
-                                    }`}
-                                  >
-                                    {/* Checkbox Status */}
-                                    <td className="py-2.5 px-2.5 text-center">
-                                      <button
-                                        onClick={() =>
-                                          toggleProblemSolved(prob.contestId, prob.index)
-                                        }
-                                        className={`w-4 h-4 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer ${
-                                          isSolved
-                                            ? 'bg-emerald-500 border-emerald-500 text-white'
-                                            : 'border-gray-300 hover:border-gray-400 bg-white'
-                                        }`}
-                                        title={isSolved ? 'Đánh dấu chưa làm' : 'Đánh dấu đã AC'}
-                                      >
-                                        {isSolved && <Check className="w-3 h-3 stroke-[3]" />}
-                                      </button>
-                                    </td>
-
-                                    {/* Problem Code & Title */}
-                                    <td className="py-2.5 px-3">
-                                      <a
-                                        href={prob.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`font-medium flex items-center space-x-1.5 hover:underline group ${
-                                          isSolved
-                                            ? 'text-gray-600'
-                                            : 'text-blue-600 hover:text-blue-800'
-                                        }`}
-                                      >
-                                        <span className="font-mono font-semibold shrink-0">
-                                          {prob.code}
-                                        </span>
-                                        <span className="truncate">- {prob.name}</span>
-                                        <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                                      </a>
-                                    </td>
-
-                                    {/* Rating Chip */}
-                                    <td className="py-2.5 px-2.5 text-center">
-                                      <span
-                                        className={`font-mono text-[11px] font-medium px-2 py-0.5 rounded border tabular-nums inline-block ${getRatingBadgeClass(
-                                          prob.rating
-                                        )}`}
-                                      >
-                                        {prob.rating}
-                                      </span>
-                                    </td>
-
-                                    {/* Pedagogical Insight */}
-                                    <td className="py-2.5 px-3 text-xs leading-relaxed text-gray-600 font-sans">
-                                      {prob.comment}
-                                    </td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-
-                      </div>
+                      {/* Right: Circular AC Toggle Button (like USACO Guide) */}
+                      <button
+                        onClick={() => toggleProblemSolved(prob.contestId, prob.index)}
+                        className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center transition-all shrink-0 cursor-pointer ${
+                          isProbSolved
+                            ? 'bg-emerald-500 border-emerald-500 text-white'
+                            : 'border-gray-300 hover:border-blue-500 bg-gray-100 hover:bg-blue-50 text-transparent'
+                        }`}
+                        title={isProbSolved ? 'Đánh dấu chưa giải' : 'Đánh dấu đã AC bài này'}
+                      >
+                        <Check className={`w-3.5 h-3.5 stroke-[2.5] ${isProbSolved ? 'block' : 'hidden'}`} />
+                      </button>
 
                     </div>
-                  )}
+                  </div>
+                );
+              })}
+            </div>
 
-                </div>
-              );
-            })
-          )}
+          </section>
 
-        </div>
+          {/* ===================================================================== */}
+          {/* BOTTOM PAGINATION (PREV TOPIC / NEXT TOPIC BUTTONS)                   */}
+          {/* ===================================================================== */}
+          <div className="pt-6 border-t border-gray-200 flex items-center justify-between text-xs">
+            {selectedTopicId > 1 ? (
+              <button
+                onClick={goToPrevTopic}
+                className="px-3 py-1.5 border border-gray-300 hover:border-gray-400 rounded text-gray-700 font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>Previous: {ROADMAP_TOPICS[selectedTopicId - 2]?.name.split('(')[0]}</span>
+              </button>
+            ) : <div />}
+
+            {selectedTopicId < ROADMAP_TOPICS.length ? (
+              <button
+                onClick={goToNextTopic}
+                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+              >
+                <span>Next: {ROADMAP_TOPICS[selectedTopicId]?.name.split('(')[0]}</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            ) : <div />}
+          </div>
+
+        </main>
 
       </div>
 
