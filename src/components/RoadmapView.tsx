@@ -18,11 +18,6 @@ import {
   RefreshCw,
   ChevronsLeft,
   ChevronsRight,
-  BookOpen,
-  CheckCircle2,
-  ListOrdered,
-  Sparkles,
-  Info,
   MoreVertical,
 } from 'lucide-react';
 
@@ -30,8 +25,55 @@ interface RoadmapViewProps {
   initialHandle?: string;
 }
 
+// Helper to remove any leftover LaTeX math syntax and convert to clean, readable Unicode
+function cleanMath(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/\\le/g, '≤')
+    .replace(/\\ge/g, '≥')
+    .replace(/\\ne/g, '≠')
+    .replace(/\\approx/g, '≈')
+    .replace(/\\times/g, '×')
+    .replace(/\\dots/g, '...')
+    .replace(/\\sum/g, '∑')
+    .replace(/\\prod/g, '∏')
+    .replace(/\\log/g, 'log')
+    .replace(/\\gcd/g, 'gcd')
+    .replace(/\\phi/g, 'φ')
+    .replace(/\\pi/g, 'π')
+    .replace(/\\oplus/g, 'XOR')
+    .replace(/\\implies/g, '⇒')
+    .replace(/\\iff/g, '⇔')
+    .replace(/\\mathrel\{\+\}=/g, '+=')
+    .replace(/\\mathrel\{-\}=/g, '-=')
+    .replace(/\\sqrt\{([^}]+)\}/g, '√$1')
+    .replace(/\\sqrt/g, '√')
+    .replace(/\\binom\{([^}]+)\}\{([^}]+)\}/g, 'C($1, $2)')
+    .replace(/\\lfloor\s*([^\\/]+?)\s*\\rfloor/g, '⌊$1⌋')
+    .replace(/\\lfloor/g, '⌊')
+    .replace(/\\rfloor/g, '⌋')
+    .replace(/\\pmod\{([^}]+)\}/g, '(mod $1)')
+    .replace(/\\pmod/g, 'mod')
+    .replace(/\\sim/g, '~')
+    .replace(/\\land/g, 'AND')
+    .replace(/\\lor/g, 'OR')
+    .replace(/\\neg/g, 'NOT')
+    .replace(/\\mathbb\{Z\}_p/g, 'Z_p')
+    .replace(/10\^5/g, '10⁵')
+    .replace(/10\^6/g, '10⁶')
+    .replace(/10\^7/g, '10⁷')
+    .replace(/10\^9/g, '10⁹')
+    .replace(/2\^N/g, '2ᴺ')
+    .replace(/2\^k/g, '2ᵏ')
+    .replace(/N\^2/g, 'N²')
+    .replace(/N\^3/g, 'N³')
+    .replace(/\$/g, '')
+    .trim();
+}
+
 export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq' }) => {
-  const { t, lang } = useLanguage();
+  const { lang } = useLanguage();
+  const isEn = lang === 'en';
 
   // Active topic & Phase selection
   const [selectedTopicId, setSelectedTopicId] = useState<number>(1);
@@ -103,7 +145,6 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
     if (found) {
       setSelectedPhaseId(found.phaseId);
     }
-    // Scroll content container to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -111,7 +152,6 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
   const selectPhase = (phaseId: number) => {
     setSelectedPhaseId(phaseId);
     setIsPhaseDropdownOpen(false);
-    // Find first topic in this phase
     const firstTopic = ROADMAP_TOPICS.find((t) => t.phaseId === phaseId);
     if (firstTopic) {
       selectTopic(firstTopic.id);
@@ -185,18 +225,18 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
 
         localStorage.setItem('roadmap_ac_problems', JSON.stringify(Array.from(merged)));
         setSyncMessage(
-          lang === 'vi'
-            ? `Đã đồng bộ! Bạn đã AC ${roadmapSolvedCount}/280 bài tập.`
-            : `Sync complete! Solved ${roadmapSolvedCount}/280 problems.`
+          isEn
+            ? `Synced! You have solved ${roadmapSolvedCount}/280 problems.`
+            : `Đã đồng bộ! Bạn đã AC ${roadmapSolvedCount}/280 bài tập.`
         );
         return merged;
       });
     } catch (err: any) {
       console.error(err);
       setSyncMessage(
-        lang === 'vi'
-          ? `Lỗi: ${err.message || 'Không thể lấy dữ liệu'}`
-          : `Error: ${err.message || 'Could not fetch data'}`
+        isEn
+          ? `Sync Error: ${err.message || 'Could not fetch data'}`
+          : `Lỗi: ${err.message || 'Không thể lấy dữ liệu'}`
       );
     } finally {
       setSyncing(false);
@@ -243,13 +283,22 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
   // Status text for the topic dropdown button
   const topicStatusInfo = useMemo(() => {
     if (currentTopicSolvedCount === 0) {
-      return { text: 'Not Started', color: 'text-gray-600 border-gray-300 bg-white' };
+      return {
+        text: isEn ? 'Not Started' : 'Chưa bắt đầu',
+        color: 'text-gray-600 border-gray-300 bg-white'
+      };
     }
     if (currentTopicSolvedCount === 10) {
-      return { text: 'Complete', color: 'text-emerald-700 border-emerald-300 bg-emerald-50' };
+      return {
+        text: isEn ? 'Complete' : 'Hoàn thành',
+        color: 'text-emerald-700 border-emerald-300 bg-emerald-50'
+      };
     }
-    return { text: 'In Progress', color: 'text-blue-700 border-blue-300 bg-blue-50' };
-  }, [currentTopicSolvedCount]);
+    return {
+      text: isEn ? 'In Progress' : 'Đang làm',
+      color: 'text-blue-700 border-blue-300 bg-blue-50'
+    };
+  }, [currentTopicSolvedCount, isEn]);
 
   // Rating badge styling
   const getRatingBadge = (rating: number) => {
@@ -262,20 +311,29 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
     return 'text-rose-700 bg-rose-50 border-rose-200';
   };
 
+  // Localized texts
+  const currentTopicName = isEn ? currentTopic.nameEn : currentTopic.nameVi;
+  const currentPhaseTitle = isEn ? currentPhase.titleEn : currentPhase.titleVi;
+  const currentTopicTier = isEn ? currentTopic.tierEn : currentTopic.tierVi;
+  const currentComplexity = cleanMath(isEn ? currentTopic.complexityEn : currentTopic.complexityVi);
+  const currentEssence = (isEn ? currentTopic.essenceEn : currentTopic.essenceVi).map(cleanMath);
+
   return (
-    <div className="bg-white min-h-screen border border-[#e5e7eb] rounded-lg shadow-xs overflow-hidden flex flex-col font-sans text-[#1f2937]">
+    <div className="bg-white min-h-[85vh] border border-[#e5e7eb] rounded-lg shadow-xs overflow-hidden flex flex-col font-sans text-[#1f2937]">
       
       {/* ========================================================================= */}
       {/* USACO GUIDE TOP UTILITY BAR (SYNC & TOTAL PROGRESS)                        */}
       {/* ========================================================================= */}
-      <div className="bg-[#f9fafb] border-b border-[#e5e7eb] px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between text-xs text-gray-600 gap-2">
+      <div className="bg-[#f9fafb] border-b border-[#e5e7eb] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between text-xs text-gray-600 gap-2">
         <div className="flex items-center space-x-2">
-          <span className="font-semibold text-gray-800">CP Roadmap</span>
+          <span className="font-semibold text-gray-900">
+            {isEn ? 'CP Algorithm Roadmap' : 'Lộ trình Thuật toán CP'}
+          </span>
           <span className="text-gray-300">•</span>
           <span className="font-mono text-gray-500">28 Topics / 280 Problems</span>
           <span className="text-gray-300">•</span>
-          <span className="font-mono text-emerald-700 font-medium">
-            Total Solved: {totalSolvedCount} / 280 ({Math.round((totalSolvedCount / 280) * 100)}%)
+          <span className="font-mono text-emerald-700 font-semibold">
+            {isEn ? 'Solved:' : 'Đã AC:'} {totalSolvedCount} / 280 ({Math.round((totalSolvedCount / 280) * 100)}%)
           </span>
         </div>
 
@@ -287,16 +345,16 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="Handle..."
-            className="px-2 py-0.5 text-xs border border-gray-300 rounded font-mono w-28 sm:w-32 bg-white focus:outline-none focus:border-blue-500"
+            className="px-2.5 py-1 text-xs border border-gray-300 rounded font-mono w-32 sm:w-36 bg-white focus:outline-none focus:border-blue-500"
           />
           <button
             onClick={syncWithCodeforces}
             disabled={syncing}
-            className="px-2.5 py-0.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium flex items-center space-x-1 cursor-pointer transition-colors disabled:opacity-50"
-            title="Đồng bộ các bài đã giải từ tài khoản Codeforces"
+            className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center space-x-1 cursor-pointer transition-colors disabled:opacity-50"
+            title={isEn ? 'Sync solved problems from Codeforces' : 'Đồng bộ bài đã giải từ Codeforces'}
           >
             <RefreshCw className={`w-3 h-3 ${syncing ? 'animate-spin' : ''}`} />
-            <span>{syncing ? 'Syncing...' : 'Sync CF'}</span>
+            <span>{syncing ? (isEn ? 'Syncing...' : 'Đang sync...') : (isEn ? 'Sync CF' : 'Đồng bộ CF')}</span>
           </button>
           {syncMessage && (
             <span className="text-[11px] text-emerald-600 font-medium truncate max-w-xs">
@@ -320,15 +378,15 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           } shrink-0 bg-[#fafafa] border-r border-[#e5e7eb] flex flex-col transition-all duration-200 select-none`}
         >
           {/* Sidebar Header: Phase Selector Dropdown */}
-          <div className="p-3 border-b border-[#e5e7eb] relative" ref={dropdownRef}>
+          <div className="p-3.5 border-b border-[#e5e7eb] relative" ref={dropdownRef}>
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
-                Division / Phase
+                {isEn ? 'Division / Phase' : 'Giai đoạn / Phân hạng'}
               </span>
               <button
                 onClick={() => setIsSidebarCollapsed(true)}
                 className="text-gray-400 hover:text-gray-700 p-1 rounded hover:bg-gray-200 transition-colors"
-                title="Collapse Sidebar"
+                title={isEn ? 'Collapse Sidebar' : 'Thu gọn thanh bên'}
               >
                 <ChevronsLeft className="w-4 h-4" />
               </button>
@@ -337,32 +395,33 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
             {/* Dropdown Button (like USACO Guide "Advanced v") */}
             <button
               onClick={() => setIsPhaseDropdownOpen(!isPhaseDropdownOpen)}
-              className="w-full bg-white border border-[#d1d5db] hover:border-blue-500 rounded px-3 py-2 text-left text-sm font-semibold text-gray-900 shadow-xs flex items-center justify-between transition-colors cursor-pointer"
+              className="w-full bg-white border border-[#d1d5db] hover:border-blue-500 rounded px-3 py-2 text-left text-sm font-bold text-gray-900 shadow-xs flex items-center justify-between transition-colors cursor-pointer"
             >
               <span className="truncate">
-                P{currentPhase.id}: {currentPhase.title.split(':')[1]?.split('(')[0]?.trim() || currentPhase.title}
+                P{currentPhase.id}: {currentPhaseTitle.split(':')[1]?.split('(')[0]?.trim() || currentPhaseTitle}
               </span>
               <ChevronDown className="w-4 h-4 text-gray-500 shrink-0 ml-1" />
             </button>
 
             {/* Dropdown Menu */}
             {isPhaseDropdownOpen && (
-              <div className="absolute left-3 right-3 top-[72px] bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1 divide-y divide-gray-100 text-xs">
+              <div className="absolute left-3 right-3 top-[76px] bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1 divide-y divide-gray-100 text-xs">
                 {ROADMAP_PHASES.map((phase) => {
                   const isPhaseActive = phase.id === selectedPhaseId;
+                  const phaseTitle = isEn ? phase.titleEn : phase.titleVi;
                   return (
                     <button
                       key={phase.id}
                       onClick={() => selectPhase(phase.id)}
-                      className={`w-full text-left px-3 py-2 transition-colors flex items-center justify-between ${
+                      className={`w-full text-left px-3 py-2.5 transition-colors flex items-center justify-between ${
                         isPhaseActive
-                          ? 'bg-blue-50 text-blue-700 font-semibold'
+                          ? 'bg-blue-50 text-blue-700 font-bold'
                           : 'text-gray-700 hover:bg-gray-50'
                       }`}
                     >
                       <div>
-                        <div className="font-medium text-gray-900">
-                          {phase.title.split('(')[0]}
+                        <div className="font-semibold text-gray-900">
+                          {phaseTitle.split('(')[0]}
                         </div>
                         <div className="text-[11px] text-gray-500 font-mono">
                           Rating: {phase.ratingRange}
@@ -382,21 +441,22 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             
             <div>
-              <div className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-3 flex items-center justify-between">
-                <span>Modules & Topics</span>
+              <div className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-3.5 flex items-center justify-between">
+                <span>{isEn ? 'Modules & Topics' : 'Danh mục Chủ đề'}</span>
                 <span className="text-[11px] font-mono text-gray-400 font-normal">
                   {phaseTopics.length} topics
                 </span>
               </div>
 
               {/* Vertical Guide Line Tree */}
-              <div className="relative pl-3 border-l-2 border-gray-200 space-y-3 ml-2">
+              <div className="relative pl-3 border-l-2 border-gray-200 space-y-3.5 ml-2">
                 {phaseTopics.map((topic) => {
                   const isTopicActive = topic.id === selectedTopicId;
                   const solvedCount = topic.problems.filter((p) =>
                     solvedSet.has(`${p.contestId}_${p.index}`)
                   ).length;
                   const isCompleted = solvedCount === 10;
+                  const topicName = isEn ? topic.nameEn : topic.nameVi;
 
                   return (
                     <div key={topic.id} className="relative flex items-start group">
@@ -417,7 +477,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
                       {/* Topic Link Text */}
                       <button
                         onClick={() => selectTopic(topic.id)}
-                        className={`text-left text-xs transition-colors block pl-2 cursor-pointer leading-snug w-full ${
+                        className={`text-left text-xs transition-colors block pl-2.5 cursor-pointer leading-snug w-full ${
                           isTopicActive
                             ? 'font-bold text-blue-600'
                             : 'text-gray-700 hover:text-blue-600'
@@ -425,7 +485,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
                       >
                         <div className="flex items-center justify-between gap-1">
                           <span className="truncate">
-                            {topic.name.split('(')[0]}
+                            {topicName.split('(')[0]}
                           </span>
                           <span
                             className={`font-mono text-[10px] tabular-nums shrink-0 ml-1 ${
@@ -450,27 +510,30 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
             {/* Quick Switch to Other Phases */}
             <div className="pt-4 border-t border-gray-200">
               <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider block mb-2">
-                Tất cả giai đoạn (All Phases)
+                {isEn ? 'All Phases' : 'Tất cả 5 Giai đoạn'}
               </span>
               <div className="space-y-1">
-                {ROADMAP_PHASES.map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={() => selectPhase(p.id)}
-                    className={`w-full text-left px-2.5 py-1.5 rounded text-xs transition-colors flex items-center justify-between ${
-                      p.id === selectedPhaseId
-                        ? 'bg-gray-200 font-semibold text-gray-900'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    <span className="truncate">
-                      P{p.id}: {p.title.split(':')[1]?.split('(')[0]?.trim()}
-                    </span>
-                    <span className="text-[10px] font-mono text-gray-400">
-                      {p.ratingRange}
-                    </span>
-                  </button>
-                ))}
+                {ROADMAP_PHASES.map((p) => {
+                  const pTitle = isEn ? p.titleEn : p.titleVi;
+                  return (
+                    <button
+                      key={p.id}
+                      onClick={() => selectPhase(p.id)}
+                      className={`w-full text-left px-2.5 py-1.5 rounded text-xs transition-colors flex items-center justify-between ${
+                        p.id === selectedPhaseId
+                          ? 'bg-gray-200 font-bold text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="truncate">
+                        P{p.id}: {pTitle.split(':')[1]?.split('(')[0]?.trim()}
+                      </span>
+                      <span className="text-[10px] font-mono text-gray-400">
+                        {p.ratingRange}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -478,25 +541,25 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
 
           {/* Sidebar Footer */}
           <div className="p-3 border-t border-[#e5e7eb] text-[11px] text-gray-500 flex items-center justify-between">
-            <span>CPSuggestor Roadmap</span>
+            <span>CPSuggestor</span>
             <span className="font-mono">USACO Guide Layout</span>
           </div>
 
         </aside>
 
         {/* ======================================================================= */}
-        {/* MAIN READING CANVAS (EXACT USACO GUIDE LAYOUT)                          */}
+        {/* MAIN READING CANVAS (SPACIOUS & EXPANDED FOR COMFORTABLE READING)       */}
         {/* ======================================================================= */}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-8 lg:px-12 py-6 max-w-4xl mx-auto w-full">
+        <main className="flex-1 overflow-y-auto px-5 sm:px-10 lg:px-14 py-7 w-full max-w-5xl lg:max-w-6xl mx-auto">
           
           {/* Expand sidebar button (when collapsed) */}
           {isSidebarCollapsed && (
             <button
               onClick={() => setIsSidebarCollapsed(false)}
-              className="mb-4 inline-flex items-center space-x-1 text-xs text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+              className="mb-4 inline-flex items-center space-x-1.5 text-xs text-blue-600 hover:text-blue-800 font-semibold cursor-pointer"
             >
               <ChevronsRight className="w-4 h-4" />
-              <span>Show Sidebar</span>
+              <span>{isEn ? 'Show Sidebar' : 'Mở thanh bên'}</span>
             </button>
           )}
 
@@ -506,36 +569,36 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
             <button
               onClick={goToPrevTopic}
               disabled={selectedTopicId === 1}
-              className="flex items-center space-x-1 font-medium hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
+              className="flex items-center space-x-1 font-semibold hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Prev</span>
+              <span>{isEn ? 'Prev' : 'Bài trước'}</span>
             </button>
 
             {/* Breadcrumb text */}
             <div className="flex items-center space-x-1.5 text-xs truncate max-w-xs sm:max-w-md">
-              <span className="text-gray-400">Lộ trình CP</span>
+              <span className="text-gray-400">{isEn ? 'Home' : 'Lộ trình CP'}</span>
               <span className="text-gray-300">/</span>
-              <span className="text-gray-600 truncate">{currentPhase.title.split('(')[0]}</span>
+              <span className="text-gray-600 truncate">{currentPhaseTitle.split('(')[0]}</span>
               <span className="text-gray-300">/</span>
-              <span className="text-gray-900 font-semibold truncate">{currentTopic.name.split('(')[0]}</span>
+              <span className="text-gray-900 font-bold truncate">{currentTopicName.split('(')[0]}</span>
             </div>
 
             {/* Next button */}
             <button
               onClick={goToNextTopic}
               disabled={selectedTopicId === ROADMAP_TOPICS.length}
-              className="flex items-center space-x-1 font-medium hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
+              className="flex items-center space-x-1 font-semibold hover:text-blue-600 transition-colors disabled:opacity-30 disabled:hover:text-gray-500 cursor-pointer"
             >
-              <span>Next</span>
+              <span>{isEn ? 'Next' : 'Bài sau'}</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* ===================================================================== */}
-          {/* TOPIC HEADER (USACO GUIDE STYLE)                                      */}
+          {/* TOPIC HEADER (USACO GUIDE STYLE: CLEAN, SPACIOUS, STREAMLINED)        */}
           {/* ===================================================================== */}
-          <div className="mb-6 space-y-3">
+          <div className="mb-8 space-y-3">
             
             {/* Top Meta Row: Frequency/Difficulty Dots on Left, Progress on Right */}
             <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -543,65 +606,59 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
               {/* Frequency / Level indicator (like USACO Guide "•••• Rare") */}
               <div className="flex items-center space-x-1.5 text-xs">
                 <span className="text-orange-500 font-bold tracking-tight">● ● ● ●</span>
-                <span className="font-semibold text-orange-600 ml-1">
-                  {currentTopic.tier}
+                <span className="font-bold text-orange-600 ml-1">
+                  {currentTopicTier}
                 </span>
               </div>
 
               {/* Right: Progress Track & Status Badge */}
               <div className="flex items-center space-x-3">
                 {/* Rounded progress pill track (like USACO Guide "0/6") */}
-                <div className="flex items-center space-x-2" title={`${currentTopicSolvedCount}/10 bài đã AC`}>
-                  <div className="w-24 bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                <div className="flex items-center space-x-2" title={`${currentTopicSolvedCount}/10 solved`}>
+                  <div className="w-28 bg-gray-200 rounded-full h-1.5 overflow-hidden">
                     <div
                       className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
                       style={{ width: `${(currentTopicSolvedCount / 10) * 100}%` }}
                     />
                   </div>
-                  <span className="font-mono text-xs font-semibold text-gray-700 tabular-nums">
+                  <span className="font-mono text-xs font-bold text-gray-700 tabular-nums">
                     {currentTopicSolvedCount}/10
                   </span>
                 </div>
 
                 {/* Status Dropdown / Badge (like USACO Guide "Not Started v") */}
                 <div
-                  className={`px-2.5 py-1 rounded border text-xs font-semibold shadow-2xs flex items-center space-x-1 select-none ${topicStatusInfo.color}`}
+                  className={`px-3 py-1 rounded border text-xs font-semibold shadow-2xs flex items-center space-x-1.5 select-none ${topicStatusInfo.color}`}
                 >
                   <span>{topicStatusInfo.text}</span>
-                  <ChevronDown className="w-3 h-3 opacity-60" />
+                  <ChevronDown className="w-3.5 h-3.5 opacity-60" />
                 </div>
               </div>
 
             </div>
 
-            {/* Main H1 Title */}
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight leading-tight">
-              {currentTopic.name}
+            {/* Main H1 Title (Spacious & Crisp Typography) */}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#111827] tracking-tight leading-tight">
+              {currentTopicName}
             </h1>
 
-            {/* Subtitle / Authorship info */}
-            <div className="text-xs text-gray-500">
-              <span>Độ phức tạp mục tiêu: </span>
-              <span className="font-mono font-semibold text-gray-800">{currentTopic.complexity}</span>
-            </div>
-
-            {/* Language / Resources Row */}
-            <div className="pt-2 pb-3 border-b border-gray-100 flex flex-wrap items-center justify-between text-xs text-gray-600 gap-2">
+            {/* Clean Subtitle & Reference Resources Row */}
+            <div className="pt-2 pb-4 border-b border-gray-200 flex flex-wrap items-center justify-between text-sm text-gray-600 gap-3">
               <div className="flex items-center space-x-2">
-                <span className="font-medium">Ngôn ngữ tham chiếu: C++</span>
-                <span className="text-gray-300">•</span>
-                <span>Phân hạng: <strong className="text-gray-900">{currentTopic.tier}</strong></span>
+                <span className="font-medium text-gray-500">{isEn ? 'Target Complexity:' : 'Độ phức tạp:'}</span>
+                <span className="font-mono font-bold text-gray-800">{currentComplexity}</span>
               </div>
 
-              <div className="flex items-center space-x-3">
-                <span className="text-gray-400">Tài liệu chuẩn:</span>
+              {/* External Blog Links */}
+              <div className="flex items-center space-x-3 text-xs">
+                <span className="text-gray-400">{isEn ? 'Reference Blogs:' : 'Tài liệu chuẩn:'}</span>
                 {currentTopic.blogs.map((b, idx) => (
                   <a
                     key={idx}
                     href={b.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 hover:underline flex items-center space-x-1"
+                    className="text-blue-600 hover:text-blue-800 hover:underline flex items-center space-x-1 font-medium"
                   >
                     <span>{b.title.split('(')[0]?.trim()}</span>
                     <ExternalLink className="w-3 h-3" />
@@ -613,124 +670,92 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           </div>
 
           {/* ===================================================================== */}
-          {/* INLINE TABLE OF CONTENTS                                              */}
+          {/* SECTION 1: ESSENCE & THEORY (LARGER, COMFORTABLE FONT SIZE: 15-16PX)  */}
           {/* ===================================================================== */}
-          <div className="mb-8">
-            <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2">
-              TABLE OF CONTENTS
-            </div>
-            <ul className="space-y-1 text-xs text-gray-700">
-              <li>
-                <a href="#essence-section" className="text-blue-600 hover:underline">
-                  1. Bản chất thuật toán & Bất biến toán học
-                </a>
-              </li>
-              <li>
-                <a href="#focus-problem-section" className="text-blue-600 hover:underline">
-                  2. Bài tập trọng tâm (Focus Problem: {currentTopic.problems[0]?.code})
-                </a>
-              </li>
-              <li>
-                <a href="#practice-problems-section" className="text-blue-600 hover:underline">
-                  3. Danh sách 9 bài tập rèn luyện phân cấp (Practice Problems)
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* ===================================================================== */}
-          {/* SECTION 1: ESSENCE & THEORY (BẢN CHẤT CỐT LÕI)                        */}
-          {/* ===================================================================== */}
-          <section id="essence-section" className="mb-8 space-y-3">
-            <h2 className="text-lg font-bold text-gray-900 tracking-tight pb-1 border-b border-gray-100">
-              Bản chất thuật toán & Phương pháp tiếp cận
+          <section className="mb-10 space-y-3.5">
+            <h2 className="text-xl font-bold text-gray-900 tracking-tight pb-1.5 border-b border-gray-200">
+              {isEn ? 'Algorithm Essence & Methodology' : 'Bản chất thuật toán & Phương pháp tiếp cận'}
             </h2>
 
-            <div className="bg-[#fcfcfd] border border-gray-200 rounded p-4 text-xs leading-relaxed space-y-2.5">
-              <ul className="list-disc list-inside space-y-1.5 text-gray-800 font-sans">
-                {currentTopic.essence.map((item, idx) => (
+            <div className="bg-[#fcfcfd] border border-gray-200 rounded-lg p-5 text-[15px] sm:text-base leading-relaxed space-y-3 text-gray-800">
+              <ul className="list-disc list-inside space-y-2 font-sans">
+                {currentEssence.map((item, idx) => (
                   <li key={idx} className="leading-relaxed">
                     {item}
                   </li>
                 ))}
               </ul>
-              <div className="pt-2 border-t border-gray-100 text-[11px] text-gray-600">
-                <span className="font-semibold text-gray-700">Ghi chú độ phức tạp: </span>
-                <span className="font-mono text-gray-800">{currentTopic.complexity}</span>
-              </div>
             </div>
           </section>
 
           {/* ===================================================================== */}
-          {/* SECTION 2: FOCUS PROBLEM (SIGNATURE USACO GUIDE BLUE TOP-BORDER CARD)  */}
+          {/* SECTION 2: FOCUS PROBLEM (USACO GUIDE SIGNATURE CARD)                  */}
           {/* ===================================================================== */}
           {currentTopic.problems[0] && (() => {
             const focusProb = currentTopic.problems[0];
             const isFocusSolved = solvedSet.has(`${focusProb.contestId}_${focusProb.index}`);
+            const focusComment = cleanMath(isEn ? focusProb.commentEn : focusProb.commentVi);
 
             return (
-              <section id="focus-problem-section" className="mb-8 space-y-2">
-                <div className="text-xs text-gray-500 italic">
-                  Note: Hãy giải bài toán trọng tâm này trước khi tiếp tục các bài tập khác...
+              <section className="mb-10 space-y-2.5">
+                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  {isEn ? 'Focus Problem – Solve this problem before continuing' : 'Bài tập trọng tâm – Thử sức giải bài này trước'}
                 </div>
 
                 {/* The Signature USACO Guide Card */}
-                <div className="border-t-[3px] border-blue-600 bg-white border-x border-b border-[#e5e7eb] rounded-b-md shadow-xs p-4 sm:p-5 transition-all">
+                <div className="border-t-[4px] border-blue-600 bg-white border-x border-b border-[#e5e7eb] rounded-b-lg shadow-xs p-5 sm:p-6 transition-all">
                   
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start justify-between gap-4">
                     
                     {/* Left details */}
-                    <div className="space-y-1">
+                    <div className="space-y-2 flex-1">
                       {/* Title with External Link */}
                       <a
                         href={focusProb.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-base sm:text-lg font-bold text-gray-900 hover:text-blue-600 flex items-center space-x-1.5 group"
+                        className="text-lg sm:text-xl font-bold text-gray-900 hover:text-blue-600 flex items-center space-x-2 group"
                       >
                         <span className="font-mono text-blue-600">{focusProb.code}</span>
                         <span>- {focusProb.name}</span>
-                        <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
+                        <ExternalLink className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
                       </a>
 
                       {/* Subtitle & Rating */}
                       <div className="flex items-center space-x-2 text-xs text-gray-500">
-                        <span className={`px-2 py-0.2 rounded border font-mono text-[11px] font-semibold ${getRatingBadge(focusProb.rating)}`}>
+                        <span className={`px-2.5 py-0.5 rounded border font-mono text-xs font-bold ${getRatingBadge(focusProb.rating)}`}>
                           Rating {focusProb.rating}
                         </span>
                         <span>•</span>
-                        <span className="font-medium text-gray-600">Focus Problem</span>
+                        <span className="font-semibold text-gray-600">Focus Problem</span>
                       </div>
 
-                      {/* Focus problem note in italics (like USACO Guide) */}
-                      <div className="text-xs text-gray-500 italic pt-1">
-                        Focus Problem – Thử sức phân tích và nộp AC bài tập này trước khi tiếp tục!
-                      </div>
-
-                      {/* Key Observation */}
-                      <div className="pt-2 text-xs leading-relaxed text-gray-700 bg-gray-50 border border-gray-100 rounded p-2.5 mt-2">
-                        <strong className="text-gray-900 block mb-0.5">Nhận xét then chốt:</strong>
-                        {focusProb.comment}
+                      {/* Key Pedagogical Insight in 14-15px font */}
+                      <div className="pt-2 text-sm sm:text-[15px] leading-relaxed text-gray-800 bg-gray-50 border border-gray-200 rounded-md p-3.5 mt-2">
+                        <strong className="text-gray-900 block mb-1">
+                          {isEn ? 'Key Pedagogical Insight:' : 'Nhận xét then chốt:'}
+                        </strong>
+                        {focusComment}
                       </div>
                     </div>
 
                     {/* Right side: 3-dots menu & Circular Status Button */}
                     <div className="flex items-center space-x-2 shrink-0">
-                      <button className="text-gray-400 hover:text-gray-600 p-1 rounded hover:bg-gray-100">
+                      <button className="text-gray-400 hover:text-gray-600 p-1.5 rounded hover:bg-gray-100">
                         <MoreVertical className="w-4 h-4" />
                       </button>
 
                       {/* Circular AC button (like USACO Guide circle) */}
                       <button
                         onClick={() => toggleProblemSolved(focusProb.contestId, focusProb.index)}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
                           isFocusSolved
                             ? 'bg-emerald-500 border-emerald-500 text-white shadow-xs'
                             : 'border-gray-300 hover:border-blue-500 bg-gray-100 hover:bg-blue-50 text-transparent'
                         }`}
-                        title={isFocusSolved ? 'Đánh dấu chưa giải' : 'Đánh dấu đã AC bài này'}
+                        title={isFocusSolved ? (isEn ? 'Mark as unsolved' : 'Đánh dấu chưa giải') : (isEn ? 'Mark as solved' : 'Đánh dấu đã AC')}
                       >
-                        <Check className={`w-4 h-4 stroke-[2.5] ${isFocusSolved ? 'block' : 'hidden'}`} />
+                        <Check className={`w-4 h-4 stroke-[3] ${isFocusSolved ? 'block' : 'hidden'}`} />
                       </button>
                     </div>
 
@@ -742,68 +767,69 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           })()}
 
           {/* ===================================================================== */}
-          {/* SECTION 3: PRACTICE PROBLEMS SET (USACO GUIDE STYLE TABLE/CARDS)      */}
+          {/* SECTION 3: PRACTICE PROBLEMS SET (USACO GUIDE STYLE PROBLEM CARDS)    */}
           {/* ===================================================================== */}
-          <section id="practice-problems-section" className="mb-10 space-y-3">
-            <div className="flex items-center justify-between pb-1 border-b border-gray-100">
-              <h2 className="text-lg font-bold text-gray-900 tracking-tight">
-                Problems
+          <section className="mb-12 space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900 tracking-tight">
+                {isEn ? 'Practice Problems' : 'Bài tập rèn luyện'}
               </h2>
               <span className="text-xs font-mono text-gray-500">
-                {currentTopic.problems.slice(1).length} practice problems
+                {currentTopic.problems.slice(1).length} problems
               </span>
             </div>
 
-            {/* Problem List Items (USACO Guide Style Problem Cards) */}
-            <div className="space-y-2.5">
+            {/* Problem Cards with larger text and clean spacing */}
+            <div className="space-y-3">
               {currentTopic.problems.slice(1).map((prob, idx) => {
                 const isProbSolved = solvedSet.has(`${prob.contestId}_${prob.index}`);
+                const probComment = cleanMath(isEn ? prob.commentEn : prob.commentVi);
 
                 return (
                   <div
                     key={idx}
-                    className={`border border-[#e5e7eb] rounded-md p-3 sm:p-3.5 bg-white hover:border-gray-300 transition-all ${
-                      isProbSolved ? 'bg-emerald-50/15 border-emerald-200' : ''
+                    className={`border border-[#e5e7eb] rounded-lg p-4 sm:p-4.5 bg-white hover:border-gray-300 transition-all ${
+                      isProbSolved ? 'bg-emerald-50/15 border-emerald-300' : ''
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start justify-between gap-4">
                       
                       {/* Left: Code, Title, Rating, Comment */}
-                      <div className="space-y-1 flex-1">
-                        <div className="flex items-center space-x-2 flex-wrap gap-y-1">
+                      <div className="space-y-1.5 flex-1">
+                        <div className="flex items-center space-x-2.5 flex-wrap gap-y-1">
                           <a
                             href={prob.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-bold text-sm text-gray-900 hover:text-blue-600 flex items-center space-x-1.5 group"
+                            className="font-bold text-base text-gray-900 hover:text-blue-600 flex items-center space-x-1.5 group"
                           >
                             <span className="font-mono text-blue-600">{prob.code}</span>
                             <span>- {prob.name}</span>
-                            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </a>
 
-                          <span className={`px-2 py-0.2 rounded border font-mono text-[11px] font-semibold ${getRatingBadge(prob.rating)}`}>
+                          <span className={`px-2.5 py-0.5 rounded border font-mono text-xs font-bold ${getRatingBadge(prob.rating)}`}>
                             {prob.rating}
                           </span>
                         </div>
 
-                        {/* Pedagogical comment */}
-                        <div className="text-xs text-gray-600 leading-relaxed pt-0.5">
-                          {prob.comment}
+                        {/* Pedagogical comment in clean 14px font */}
+                        <div className="text-sm text-gray-700 leading-relaxed font-sans">
+                          {probComment}
                         </div>
                       </div>
 
                       {/* Right: Circular AC Toggle Button (like USACO Guide) */}
                       <button
                         onClick={() => toggleProblemSolved(prob.contestId, prob.index)}
-                        className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center transition-all shrink-0 cursor-pointer ${
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all shrink-0 cursor-pointer ${
                           isProbSolved
                             ? 'bg-emerald-500 border-emerald-500 text-white'
                             : 'border-gray-300 hover:border-blue-500 bg-gray-100 hover:bg-blue-50 text-transparent'
                         }`}
-                        title={isProbSolved ? 'Đánh dấu chưa giải' : 'Đánh dấu đã AC bài này'}
+                        title={isProbSolved ? (isEn ? 'Mark as unsolved' : 'Đánh dấu chưa giải') : (isEn ? 'Mark as solved' : 'Đánh dấu đã AC')}
                       >
-                        <Check className={`w-3.5 h-3.5 stroke-[2.5] ${isProbSolved ? 'block' : 'hidden'}`} />
+                        <Check className={`w-4 h-4 stroke-[3] ${isProbSolved ? 'block' : 'hidden'}`} />
                       </button>
 
                     </div>
@@ -817,23 +843,29 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           {/* ===================================================================== */}
           {/* BOTTOM PAGINATION (PREV TOPIC / NEXT TOPIC BUTTONS)                   */}
           {/* ===================================================================== */}
-          <div className="pt-6 border-t border-gray-200 flex items-center justify-between text-xs">
+          <div className="pt-6 border-t border-gray-200 flex items-center justify-between text-xs sm:text-sm">
             {selectedTopicId > 1 ? (
               <button
                 onClick={goToPrevTopic}
-                className="px-3 py-1.5 border border-gray-300 hover:border-gray-400 rounded text-gray-700 font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+                className="px-4 py-2 border border-gray-300 hover:border-gray-400 rounded-md text-gray-700 font-semibold flex items-center space-x-1.5 cursor-pointer transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" />
-                <span>Previous: {ROADMAP_TOPICS[selectedTopicId - 2]?.name.split('(')[0]}</span>
+                <span className="truncate max-w-[200px] sm:max-w-xs">
+                  {isEn ? 'Previous: ' : 'Trước: '}
+                  {(isEn ? ROADMAP_TOPICS[selectedTopicId - 2]?.nameEn : ROADMAP_TOPICS[selectedTopicId - 2]?.nameVi)?.split('(')[0]}
+                </span>
               </button>
             ) : <div />}
 
             {selectedTopicId < ROADMAP_TOPICS.length ? (
               <button
                 onClick={goToNextTopic}
-                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold flex items-center space-x-1.5 cursor-pointer transition-colors"
               >
-                <span>Next: {ROADMAP_TOPICS[selectedTopicId]?.name.split('(')[0]}</span>
+                <span className="truncate max-w-[200px] sm:max-w-xs">
+                  {isEn ? 'Next: ' : 'Tiếp: '}
+                  {(isEn ? ROADMAP_TOPICS[selectedTopicId]?.nameEn : ROADMAP_TOPICS[selectedTopicId]?.nameVi)?.split('(')[0]}
+                </span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             ) : <div />}

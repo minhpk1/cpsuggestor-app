@@ -84,56 +84,44 @@ export default function HomePage() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-[1240px] w-full mx-auto px-4 py-5">
+      <main className={`flex-1 w-full mx-auto ${platform === 'roadmap' ? 'max-w-[1520px] px-2 sm:px-6 py-4' : 'max-w-[1240px] px-4 py-5'}`}>
 
-        {/* Thanh chọn Nền tảng (OJ.uz vs Codeforces) */}
-        <div className="mb-5 flex items-center justify-between border-b border-[#e8e8e8] pb-3 flex-wrap gap-2">
-          <div className="flex items-center space-x-2 flex-wrap gap-y-2">
-            <button
-              onClick={() => setPlatform('ojuz')}
-              className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
-                platform === 'ojuz'
-                  ? 'bg-white text-gray-900 border border-gray-300 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5 text-blue-600" />
-              <span>{t('platform_switch_oj')}</span>
-            </button>
+        {/* Thanh chọn Nền tảng (chỉ hiển thị khi không ở chế độ roadmap để giảm bớt lượng chữ thừa) */}
+        {platform !== 'roadmap' && (
+          <div className="mb-5 flex items-center justify-between border-b border-[#e8e8e8] pb-3 flex-wrap gap-2">
+            <div className="flex items-center space-x-2 flex-wrap gap-y-2">
+              <button
+                onClick={() => setPlatform('ojuz')}
+                className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
+                  platform === 'ojuz'
+                    ? 'bg-white text-gray-900 border border-gray-300 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+                <span>{t('platform_switch_oj')}</span>
+              </button>
 
-            <button
-              onClick={() => setPlatform('codeforces')}
-              className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
-                platform === 'codeforces'
-                  ? 'bg-white text-blue-600 border border-blue-300 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              <span>{t('platform_switch_cf')}</span>
-            </button>
+              <button
+                onClick={() => setPlatform('codeforces')}
+                className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
+                  platform === 'codeforces'
+                    ? 'bg-white text-blue-600 border border-blue-300 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+                <span>{t('platform_switch_cf')}</span>
+              </button>
+            </div>
 
-            <button
-              onClick={() => setPlatform('roadmap')}
-              className={`px-4 py-1.5 text-xs font-medium rounded transition-all flex items-center space-x-2 ${
-                platform === 'roadmap'
-                  ? 'bg-white text-emerald-700 border border-emerald-300 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{t('platform_switch_roadmap')}</span>
-            </button>
+            <span className="text-[11px] text-gray-500 hidden xl:inline">
+              {platform === 'ojuz'
+                ? t('platform_switch_oj_sub')
+                : t('platform_switch_cf_sub')}
+            </span>
           </div>
-
-          <span className="text-[11px] text-gray-500 hidden xl:inline">
-            {platform === 'ojuz'
-              ? t('platform_switch_oj_sub')
-              : platform === 'codeforces'
-              ? t('platform_switch_cf_sub')
-              : t('platform_switch_roadmap_sub')}
-          </span>
-        </div>
+        )}
         
         {/* ============================================================== */}
         {/* PHÂN HỆ 1: OJ.UZ (OI CHECKLIST & RANDOM BÀI THEO KỲ THI)       */}
