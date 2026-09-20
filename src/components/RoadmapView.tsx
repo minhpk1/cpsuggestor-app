@@ -727,7 +727,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
                     {isEn ? 'Canonical C++ Implementation' : 'Mã nguồn chuẩn C++'}
                   </h2>
                   <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 hidden sm:inline-block">
-                    {canonicalData.source}
+                    {isEn ? `Source: ${canonicalData.source}` : `Nguồn: ${canonicalData.source}`}
                   </span>
                 </div>
 
@@ -743,7 +743,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
                           : 'text-gray-500 hover:text-gray-800'
                       }`}
                     >
-                      Tiếng Việt
+                      {isEn ? 'Vietnamese' : 'Tiếng Việt'}
                     </button>
                     <button
                       onClick={() => setCodeLang('en')}
@@ -789,7 +789,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
 
               {/* Mobile source tag */}
               <div className="sm:hidden text-xs text-gray-500 italic">
-                {canonicalData.source}
+                {isEn ? `Source: ${canonicalData.source}` : `Nguồn tham khảo: ${canonicalData.source}`}
               </div>
 
               {/* Code Container */}
@@ -827,7 +827,9 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
                         : 'Cài đặt đầy đủ 100% các bước tiền xử lý, không phụ thuộc biến ngoài.'}
                     </span>
                     <span className="font-mono text-gray-500">
-                      {codeLang === 'en' ? 'English Comments' : 'Chú thích Tiếng Việt'}
+                      {codeLang === 'en'
+                        ? (isEn ? 'English Comments' : 'Chú thích Tiếng Anh')
+                        : (isEn ? 'Vietnamese Comments' : 'Chú thích Tiếng Việt')}
                     </span>
                   </div>
                 </div>
