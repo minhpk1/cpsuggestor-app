@@ -18,6 +18,9 @@ Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trê
 4. **Chuẩn C++17/20 hiện đại, tối ưu hiệu năng**:
    - Dùng `long long` cho các đại lượng có nguy cơ tràn số.
    - I/O nhanh gọn: `cin.tie(nullptr)->sync_with_stdio(false)`.
+5. **Tên hàm ngắn gọn (1 - 2 từ) & Không dùng Lambda**:
+   - Tên hàm và phương thức trong struct cực kỳ ngắn gọn, dễ nhớ (1 - 2 từ): `query`, `update`, `build`, `add`, `find`, `unite`, `same`, `size`, `solve`, `dist`, `lca`, `power`, `inv`, `nCr`, `extend`, `decompose`, `max_len`, `count_pairs`, `bs_min`, `bs_max`, `schedule`, `topo_sort`, `bfs_grid`, `lis`, `sos_dp`,...
+   - Tuyệt đối không dùng hàm ẩn danh (lambda `[]`, `[&]`), thay thế bằng hàm so sánh độc lập (`cmp`) hoặc nạp chồng toán tử (`operator<`) chuẩn C++ truyền thống, trong sáng và dễ đọc.
 
 ---
 
@@ -52,7 +55,7 @@ Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trê
 - [Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)](#phase-5-legendary--grandmaster)
   - [23. Cây ảo (Virtual Tree / Auxiliary Tree)](#23-virtual-tree-auxiliary-tree)
   - [24. Tìm kiếm nhị phân song song (Parallel Binary Search)](#24-parallel-binary-search)
-  - [25. Tối ưu hóa WQS / Alien's Trick (Lambda Optimization)](#25-aliens-trick-wqs-binary-search)
+  - [25. Tối ưu hóa WQS / Alien's Trick (WQS Binary Search)](#25-aliens-trick-wqs-binary-search)
   - [26. Phân tách trọng tâm trên cây (Centroid Decomposition)](#26-centroid-decomposition)
   - [27. Biến đổi Fourier nhanh (Fast Fourier Transform / NTT)](#27-fast-fourier-transform-ntt)
   - [28. Máy tự động hậu tố (Suffix Automaton - SAM)](#28-suffix-automaton-sam)
@@ -144,9 +147,9 @@ struct PrefixSum2D {
 using namespace std;
 
 // Tìm độ dài đoạn con liên tiếp dài nhất có tổng <= limit (Mảng số không âm)
-int longestSubarrayWithSumAtMost(const vector<int>& a, long long limit) {
+int max_len(const vector<int>& a, long long limit) {
     int n = a.size();
-    int max_len = 0;
+    int ans = 0;
     long long current_sum = 0;
     int left = 0;
 
@@ -161,13 +164,13 @@ int longestSubarrayWithSumAtMost(const vector<int>& a, long long limit) {
         }
 
         // Cập nhật kết quả tối ưu
-        max_len = max(max_len, right - left + 1);
+        ans = max(ans, right - left + 1);
     }
-    return max_len;
+    return ans;
 }
 
 // Đếm số lượng cặp (i, j) với i < j sao cho a[i] + a[j] == target trên mảng đã sắp xếp
-long long countPairsWithSum(const vector<int>& a, int target) {
+long long count_pairs(const vector<int>& a, int target) {
     long long pairs = 0;
     int left = 0, right = (int)a.size() - 1;
 
@@ -210,7 +213,8 @@ using namespace std;
 
 // Hàm mẫu chặt nhị phân kết quả tổng quát (Monotonic Predicate: FFFFFTTTTT)
 // Tìm giá trị nhỏ nhất thỏa mãn predicate check(val) == true
-long long binarySearchMin(long long low, long long high, function<bool(long long)> check) {
+template <typename F>
+long long bs_min(long long low, long long high, F check) {
     long long ans = high;
     while (low <= high) {
         long long mid = low + (high - low) / 2;
@@ -225,7 +229,8 @@ long long binarySearchMin(long long low, long long high, function<bool(long long
 }
 
 // Tìm giá trị lớn nhất thỏa mãn predicate check(val) == true (TTTTTFFFFF)
-long long binarySearchMax(long long low, long long high, function<bool(long long)> check) {
+template <typename F>
+long long bs_max(long long low, long long high, F check) {
     long long ans = low;
     while (low <= high) {
         long long mid = low + (high - low) / 2;
@@ -302,15 +307,18 @@ struct Interval {
     int start, end;
 };
 
-int maxNonOverlappingIntervals(vector<Interval>& intervals) {
+// Hàm so sánh sắp xếp theo thời gian kết thúc sớm nhất (không dùng lambda)
+bool cmp(const Interval& a, const Interval& b) {
+    return a.end < b.end;
+}
+
+int schedule(vector<Interval>& a) {
     // Chứng minh Exchange Argument: Luôn kết thúc sớm nhất để chừa chỗ cho các sự kiện sau
-    sort(intervals.begin(), intervals.end(), [](const Interval& a, const Interval& b) {
-        return a.end < b.end;
-    });
+    sort(a.begin(), a.end(), cmp);
 
     int count = 0;
     int last_end = -1e9;
-    for (const auto& cur : intervals) {
+    for (const auto& cur : a) {
         if (cur.start >= last_end) {
             count++;
             last_end = cur.end;
@@ -338,8 +346,8 @@ using namespace std;
 const int dx[4] = {-1, 1, 0, 0};
 const int dy[4] = {0, 0, -1, 1};
 
-int bfsGridShortestPath(int start_r, int start_c, int target_r, int target_c,
-                       const vector<string>& grid) {
+int bfs_grid(int start_r, int start_c, int target_r, int target_c,
+             const vector<string>& grid) {
     int n = grid.size(), m = grid[0].size();
     vector<vector<int>> dist(n, vector<int>(m, -1));
     queue<pair<int, int>> q;
@@ -402,11 +410,11 @@ struct DSU {
         return true;
     }
 
-    bool is_same_set(int u, int v) {
+    bool same(int u, int v) {
         return find(u) == find(v);
     }
 
-    int get_size(int u) {
+    int size(int u) {
         return sz[find(u)];
     }
 };
@@ -425,7 +433,7 @@ struct DSU {
 using namespace std;
 
 // 1. Balo 0/1 mảng 1 chiều (Space Optimized 0/1 Knapsack)
-long long knapsack01(int max_w, const vector<int>& weight, const vector<int>& val) {
+long long knapsack(int max_w, const vector<int>& weight, const vector<int>& val) {
     vector<long long> dp(max_w + 1, 0);
     int n = weight.size();
 
@@ -439,7 +447,7 @@ long long knapsack01(int max_w, const vector<int>& weight, const vector<int>& va
 }
 
 // 2. Dãy con tăng dài nhất (LIS) trong O(N log N) bằng std::lower_bound
-int lengthOfLIS(const vector<int>& nums) {
+int lis(const vector<int>& nums) {
     vector<int> tails; // tails[i] lưu phần tử kết thúc nhỏ nhất của dãy con tăng độ dài i+1
 
     for (int x : nums) {
@@ -466,7 +474,7 @@ int lengthOfLIS(const vector<int>& nums) {
 using namespace std;
 
 // Sắp xếp tô-pô bằng thuật toán Kahn bóc tách bán bậc vào (In-Degree)
-pair<bool, vector<int>> topologicalSort(int n, const vector<vector<int>>& adj) {
+pair<bool, vector<int>> topo_sort(int n, const vector<vector<int>>& adj) {
     vector<int> in_degree(n, 0);
     for (int u = 0; u < n; ++u) {
         for (int v : adj[u]) {
@@ -705,7 +713,7 @@ long long power(long long a, long long b) {
 }
 
 // Nghịch đảo modulo theo Fermat nhỏ: a^{-1} = a^{MOD-2} (mod MOD)
-long long modInverse(long long a) {
+long long inv(long long a) {
     return power(a, MOD - 2);
 }
 
@@ -716,7 +724,7 @@ struct Combinatorics {
     Combinatorics(int n) : max_n(n), fac(n + 1), inv_fac(n + 1) {
         fac[0] = 1;
         for (int i = 1; i <= n; ++i) fac[i] = (fac[i - 1] * i) % MOD;
-        inv_fac[n] = modInverse(fac[n]);
+        inv_fac[n] = inv(fac[n]);
         for (int i = n - 1; i >= 0; --i) inv_fac[i] = (inv_fac[i + 1] * (i + 1)) % MOD;
     }
 
@@ -739,20 +747,20 @@ struct Combinatorics {
 using namespace std;
 
 // SOS DP (Sum Over Subsets) trong O(N * 2^N)
-// Tính F[mask] = sum_{sub in mask} A[sub]
-vector<long long> computeSOS(int num_bits, const vector<long long>& A) {
-    int total_masks = 1 << num_bits;
-    vector<long long> F = A;
+// Tính F[mask] = sum_{sub in mask} a[sub]
+vector<long long> sos_dp(int n, const vector<long long>& a) {
+    int total_masks = 1 << n;
+    vector<long long> f = a;
 
     // Cập nhật độc lập theo từng bit dimension
-    for (int bit = 0; bit < num_bits; ++bit) {
+    for (int bit = 0; bit < n; ++bit) {
         for (int mask = 0; mask < total_masks; ++mask) {
             if (mask & (1 << bit)) {
-                F[mask] += F[mask ^ (1 << bit)];
+                f[mask] += f[mask ^ (1 << bit)];
             }
         }
     }
-    return F;
+    return f;
 }
 ```
 
@@ -789,8 +797,8 @@ struct FenwickTree {
         return sum;
     }
 
-    // Truy vấn đoạn [l, r]
-    long long queryRange(int l, int r) const {
+    // Truy vấn tổng đoạn [l, r]
+    long long query(int l, int r) const {
         if (l > r) return 0;
         return query(r) - query(l - 1);
     }
@@ -868,7 +876,7 @@ struct LazySegTree {
 using namespace std;
 
 // 1. KMP Algorithm (Prefix Function pi[i])
-vector<int> computePrefixFunction(const string& s) {
+vector<int> prefix_function(const string& s) {
     int n = s.length();
     vector<int> pi(n, 0);
     for (int i = 1; i < n; ++i) {
@@ -1123,14 +1131,14 @@ struct PersistentSegTree {
     }
 
     // Tìm phần tử nhỏ thứ k trong đoạn [L, R] bằng cách trừ 2 phiên bản
-    int queryKth(int node_l, int node_r, int l, int r, int k) const {
+    int query_kth(int node_l, int node_r, int l, int r, int k) const {
         if (l == r) return l;
         int left_count = tree[tree[node_r].left_child].count - tree[tree[node_l].left_child].count;
         int mid = l + (r - l) / 2;
         if (left_count >= k) {
-            return queryKth(tree[node_l].left_child, tree[node_r].left_child, l, mid, k);
+            return query_kth(tree[node_l].left_child, tree[node_r].left_child, l, mid, k);
         } else {
-            return queryKth(tree[node_l].right_child, tree[node_r].right_child, mid + 1, r, k - left_count);
+            return query_kth(tree[node_l].right_child, tree[node_r].right_child, mid + 1, r, k - left_count);
         }
     }
 };
@@ -1196,7 +1204,7 @@ struct HLD {
 
     // Phân rã đường đi giữa u và v thành O(log N) đoạn liên tiếp trên Segment Tree
     template <typename Op>
-    void processPath(int u, int v, Op op) {
+    void query_path(int u, int v, Op op) {
         while (head[u] != head[v]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             op(pos[head[v]], pos[v]); // Thực hiện truy vấn trên đoạn [pos[head[v]], pos[v]]
@@ -1279,15 +1287,22 @@ struct LiChaoTree {
 using namespace std;
 
 // Dựng Cây ảo kích thước O(K) từ K đỉnh quan trọng trong O(K log K)
-struct VirtualTreeBuilder {
+struct VirtualTree {
     const vector<int>& tin;
-    auto lca_func;
 
-    // K đỉnh ban đầu được sắp xếp theo tin (Euler tour entry time)
-    vector<int> build(vector<int>& key_nodes, auto lca) {
-        sort(key_nodes.begin(), key_nodes.end(), [&](int u, int v) {
-            return tin[u] < tin[v];
-        });
+    VirtualTree(const vector<int>& tin) : tin(tin) {}
+
+    // Struct so sánh thứ tự Euler tour (không dùng lambda)
+    struct Compare {
+        const vector<int>& t;
+        bool operator()(int u, int v) const { return t[u] < t[v]; }
+    };
+
+    // Dựng Cây ảo từ K đỉnh quan trọng
+    template <typename F>
+    vector<int> build(vector<int>& key_nodes, F lca) {
+        Compare cmp{tin};
+        sort(key_nodes.begin(), key_nodes.end(), cmp);
 
         vector<int> nodes = key_nodes;
         int k = key_nodes.size();
@@ -1296,9 +1311,7 @@ struct VirtualTreeBuilder {
         }
 
         // Loại bỏ trùng lặp và sắp xếp lại theo thứ tự Euler tour
-        sort(nodes.begin(), nodes.end(), [&](int u, int v) {
-            return tin[u] < tin[v];
-        });
+        sort(nodes.begin(), nodes.end(), cmp);
         nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
 
         stack<int> st;
@@ -1391,32 +1404,32 @@ struct WQSOptimizer {
         int count_k;
     };
 
-    // Hàm quy hoạch động không ràng buộc K nhưng bị phạt chi phí lambda cho mỗi lần chọn
-    State solveUnconstrainedDP(long long lambda) {
+    // Hàm quy hoạch động không ràng buộc K nhưng bị phạt chi phí penalty cho mỗi lần chọn
+    State solve_dp(long long penalty) {
         State result = {0, 0};
-        // Cài đặt DP tham lam/1 chiều trừ đi lambda cho mỗi đơn vị K
+        // Cài đặt DP tham lam/1 chiều trừ đi penalty cho mỗi đơn vị K
         return result;
     }
 
-    long long findOptimal(int target_k, long long min_lambda, long long max_lambda) {
-        long long low = min_lambda, high = max_lambda;
-        long long best_lambda = 0;
+    // Chặt nhị phân tìm hệ số phạt tối ưu để đạt số lượng chọn target_k
+    long long solve(int target_k, long long min_pen, long long max_pen) {
+        long long low = min_pen, high = max_pen;
+        long long best_pen = 0;
 
-        // Chặt nhị phân tìm hệ số phạt lambda sao cho số lượng chọn xấp xỉ target_k
         while (low <= high) {
             long long mid = low + (high - low) / 2;
-            State cur = solveUnconstrainedDP(mid);
+            State cur = solve_dp(mid);
             if (cur.count_k >= target_k) {
-                best_lambda = mid;
+                best_pen = mid;
                 low = mid + 1;
             } else {
                 high = mid - 1;
             }
         }
 
-        State final_state = solveUnconstrainedDP(best_lambda);
-        // Khôi phục giá trị thực: cộng trả lại lượng phạt lambda * target_k
-        return final_state.cost + best_lambda * target_k;
+        State final_state = solve_dp(best_pen);
+        // Khôi phục giá trị thực: cộng trả lại lượng phạt best_pen * target_k
+        return final_state.cost + best_pen * target_k;
     }
 };
 ```
@@ -1445,21 +1458,21 @@ struct CentroidDecomposition {
         adj[v].push_back(u);
     }
 
-    int get_sizes(int u, int p) {
+    int calc_size(int u, int p) {
         sz[u] = 1;
         for (int v : adj[u]) {
             if (v != p && !removed[v]) {
-                sz[u] += get_sizes(v, u);
+                sz[u] += calc_size(v, u);
             }
         }
         return sz[u];
     }
 
     // Tìm đỉnh trọng tâm: Mọi cây con sau khi xóa trọng tâm đều có kích thước <= total / 2
-    int get_centroid(int u, int p, int total) {
+    int find_centroid(int u, int p, int total) {
         for (int v : adj[u]) {
             if (v != p && !removed[v] && sz[v] > total / 2) {
-                return get_centroid(v, u, total);
+                return find_centroid(v, u, total);
             }
         }
         return u;
@@ -1467,8 +1480,8 @@ struct CentroidDecomposition {
 
     // Hàm đệ quy chia để trị trên cây trọng tâm
     void decompose(int u) {
-        int total = get_sizes(u, -1);
-        int centroid = get_centroid(u, -1, total);
+        int total = calc_size(u, -1);
+        int centroid = find_centroid(u, -1, total);
 
         // 1. Xử lý các đường đi đi xuyên qua centroid
         // processPathsThroughCentroid(centroid);
@@ -1546,7 +1559,7 @@ void ntt(vector<int>& a, bool invert) {
 }
 
 // Nhân 2 đa thức bậc N trong O(N log N)
-vector<int> multiplyPolynomials(vector<int> a, vector<int> b) {
+vector<int> multiply(vector<int> a, vector<int> b) {
     int n = 1;
     while (n < (int)(a.size() + b.size())) n <<= 1;
     a.resize(n);
