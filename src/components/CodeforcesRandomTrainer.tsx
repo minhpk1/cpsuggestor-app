@@ -78,6 +78,52 @@ export const ALL_CF_TAGS = [
 
 export const CF_TAG_LIST = ALL_CF_TAGS.filter(t => t !== 'Tất cả');
 
+export const TAG_ALIASES: Record<string, string[]> = {
+  'dp': ['dynamic programming', 'quy hoạch động', 'qhd'],
+  'greedy': ['tham lam', 'exchange argument'],
+  'math': ['toán', 'toán học', 'toan'],
+  'data structures': ['cấu trúc dữ liệu', 'ctdl', 'ds'],
+  'graphs': ['đồ thị', 'do thi', 'graph'],
+  'trees': ['cây', 'cay', 'tree'],
+  'binary search': ['tìm kiếm nhị phân', 'chặt nhị phân', 'bs'],
+  'two pointers': ['hai con trỏ', '2 con trỏ', 'con trỏ', 'sliding window'],
+  'bitmasks': ['mặt nạ bit', 'bitmask', 'bit'],
+  'geometry': ['hình học', 'hinh hoc'],
+  'dsu': ['disjoint set union', 'tập hợp rời rạc'],
+  'shortest paths': ['đường đi ngắn nhất', 'dijkstra', '0-1 bfs'],
+  'strings': ['chuỗi', 'xâu', 'string'],
+  'number theory': ['số học', 'so hoc', 'prime', 'nguyên tố'],
+  'combinatorics': ['tổ hợp', 'to hop', 'chỉnh hợp'],
+  'divide and conquer': ['chia để trị', 'chia de tri', 'd&c'],
+  'flows': ['luồng', 'luong', 'cực đại', 'dinic'],
+  'sortings': ['sắp xếp', 'sap xep', 'sort'],
+  'brute force': ['vét cạn', 'vet can'],
+  'constructive algorithms': ['xây dựng', 'xay dung'],
+  'dfs and similar': ['dfs', 'duyệt sâu', 'bfs'],
+  'games': ['trò chơi', 'game', 'nim', 'game theory'],
+  'probabilities': ['xác suất', 'xac suat', 'kỳ vọng'],
+  'hashing': ['băm', 'hash', 'rolling hash'],
+  'matrices': ['ma trận', 'ma tran', 'matrix'],
+  'fft': ['fourier', 'ntt', 'đa thức', 'polynomial'],
+  '2-sat': ['2sat', 'sat'],
+  'ternary search': ['tam phân', 'ba phân'],
+  'string suffix structures': ['hậu tố', 'suffix', 'sam', 'trie'],
+  'graph matchings': ['ghép cặp', 'matching'],
+  'meet-in-the-middle': ['gặp ở giữa', 'mitm'],
+  'interactive': ['tương tác', 'tuong tac'],
+  'implementation': ['cài đặt', 'triển khai', 'code'],
+};
+
+export const normalizeSearchText = (str: string): string => {
+  return (str || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'd')
+    .trim();
+};
+
 export const POPULAR_COMBOS = [
   { name: 'DP + Bitmasks', tags: ['dp', 'bitmasks'] },
   { name: 'DP + Trees', tags: ['dp', 'trees'] },
@@ -306,9 +352,9 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
   };
 
   return (
-    <div className="bg-white border border-[#e8e8e8] rounded shadow-sm overflow-hidden">
+    <div className="bg-white border border-[#e8e8e8] rounded shadow-sm relative">
       {/* Header */}
-      <div className="bg-[#fafafa] px-4 py-3 border-b border-[#e8e8e8] flex items-center justify-between flex-wrap gap-2">
+      <div className="bg-[#fafafa] rounded-t px-4 py-3 border-b border-[#e8e8e8] flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center space-x-2">
           <Dices className="w-4 h-4 text-blue-600" />
           <h2 className="text-sm font-semibold text-gray-800 tracking-tight flex items-center space-x-2">
@@ -378,7 +424,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             
             {/* Chọn và gộp Tag */}
-            <div className="md:col-span-6 relative" ref={tagDropdownRef}>
+            <div className={`md:col-span-6 relative ${isTagDropdownOpen ? 'z-50' : 'z-10'}`} ref={tagDropdownRef}>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-[11px] font-medium text-gray-700 flex items-center space-x-1">
                   <Tag className="w-3 h-3 text-blue-600" />
@@ -416,7 +462,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
               {/* Dropdown Popover */}
               {isTagDropdownOpen && (
                 <div 
-                  className="absolute left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-md shadow-xl z-30 p-2.5 space-y-2"
+                  className="absolute left-0 right-0 top-full mt-1 bg-white border border-gray-200 rounded-md shadow-xl z-50 p-2.5 space-y-2"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* Search box */}
@@ -426,6 +472,22 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                       type="text"
                       value={tagSearchQuery}
                       onChange={(e) => setTagSearchQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const normQuery = normalizeSearchText(tagSearchQuery);
+                          const matched = CF_TAG_LIST.filter(tag => {
+                            if (!normQuery) return true;
+                            const normTag = normalizeSearchText(tag);
+                            if (normTag.includes(normQuery)) return true;
+                            const aliases = TAG_ALIASES[tag] || [];
+                            return aliases.some(alias => normalizeSearchText(alias).includes(normQuery));
+                          });
+                          if (matched.length > 0) {
+                            handleToggleTag(matched[0]);
+                          }
+                        }
+                      }}
                       placeholder={t('select_tags_placeholder')}
                       className="w-full text-xs pl-8 pr-7 py-1.5 border border-gray-200 rounded focus:outline-none focus:border-blue-500"
                       autoFocus
@@ -460,10 +522,15 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                   {/* Tag Checkbox List */}
                   <div className="max-h-60 min-h-[140px] overflow-y-auto space-y-0.5 pr-1 text-xs">
                     {(() => {
-                      const query = tagSearchQuery.trim().toLowerCase();
-                      const filteredTags = CF_TAG_LIST.filter(tag =>
-                        tag.toLowerCase().includes(query)
-                      );
+                      const normQuery = normalizeSearchText(tagSearchQuery);
+                      const filteredTags = CF_TAG_LIST.filter(tag => {
+                        if (!normQuery) return true;
+                        const normTag = normalizeSearchText(tag);
+                        if (normTag.includes(normQuery)) return true;
+                        const aliases = TAG_ALIASES[tag] || [];
+                        return aliases.some(alias => normalizeSearchText(alias).includes(normQuery));
+                      });
+
                       if (filteredTags.length === 0) {
                         return (
                           <div className="py-8 text-center text-gray-400 text-xs italic">
@@ -471,8 +538,12 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                           </div>
                         );
                       }
+
                       return filteredTags.map(tag => {
                         const isChecked = selectedTags.includes(tag);
+                        const aliases = TAG_ALIASES[tag] || [];
+                        const matchedAlias = normQuery ? aliases.find(a => normalizeSearchText(a).includes(normQuery)) : null;
+
                         return (
                           <div
                             key={tag}
@@ -490,6 +561,11 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                                 {isChecked && <Check className="w-2.5 h-2.5" />}
                               </div>
                               <span className="capitalize">{tag}</span>
+                              {matchedAlias && (
+                                <span className="text-[10px] text-gray-400 font-normal italic">
+                                  ({matchedAlias})
+                                </span>
+                              )}
                             </div>
                           </div>
                         );
