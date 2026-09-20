@@ -3,6 +3,8 @@
 Tài liệu này tổng hợp **bộ mã nguồn chuẩn (Canonical Implementations)** cho toàn bộ 28 chủ đề thuật toán trong lộ trình Competitive Programming.
 Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trên các nguồn uy tín hàng đầu thế giới (**CP-Algorithms**, **USACO Guide**, **KACTL**, **Codeforces Edu**, và code của các Grandmaster/LGM như **Errichto**, **Benq**, **Um_nik**).
 
+Tất cả các thuật toán phức tạp (như Cây ảo - Virtual Tree, Phân tách đường đi nặng nhẹ - HLD, Phân tách trọng tâm - Centroid Decomposition, Tìm kiếm nhị phân song song - Parallel Binary Search, WQS Binary Search) đều được **cài đặt đầy đủ 100% tất cả các bước tiền xử lý (DFS, Euler tour, Binary Lifting LCA, Bitmask, Segment Tree/Fenwick nội bộ)** mà không phụ thuộc vào mã nguồn bên ngoài hay để lại bất kỳ đoạn giả mã placeholder nào.
+
 ---
 
 ## TIÊU CHUẨN THIẾT KẾ MÃ NGUỒN ("HUMAN-WRITTEN & READABLE")
@@ -11,16 +13,18 @@ Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trê
    - Tuyệt đối không dùng các macro viết tắt khó hiểu như `#define FOR(i, a, b)`, `#define REP(i, n)`, `#define pb push_back`, `#define all(x)`.
    - Giữ nguyên cú pháp C++ chuẩn (`for (int i = 0; i < n; ++i)`, `vector`, `auto`).
 2. **Đóng gói hướng module (Modular Struct / Class)**:
-   - Các cấu trúc dữ liệu phức tạp (DSU, Fenwick, SegTree, Dinic, HLD, SAM...) được bọc gọn trong một `struct` với hàm khởi tạo (`constructor`) và các phương thức tự nhiên (`add`, `query`, `unite`, `get`).
+   - Các cấu trúc dữ liệu phức tạp (DSU, Fenwick, SegTree, Dinic, HLD, SAM, VirtualTree, CentroidDecomposition...) được bọc gọn trong một `struct` với hàm khởi tạo (`constructor`) và các phương thức tự nhiên (`add`, `query`, `unite`, `get`, `build`, `clear`, `decompose`, `solve`).
    - Giúp người học có thể đọc hiểu luồng dữ liệu độc lập và copy trực tiếp vào template bài thi mà không sợ xung đột tên biến toàn cục.
-3. **Chú thích logic trọng tâm (Pedagogical Comments)**:
-   - Mỗi hàm và câu lệnh mấu chốt đều có comment giải thích *tại sao lại làm như vậy* (bất biến, cách nén đường đi, lazy propagation, bit manipulation).
-4. **Chuẩn C++17/20 hiện đại, tối ưu hiệu năng**:
-   - Dùng `long long` cho các đại lượng có nguy cơ tràn số.
-   - I/O nhanh gọn: `cin.tie(nullptr)->sync_with_stdio(false)`.
-5. **Tên hàm ngắn gọn (1 - 2 từ) & Không dùng Lambda**:
+3. **Chú thích song ngữ Tiếng Việt & Tiếng Anh (Bilingual Comments)**:
+   - Mọi chủ đề đều có 2 phiên bản độc lập: **Chú thích Tiếng Việt** và **English Comments** phục vụ trực tiếp cho việc đưa lên giao diện web với bộ lọc chuyển đổi ngôn ngữ.
+4. **Cài đặt đầy đủ 100% các bước (Complete & Fully Self-Contained)**:
+   - Không bỏ dở hoặc chỉ viết phần nổi bật. Cây ảo có đầy đủ `adj`, `dfs` tính `tin`/`tout`/`depth`, bảng nhảy nhị phân `up[LOG]`, `lca`, danh sách kề cây ảo `virt_adj` kèm trọng số cạnh, và hàm `clear` reset $O(K)$.
+   - HLD tích hợp cây Fenwick nội bộ xử lý `update_node`, `query_path`, `lca`.
+   - Parallel Binary Search tích hợp Fenwick Tree với vòng lặp sự kiện thời gian thực $1 \dots M$.
+   - Centroid Decomposition cài đặt hoàn chỉnh hàm đếm cặp khoảng cách $\le K$ qua trọng tâm bằng hai con trỏ.
+5. **Tên hàm ngắn gọn (1 - 2 từ) & Tuyệt đối không dùng Lambda**:
    - Tên hàm và phương thức trong struct cực kỳ ngắn gọn, dễ nhớ (1 - 2 từ): `query`, `update`, `build`, `add`, `find`, `unite`, `same`, `size`, `solve`, `dist`, `lca`, `power`, `inv`, `nCr`, `extend`, `decompose`, `max_len`, `count_pairs`, `bs_min`, `bs_max`, `schedule`, `topo_sort`, `bfs_grid`, `lis`, `sos_dp`,...
-   - Tuyệt đối không dùng hàm ẩn danh (lambda `[]`, `[&]`), thay thế bằng hàm so sánh độc lập (`cmp`) hoặc nạp chồng toán tử (`operator<`) chuẩn C++ truyền thống, trong sáng và dễ đọc.
+   - Tuyệt đối không dùng hàm ẩn danh (lambda `[]`, `[&]`), thay thế bằng hàm so sánh độc lập (`cmp`) hoặc struct so sánh nạp chồng `operator()` chuẩn C++ truyền thống, trong sáng và dễ đọc.
 
 ---
 
@@ -51,18 +55,18 @@ Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trê
   - [19. Luồng cực đại Dinic & Lát cắt hẹp nhất (Max Flow & Min-Cut)](#19-dinics-max-flow)
   - [20. Cây phân đoạn bền vững (Persistent Segment Tree)](#20-persistent-segment-tree)
   - [21. Phân tách đường đi nặng - nhẹ trên cây (Heavy-Light Decomposition - HLD)](#21-heavy-light-decomposition-hld)
-  - [22. Tối ưu hóa Quy hoạch động: Cây Li Chao (Li Chao Tree for CHT)](#22-li-chao-segment-tree)
+  - [22. Tối ưu hóa Quy hoạch động: Cây Li Chao (Li Chao Tree for CHT)](#22-li-chao-segment-tree-for-cht)
 - [Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)](#phase-5-legendary--grandmaster)
   - [23. Cây ảo (Virtual Tree / Auxiliary Tree)](#23-virtual-tree-auxiliary-tree)
   - [24. Tìm kiếm nhị phân song song (Parallel Binary Search)](#24-parallel-binary-search)
   - [25. Tối ưu hóa WQS / Alien's Trick (WQS Binary Search)](#25-aliens-trick-wqs-binary-search)
   - [26. Phân tách trọng tâm trên cây (Centroid Decomposition)](#26-centroid-decomposition)
-  - [27. Biến đổi Fourier nhanh (Fast Fourier Transform / NTT)](#27-fast-fourier-transform-ntt)
+  - [27. Biến đổi Fourier nhanh (Fast Fourier Transform / NTT)](#27-fast-fourier-transform--ntt)
   - [28. Máy tự động hậu tố (Suffix Automaton - SAM)](#28-suffix-automaton-sam)
 
 ---
 
-# PHASE 1: FOUNDATION
+# Phase 1: Foundation (Newbie ➔ Pupil)
 
 ## 1. Prefix Sums & Difference Array
 *Nguồn tham khảo: Codeforces Edu & CP-Algorithms*
@@ -77,6 +81,8 @@ using namespace std;
 // 1. Mảng cộng dồn 1 chiều (1D Prefix Sums)
 struct PrefixSum1D {
     vector<long long> pref;
+
+    // Tiền xử lý mảng cộng dồn trong O(N)
     PrefixSum1D(const vector<long long>& a) {
         int n = a.size();
         pref.assign(n + 1, 0);
@@ -84,6 +90,7 @@ struct PrefixSum1D {
             pref[i + 1] = pref[i] + a[i];
         }
     }
+
     // Tính tổng đoạn [l, r] (0-indexed) trong O(1)
     long long query(int l, int r) const {
         if (l > r) return 0;
@@ -95,6 +102,7 @@ struct PrefixSum1D {
 struct DifferenceArray1D {
     int n;
     vector<long long> diff;
+
     DifferenceArray1D(int size) : n(size), diff(size + 2, 0) {}
 
     // Cộng v vào mọi phần tử trong đoạn [l, r] (0-indexed) trong O(1)
@@ -103,7 +111,7 @@ struct DifferenceArray1D {
         diff[r + 1] -= v;
     }
 
-    // Khôi phục mảng ban đầu sau khi thực hiện tất cả các truy vấn
+    // Khôi phục mảng ban đầu sau khi thực hiện tất cả các truy vấn trong O(N)
     vector<long long> build() {
         vector<long long> result(n);
         long long current = 0;
@@ -118,6 +126,8 @@ struct DifferenceArray1D {
 // 3. Mảng cộng dồn 2 chiều (2D Prefix Sums)
 struct PrefixSum2D {
     vector<vector<long long>> pref;
+
+    // Tiền xử lý mảng cộng dồn 2 chiều trong O(N * M)
     PrefixSum2D(const vector<vector<long long>>& a) {
         int n = a.size(), m = a[0].size();
         pref.assign(n + 1, vector<long long>(m + 1, 0));
@@ -127,7 +137,8 @@ struct PrefixSum2D {
             }
         }
     }
-    // Truy vấn tổng hình chữ nhật từ (r1, c1) đến (r2, c2) (0-indexed)
+
+    // Truy vấn tổng hình chữ nhật từ (r1, c1) đến (r2, c2) (0-indexed) trong O(1)
     long long query(int r1, int c1, int r2, int c2) const {
         return pref[r2 + 1][c2 + 1] - pref[r1][c2 + 1] - pref[r2 + 1][c1] + pref[r1][c1];
     }
@@ -144,6 +155,8 @@ using namespace std;
 // 1. 1D Prefix Sums
 struct PrefixSum1D {
     vector<long long> pref;
+
+    // Precompute prefix sums in O(N)
     PrefixSum1D(const vector<long long>& a) {
         int n = a.size();
         pref.assign(n + 1, 0);
@@ -151,7 +164,8 @@ struct PrefixSum1D {
             pref[i + 1] = pref[i] + a[i];
         }
     }
-    // Query range sum [l, r] (0-indexed) in O(1)
+
+    // Query range sum on [l, r] (0-indexed) in O(1)
     long long query(int l, int r) const {
         if (l > r) return 0;
         return pref[r + 1] - pref[l];
@@ -162,6 +176,7 @@ struct PrefixSum1D {
 struct DifferenceArray1D {
     int n;
     vector<long long> diff;
+
     DifferenceArray1D(int size) : n(size), diff(size + 2, 0) {}
 
     // Add v to all elements in range [l, r] (0-indexed) in O(1)
@@ -170,7 +185,7 @@ struct DifferenceArray1D {
         diff[r + 1] -= v;
     }
 
-    // Reconstruct the original array after all range update queries
+    // Reconstruct the original array after all range updates in O(N)
     vector<long long> build() {
         vector<long long> result(n);
         long long current = 0;
@@ -185,6 +200,8 @@ struct DifferenceArray1D {
 // 3. 2D Prefix Sums
 struct PrefixSum2D {
     vector<vector<long long>> pref;
+
+    // Precompute 2D prefix sums in O(N * M)
     PrefixSum2D(const vector<vector<long long>>& a) {
         int n = a.size(), m = a[0].size();
         pref.assign(n + 1, vector<long long>(m + 1, 0));
@@ -194,6 +211,7 @@ struct PrefixSum2D {
             }
         }
     }
+
     // Query 2D subgrid sum from (r1, c1) to (r2, c2) (0-indexed) in O(1)
     long long query(int r1, int c1, int r2, int c2) const {
         return pref[r2 + 1][c2 + 1] - pref[r1][c2 + 1] - pref[r2 + 1][c1] + pref[r1][c1];
@@ -337,7 +355,6 @@ long long count_pairs(const vector<int>& a, int target) {
 ```cpp
 #include <iostream>
 #include <vector>
-#include <functional>
 
 using namespace std;
 
@@ -428,7 +445,7 @@ long long bs_max(long long low, long long high, F check) {
 
 using namespace std;
 
-// Sàng SPF (Smallest Prime Factor) tính ước nguyên tố nhỏ nhất
+// Sàng SPF (Smallest Prime Factor) tính ước nguyên tố nhỏ nhất trong O(N)
 struct PrimeSieve {
     int max_val;
     vector<int> spf; // spf[x] = ước nguyên tố nhỏ nhất của x
@@ -469,7 +486,7 @@ struct PrimeSieve {
 
 using namespace std;
 
-// Sieve with Smallest Prime Factor (SPF) for linear-time factorization
+// Linear-time Sieve with Smallest Prime Factor (SPF)
 struct PrimeSieve {
     int max_val;
     vector<int> spf; // spf[x] stores the smallest prime factor of x
@@ -578,7 +595,8 @@ int schedule(vector<Interval>& a) {
 
 ---
 
-# PHASE 2: INTERMEDIATE
+
+# Phase 2: Intermediate (Pupil ➔ Specialist)
 
 ## 6. Graph Traversal (DFS/BFS & Grid)
 *Nguồn tham khảo: CP-Algorithms*
@@ -588,10 +606,43 @@ int schedule(vector<Interval>& a) {
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 
 using namespace std;
 
-// BFS trên lưới 2D tìm đường đi ngắn nhất
+// 1. Duyệt theo chiều sâu DFS trên danh sách kề
+void dfs(int u, vector<bool>& vis, const vector<vector<int>>& adj) {
+    vis[u] = true;
+    for (int v : adj[u]) {
+        if (!vis[v]) {
+            dfs(v, vis, adj);
+        }
+    }
+}
+
+// 2. Duyệt theo chiều rộng BFS trên đồ thị tổng quát tìm khoảng cách ngắn nhất
+vector<int> bfs(int src, int n, const vector<vector<int>>& adj) {
+    vector<int> dist(n, -1);
+    queue<int> q;
+
+    dist[src] = 0;
+    q.push(src);
+
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+
+        for (int v : adj[u]) {
+            if (dist[v] == -1) {
+                dist[v] = dist[u] + 1;
+                q.push(v);
+            }
+        }
+    }
+    return dist;
+}
+
+// 3. BFS trên lưới 2D tìm khoảng cách ngắn nhất (Grid BFS)
 const int dx[4] = {-1, 1, 0, 0};
 const int dy[4] = {0, 0, -1, 1};
 
@@ -627,10 +678,43 @@ int bfs_grid(int start_r, int start_c, int target_r, int target_c,
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 
 using namespace std;
 
-// 2D Grid BFS finding shortest path distance
+// 1. Depth-First Search (DFS) on adjacency list
+void dfs(int u, vector<bool>& vis, const vector<vector<int>>& adj) {
+    vis[u] = true;
+    for (int v : adj[u]) {
+        if (!vis[v]) {
+            dfs(v, vis, adj);
+        }
+    }
+}
+
+// 2. Breadth-First Search (BFS) on general graph finding shortest distance
+vector<int> bfs(int src, int n, const vector<vector<int>>& adj) {
+    vector<int> dist(n, -1);
+    queue<int> q;
+
+    dist[src] = 0;
+    q.push(src);
+
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+
+        for (int v : adj[u]) {
+            if (dist[v] == -1) {
+                dist[v] = dist[u] + 1;
+                q.push(v);
+            }
+        }
+    }
+    return dist;
+}
+
+// 3. 2D Grid BFS finding shortest path distance
 const int dx[4] = {-1, 1, 0, 0};
 const int dy[4] = {0, 0, -1, 1};
 
@@ -699,10 +783,12 @@ struct DSU {
         return true;
     }
 
+    // Kiểm tra u và v có thuộc cùng một tập hợp không
     bool same(int u, int v) {
         return find(u) == find(v);
     }
 
+    // Lấy kích thước tập hợp chứa đỉnh u
     int size(int u) {
         return sz[find(u)];
     }
@@ -742,10 +828,12 @@ struct DSU {
         return true;
     }
 
+    // Check if u and v belong to the same component
     bool same(int u, int v) {
         return find(u) == find(v);
     }
 
+    // Get size of component containing element u
     int size(int u) {
         return sz[find(u)];
     }
@@ -1041,7 +1129,8 @@ vector<int> bfs01(int n, int src, const vector<vector<pair<int, int>>>& adj) {
 
 ---
 
-# PHASE 3: ADVANCED
+
+# Phase 3: Advanced (Specialist ➔ Expert)
 
 ## 11. LCA, Binary Lifting & Euler Tour
 *Nguồn tham khảo: KACTL & CP-Algorithms*
@@ -1310,7 +1399,7 @@ struct Combinatorics {
         for (int i = n - 1; i >= 0; --i) inv_fac[i] = (inv_fac[i + 1] * (i + 1)) % MOD;
     }
 
-    // Tính tổ hợp C(n, k) trong O(1)
+    // Tính tổ hợp C(n, r) trong O(1)
     long long nCr(int n, int r) const {
         if (r < 0 || r > n) return 0;
         return fac[n] * inv_fac[r] % MOD * inv_fac[n - r] % MOD;
@@ -1449,7 +1538,7 @@ struct FenwickTree {
         return sum;
     }
 
-    // Truy vấn tổng đoạn [l, r]
+    // Truy vấn tổng đoạn [l, r] trong O(log N)
     long long query(int l, int r) const {
         if (l > r) return 0;
         return query(r) - query(l - 1);
@@ -1486,7 +1575,7 @@ struct FenwickTree {
         return sum;
     }
 
-    // Range sum query on [l, r]
+    // Range sum query on [l, r] in O(log N)
     long long query(int l, int r) const {
         if (l > r) return 0;
         return query(r) - query(l - 1);
@@ -1603,7 +1692,8 @@ struct LazySegTree {
 
 ---
 
-# PHASE 4: HIGH-END CORE
+
+# Phase 4: High-End Core (Candidate Master ➔ Master)
 
 ## 17. String Hashing & KMP
 *Nguồn tham khảo: Neal Wu's String Hash & CP-Algorithms*
@@ -2165,19 +2255,40 @@ struct PersistentSegTree {
 
 using namespace std;
 
+// Cấu trúc Fenwick Tree tích hợp bên trong HLD để truy vấn đoạn trên chuỗi Euler
+struct Fenwick {
+    int n;
+    vector<long long> tree;
+    Fenwick(int n = 0) : n(n), tree(n + 1, 0) {}
+    void add(int idx, long long val) {
+        for (; idx <= n; idx += idx & -idx) tree[idx] += val;
+    }
+    long long query(int idx) const {
+        long long s = 0;
+        for (; idx > 0; idx -= idx & -idx) s += tree[idx];
+        return s;
+    }
+    long long query(int l, int r) const {
+        if (l > r) return 0;
+        return query(r) - query(l - 1);
+    }
+};
+
+// Cấu trúc Phân tách Nặng - Nhẹ (HLD) hoàn chỉnh 100%, sẵn sàng chạy ngay
 struct HLD {
     int n, timer = 0;
     vector<vector<int>> adj;
     vector<int> parent, depth, heavy, head, pos;
+    Fenwick bit;
 
-    HLD(int n) : n(n), adj(n), parent(n), depth(n), heavy(n, -1), head(n), pos(n) {}
+    HLD(int n) : n(n), adj(n), parent(n), depth(n), heavy(n, -1), head(n), pos(n), bit(n) {}
 
     void add_edge(int u, int v) {
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
 
-    // DFS 1: Tìm kích thước cây con và chọn Cạnh Nặng (Heavy Edge)
+    // DFS 1: Tính kích thước cây con và chọn Cạnh Nặng (Heavy Edge)
     int dfs(int u, int p, int d) {
         int size = 1, max_c_size = 0;
         depth[u] = d;
@@ -2198,7 +2309,7 @@ struct HLD {
     // DFS 2: Phân tách thành các chuỗi nặng liên tục (Heavy Paths)
     void decompose(int u, int h) {
         head[u] = h;
-        pos[u] = ++timer; // Vị trí trải phẳng để đưa vào Segment Tree
+        pos[u] = ++timer; // Vị trí trải phẳng đưa vào cấu trúc dữ liệu
         if (heavy[u] != -1) decompose(heavy[u], h);
         for (int c : adj[u]) {
             if (c != parent[u] && c != heavy[u]) {
@@ -2212,16 +2323,31 @@ struct HLD {
         decompose(root, root);
     }
 
-    // Phân rã đường đi giữa u và v thành O(log N) đoạn liên tiếp trên Segment Tree
-    template <typename Op>
-    void query_path(int u, int v, Op op) {
+    // Cập nhật giá trị tại đỉnh u trong O(log N)
+    void update_node(int u, long long val) {
+        bit.add(pos[u], val);
+    }
+
+    // Truy vấn tổng giá trị các đỉnh trên đường đi giữa u và v trong O(log^2 N)
+    long long query_path(int u, int v) {
+        long long res = 0;
         while (head[u] != head[v]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
-            op(pos[head[v]], pos[v]); // Thực hiện truy vấn trên đoạn [pos[head[v]], pos[v]]
+            res += bit.query(pos[head[v]], pos[v]);
             v = parent[head[v]];
         }
         if (depth[u] > depth[v]) swap(u, v);
-        op(pos[u], pos[v]); // Xử lý đoạn cuối cùng giữa u và v
+        res += bit.query(pos[u], pos[v]); // Đoạn cuối cùng trên cùng chuỗi nặng
+        return res;
+    }
+
+    // Tìm tổ tiên chung gần nhất (LCA) bằng chuỗi nặng trong O(log N)
+    int lca(int u, int v) const {
+        while (head[u] != head[v]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            v = parent[head[v]];
+        }
+        return depth[u] < depth[v] ? u : v;
     }
 };
 ```
@@ -2233,12 +2359,33 @@ struct HLD {
 
 using namespace std;
 
+// Internal Fenwick Tree integrated into HLD for flattened path queries
+struct Fenwick {
+    int n;
+    vector<long long> tree;
+    Fenwick(int n = 0) : n(n), tree(n + 1, 0) {}
+    void add(int idx, long long val) {
+        for (; idx <= n; idx += idx & -idx) tree[idx] += val;
+    }
+    long long query(int idx) const {
+        long long s = 0;
+        for (; idx > 0; idx -= idx & -idx) s += tree[idx];
+        return s;
+    }
+    long long query(int l, int r) const {
+        if (l > r) return 0;
+        return query(r) - query(l - 1);
+    }
+};
+
+// 100% Complete & Self-Contained Heavy-Light Decomposition (HLD)
 struct HLD {
     int n, timer = 0;
     vector<vector<int>> adj;
     vector<int> parent, depth, heavy, head, pos;
+    Fenwick bit;
 
-    HLD(int n) : n(n), adj(n), parent(n), depth(n), heavy(n, -1), head(n), pos(n) {}
+    HLD(int n) : n(n), adj(n), parent(n), depth(n), heavy(n, -1), head(n), pos(n), bit(n) {}
 
     void add_edge(int u, int v) {
         adj[u].push_back(v);
@@ -2266,7 +2413,7 @@ struct HLD {
     // DFS 2: Heavy paths decomposition
     void decompose(int u, int h) {
         head[u] = h;
-        pos[u] = ++timer; // Flattened position for Segment Tree
+        pos[u] = ++timer; // Flattened position for data structure
         if (heavy[u] != -1) decompose(heavy[u], h);
         for (int c : adj[u]) {
             if (c != parent[u] && c != heavy[u]) {
@@ -2280,16 +2427,31 @@ struct HLD {
         decompose(root, root);
     }
 
-    // Decompose path between u and v into O(log N) contiguous intervals
-    template <typename Op>
-    void query_path(int u, int v, Op op) {
+    // Point update on node u in O(log N)
+    void update_node(int u, long long val) {
+        bit.add(pos[u], val);
+    }
+
+    // Query sum of node values along path between u and v in O(log^2 N)
+    long long query_path(int u, int v) {
+        long long res = 0;
         while (head[u] != head[v]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
-            op(pos[head[v]], pos[v]); // Execute query on [pos[head[v]], pos[v]]
+            res += bit.query(pos[head[v]], pos[v]);
             v = parent[head[v]];
         }
         if (depth[u] > depth[v]) swap(u, v);
-        op(pos[u], pos[v]); // Final interval on same heavy chain
+        res += bit.query(pos[u], pos[v]); // Final interval on same heavy chain
+        return res;
+    }
+
+    // Compute Lowest Common Ancestor (LCA) using heavy heads in O(log N)
+    int lca(int u, int v) const {
+        while (head[u] != head[v]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            v = parent[head[v]];
+        }
+        return depth[u] < depth[v] ? u : v;
     }
 };
 ```
@@ -2405,10 +2567,11 @@ struct LiChaoTree {
 
 ---
 
-# PHASE 5: LEGENDARY & GRANDMASTER
+
+# Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)
 
 ## 23. Virtual Tree (Auxiliary Tree)
-*Nguồn tham khảo: Codeforces Blog (Building Auxiliary Tree with Stack)*
+*Nguồn tham khảo: Codeforces Blog & CP-Algorithms*
 
 ### C++ Implementation (Chú thích Tiếng Việt)
 ```cpp
@@ -2418,47 +2581,110 @@ struct LiChaoTree {
 
 using namespace std;
 
-// Dựng Cây ảo kích thước O(K) từ K đỉnh quan trọng trong O(K log K)
+// Cây ảo (Virtual Tree) kích thước O(K) cho K đỉnh quan trọng kèm đầy đủ tiền xử lý DFS & LCA
 struct VirtualTree {
-    const vector<int>& tin;
+    int n, LOG, timer = 0;
+    vector<vector<int>> adj;
+    vector<int> tin, tout, depth;
+    vector<vector<int>> up;
+    // virt_adj lưu các cạnh của cây ảo dạng {đỉnh kề, khoảng cách trên cây gốc}
+    vector<vector<pair<int, int>>> virt_adj;
 
-    VirtualTree(const vector<int>& tin) : tin(tin) {}
+    VirtualTree(int n) : n(n), adj(n), tin(n), tout(n), depth(n), virt_adj(n) {
+        LOG = 32 - __builtin_clz(max(1, n));
+        up.assign(n, vector<int>(LOG));
+    }
 
-    // Struct so sánh thứ tự Euler tour (không dùng lambda)
+    // Thêm cạnh vào cây gốc
+    void add_edge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // Tiền xử lý DFS tính tin, tout, depth và bảng Binary Lifting up[u][j]
+    void dfs(int u, int p, int d) {
+        tin[u] = ++timer;
+        depth[u] = d;
+        up[u][0] = p;
+        for (int j = 1; j < LOG; ++j) {
+            up[u][j] = up[up[u][j - 1]][j - 1];
+        }
+        for (int v : adj[u]) {
+            if (v != p) dfs(v, u, d + 1);
+        }
+        tout[u] = ++timer;
+    }
+
+    void init(int root = 0) {
+        dfs(root, root, 0);
+    }
+
+    // Kiểm tra u có phải tổ tiên của v
+    bool is_ancestor(int u, int v) const {
+        return tin[u] <= tin[v] && tout[u] >= tout[v];
+    }
+
+    // Tìm tổ tiên chung gần nhất (LCA) trong O(log N)
+    int lca(int u, int v) const {
+        if (is_ancestor(u, v)) return u;
+        if (is_ancestor(v, u)) return v;
+        for (int j = LOG - 1; j >= 0; --j) {
+            if (!is_ancestor(up[u][j], v)) {
+                u = up[u][j];
+            }
+        }
+        return up[u][0];
+    }
+
+    // Khoảng cách giữa 2 đỉnh trên cây gốc
+    int dist(int u, int v) const {
+        return depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    }
+
+    // Bộ so sánh thứ tự Euler tour theo tin (không dùng lambda)
     struct Compare {
         const vector<int>& t;
         bool operator()(int u, int v) const { return t[u] < t[v]; }
     };
 
-    // Dựng Cây ảo từ K đỉnh quan trọng
-    template <typename F>
-    vector<int> build(vector<int>& key_nodes, F lca) {
+    // Dựng cây ảo từ tập k đỉnh quan trọng, trả về đỉnh gốc của cây ảo và danh sách tất cả đỉnh trên cây ảo
+    int build(vector<int>& key_nodes, vector<int>& all_nodes) {
+        if (key_nodes.empty()) return -1;
         Compare cmp{tin};
         sort(key_nodes.begin(), key_nodes.end(), cmp);
 
-        vector<int> nodes = key_nodes;
+        all_nodes = key_nodes;
         int k = key_nodes.size();
         for (int i = 0; i < k - 1; ++i) {
-            nodes.push_back(lca(key_nodes[i], key_nodes[i + 1]));
+            all_nodes.push_back(lca(key_nodes[i], key_nodes[i + 1]));
         }
 
-        // Loại bỏ trùng lặp và sắp xếp lại theo thứ tự Euler tour
-        sort(nodes.begin(), nodes.end(), cmp);
-        nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
+        // Loại bỏ trùng lặp và sắp xếp lại theo Euler tour
+        sort(all_nodes.begin(), all_nodes.end(), cmp);
+        all_nodes.erase(unique(all_nodes.begin(), all_nodes.end()), all_nodes.end());
 
+        // Dùng monotonic stack nối cạnh cây ảo
         stack<int> st;
-        st.push(nodes[0]);
-        vector<pair<int, int>> virtual_edges;
-
-        for (size_t i = 1; i < nodes.size(); ++i) {
-            int u = nodes[i];
-            while (!st.empty() && lca(st.top(), u) != st.top()) {
+        st.push(all_nodes[0]);
+        for (size_t i = 1; i < all_nodes.size(); ++i) {
+            int u = all_nodes[i];
+            while (!st.empty() && !is_ancestor(st.top(), u)) {
                 st.pop();
             }
-            virtual_edges.push_back({st.top(), u});
+            int p = st.top();
+            int w = depth[u] - depth[p];
+            virt_adj[p].push_back({u, w});
+            virt_adj[u].push_back({p, w});
             st.push(u);
         }
-        return nodes;
+        return all_nodes[0];
+    }
+
+    // Xóa sạch cây ảo sau mỗi truy vấn trong O(K) để tránh O(N)
+    void clear(const vector<int>& nodes) {
+        for (int u : nodes) {
+            virt_adj[u].clear();
+        }
     }
 };
 ```
@@ -2471,47 +2697,110 @@ struct VirtualTree {
 
 using namespace std;
 
-// Virtual Tree of size O(K) on critical nodes in O(K log K)
+// Virtual Tree of size O(K) on critical nodes with full DFS & LCA preprocessing
 struct VirtualTree {
-    const vector<int>& tin;
+    int n, LOG, timer = 0;
+    vector<vector<int>> adj;
+    vector<int> tin, tout, depth;
+    vector<vector<int>> up;
+    // virt_adj stores virtual edges as {neighbor, original_tree_distance}
+    vector<vector<pair<int, int>>> virt_adj;
 
-    VirtualTree(const vector<int>& tin) : tin(tin) {}
+    VirtualTree(int n) : n(n), adj(n), tin(n), tout(n), depth(n), virt_adj(n) {
+        LOG = 32 - __builtin_clz(max(1, n));
+        up.assign(n, vector<int>(LOG));
+    }
 
-    // Euler tour entry order comparator (no lambdas)
+    // Add undirected edge to original tree
+    void add_edge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // Preprocessing DFS computing tin, tout, depth and binary lifting table up[u][j]
+    void dfs(int u, int p, int d) {
+        tin[u] = ++timer;
+        depth[u] = d;
+        up[u][0] = p;
+        for (int j = 1; j < LOG; ++j) {
+            up[u][j] = up[up[u][j - 1]][j - 1];
+        }
+        for (int v : adj[u]) {
+            if (v != p) dfs(v, u, d + 1);
+        }
+        tout[u] = ++timer;
+    }
+
+    void init(int root = 0) {
+        dfs(root, root, 0);
+    }
+
+    // Check if u is an ancestor of v
+    bool is_ancestor(int u, int v) const {
+        return tin[u] <= tin[v] && tout[u] >= tout[v];
+    }
+
+    // Lowest Common Ancestor (LCA) in O(log N)
+    int lca(int u, int v) const {
+        if (is_ancestor(u, v)) return u;
+        if (is_ancestor(v, u)) return v;
+        for (int j = LOG - 1; j >= 0; --j) {
+            if (!is_ancestor(up[u][j], v)) {
+                u = up[u][j];
+            }
+        }
+        return up[u][0];
+    }
+
+    // Distance between two nodes on original tree
+    int dist(int u, int v) const {
+        return depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    }
+
+    // Euler tour order comparator based on tin (no lambdas)
     struct Compare {
         const vector<int>& t;
         bool operator()(int u, int v) const { return t[u] < t[v]; }
     };
 
-    // Construct Virtual Tree on critical nodes
-    template <typename F>
-    vector<int> build(vector<int>& key_nodes, F lca) {
+    // Construct Virtual Tree on k critical nodes, returns virtual root and all virtual nodes
+    int build(vector<int>& key_nodes, vector<int>& all_nodes) {
+        if (key_nodes.empty()) return -1;
         Compare cmp{tin};
         sort(key_nodes.begin(), key_nodes.end(), cmp);
 
-        vector<int> nodes = key_nodes;
+        all_nodes = key_nodes;
         int k = key_nodes.size();
         for (int i = 0; i < k - 1; ++i) {
-            nodes.push_back(lca(key_nodes[i], key_nodes[i + 1]));
+            all_nodes.push_back(lca(key_nodes[i], key_nodes[i + 1]));
         }
 
-        // Remove duplicates and sort by Euler tour order
-        sort(nodes.begin(), nodes.end(), cmp);
-        nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
+        // Deduplicate and re-sort by Euler tour order
+        sort(all_nodes.begin(), all_nodes.end(), cmp);
+        all_nodes.erase(unique(all_nodes.begin(), all_nodes.end()), all_nodes.end());
 
+        // Monotonic stack to connect virtual edges
         stack<int> st;
-        st.push(nodes[0]);
-        vector<pair<int, int>> virtual_edges;
-
-        for (size_t i = 1; i < nodes.size(); ++i) {
-            int u = nodes[i];
-            while (!st.empty() && lca(st.top(), u) != st.top()) {
+        st.push(all_nodes[0]);
+        for (size_t i = 1; i < all_nodes.size(); ++i) {
+            int u = all_nodes[i];
+            while (!st.empty() && !is_ancestor(st.top(), u)) {
                 st.pop();
             }
-            virtual_edges.push_back({st.top(), u});
+            int p = st.top();
+            int w = depth[u] - depth[p];
+            virt_adj[p].push_back({u, w});
+            virt_adj[u].push_back({p, w});
             st.push(u);
         }
-        return nodes;
+        return all_nodes[0];
+    }
+
+    // Reset virtual tree in O(K) after query to avoid O(N) overhead
+    void clear(const vector<int>& nodes) {
+        for (int u : nodes) {
+            virt_adj[u].clear();
+        }
     }
 };
 ```
@@ -2519,7 +2808,7 @@ struct VirtualTree {
 ---
 
 ## 24. Parallel Binary Search
-*Nguồn tham khảo: Errichto's Parallel BS Tutorial*
+*Nguồn tham khảo: Errichto's Parallel BS Tutorial & Codeforces Edu*
 
 ### C++ Implementation (Chú thích Tiếng Việt)
 ```cpp
@@ -2528,15 +2817,49 @@ struct VirtualTree {
 
 using namespace std;
 
-// Khung giải thuật Tìm kiếm nhị phân song song cho Q truy vấn qua log(Time) vòng lặp
+// Cây Fenwick hỗ trợ cộng đoạn [l, r] và truy vấn điểm
+struct Fenwick {
+    int n;
+    vector<long long> tree;
+    Fenwick(int n = 0) : n(n), tree(n + 2, 0) {}
+    void add(int idx, long long val) {
+        for (; idx <= n; idx += idx & -idx) tree[idx] += val;
+    }
+    void range_add(int l, int r, long long val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
+    long long query(int idx) const {
+        long long s = 0;
+        for (; idx > 0; idx -= idx & -idx) s += tree[idx];
+        return s;
+    }
+    void clear() {
+        fill(tree.begin(), tree.end(), 0);
+    }
+};
+
+// Khung Tìm kiếm nhị phân song song (Parallel Binary Search) hoàn chỉnh 100%
 struct ParallelBinarySearch {
+    struct Event {
+        int l, r;
+        long long val;
+    };
+
     struct Query {
         int id;
+        int pos;
         long long requirement;
     };
 
-    void solve(int num_queries, int max_time, vector<Query>& queries) {
-        vector<int> low(num_queries, 1), high(num_queries, max_time), ans(num_queries, max_time + 1);
+    // Giải quyết Q truy vấn tìm thời điểm sớm nhất đạt requirement qua log(M) vòng lặp
+    vector<int> solve(int array_size, const vector<Event>& events, const vector<Query>& queries) {
+        int num_queries = queries.size();
+        int max_time = events.size();
+        vector<int> low(num_queries, 1), high(num_queries, max_time);
+        vector<int> ans(num_queries, max_time + 1);
+
+        Fenwick bit(array_size);
 
         bool has_active = true;
         while (has_active) {
@@ -2553,21 +2876,27 @@ struct ParallelBinarySearch {
             }
             if (!has_active) break;
 
-            // Khởi tạo lại cấu trúc dữ liệu (ví dụ: Fenwick Tree)
-            // Duyệt thời gian từ 1 đến max_time, áp dụng biến đổi và kiểm tra
-            for (int t = 1; t <= max_time; ++t) {
-                // apply_modification(t);
+            bit.clear();
 
+            // Quét thời gian từ 1 đến max_time
+            for (int t = 1; t <= max_time; ++t) {
+                // Áp dụng biến đổi tại thời điểm t
+                const Event& e = events[t - 1];
+                bit.range_add(e.l, e.r, e.val);
+
+                // Kiểm tra các truy vấn có mid == t
                 for (int q_idx : mid_buckets[t]) {
-                    // if (check_condition(queries[q_idx])) {
-                    //     ans[q_idx] = t;
-                    //     high[q_idx] = t - 1;
-                    // } else {
-                    //     low[q_idx] = t + 1;
-                    // }
+                    long long cur_val = bit.query(queries[q_idx].pos);
+                    if (cur_val >= queries[q_idx].requirement) {
+                        ans[q_idx] = t;
+                        high[q_idx] = t - 1; // Thử tìm thời điểm sớm hơn
+                    } else {
+                        low[q_idx] = t + 1;  // Cần thêm thời gian
+                    }
                 }
             }
         }
+        return ans;
     }
 };
 ```
@@ -2579,20 +2908,54 @@ struct ParallelBinarySearch {
 
 using namespace std;
 
-// Parallel Binary Search processing Q queries across log(Time) rounds
+// Fenwick tree supporting range add [l, r] and point query
+struct Fenwick {
+    int n;
+    vector<long long> tree;
+    Fenwick(int n = 0) : n(n), tree(n + 2, 0) {}
+    void add(int idx, long long val) {
+        for (; idx <= n; idx += idx & -idx) tree[idx] += val;
+    }
+    void range_add(int l, int r, long long val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
+    long long query(int idx) const {
+        long long s = 0;
+        for (; idx > 0; idx -= idx & -idx) s += tree[idx];
+        return s;
+    }
+    void clear() {
+        fill(tree.begin(), tree.end(), 0);
+    }
+};
+
+// Complete Parallel Binary Search solving Q queries in O((N + Q) log M)
 struct ParallelBinarySearch {
+    struct Event {
+        int l, r;
+        long long val;
+    };
+
     struct Query {
         int id;
+        int pos;
         long long requirement;
     };
 
-    void solve(int num_queries, int max_time, vector<Query>& queries) {
-        vector<int> low(num_queries, 1), high(num_queries, max_time), ans(num_queries, max_time + 1);
+    // Solve Q queries finding earliest time to reach requirement across log(M) rounds
+    vector<int> solve(int array_size, const vector<Event>& events, const vector<Query>& queries) {
+        int num_queries = queries.size();
+        int max_time = events.size();
+        vector<int> low(num_queries, 1), high(num_queries, max_time);
+        vector<int> ans(num_queries, max_time + 1);
+
+        Fenwick bit(array_size);
 
         bool has_active = true;
         while (has_active) {
             has_active = false;
-            // Group queries with the same mid into buckets
+            // Group queries with same mid into buckets
             vector<vector<int>> mid_buckets(max_time + 1);
 
             for (int i = 0; i < num_queries; ++i) {
@@ -2604,21 +2967,27 @@ struct ParallelBinarySearch {
             }
             if (!has_active) break;
 
-            // Re-initialize data structure (e.g. Fenwick Tree)
-            // Sweep time from 1 to max_time, apply modifications and answer queries
-            for (int t = 1; t <= max_time; ++t) {
-                // apply_modification(t);
+            bit.clear();
 
+            // Sweep time from 1 to max_time
+            for (int t = 1; t <= max_time; ++t) {
+                // Apply modification event at time t
+                const Event& e = events[t - 1];
+                bit.range_add(e.l, e.r, e.val);
+
+                // Answer queries where mid == t
                 for (int q_idx : mid_buckets[t]) {
-                    // if (check_condition(queries[q_idx])) {
-                    //     ans[q_idx] = t;
-                    //     high[q_idx] = t - 1;
-                    // } else {
-                    //     low[q_idx] = t + 1;
-                    // }
+                    long long cur_val = bit.query(queries[q_idx].pos);
+                    if (cur_val >= queries[q_idx].requirement) {
+                        ans[q_idx] = t;
+                        high[q_idx] = t - 1; // Try earlier time
+                    } else {
+                        low[q_idx] = t + 1;  // Needs more time
+                    }
                 }
             }
         }
+        return ans;
     }
 };
 ```
@@ -2632,42 +3001,57 @@ struct ParallelBinarySearch {
 ```cpp
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-// Khung giải thuật WQS Binary Search: Giảm chiều ràng buộc 'chọn đúng K phần tử'
+// Thuật toán Alien's Trick / WQS Binary Search hoàn chỉnh: Chọn đúng K phần tử không kề nhau để tổng lớn nhất
 struct WQSOptimizer {
     struct State {
         long long cost;
-        int count_k;
+        int count;
     };
 
-    // Hàm quy hoạch động không ràng buộc K nhưng bị phạt chi phí penalty cho mỗi lần chọn
-    State solve_dp(long long penalty) {
-        State result = {0, 0};
-        // Cài đặt DP tham lam/1 chiều trừ đi penalty cho mỗi đơn vị K
-        return result;
+    // Hàm chọn trạng thái tốt hơn (ưu tiên chi phí cao hơn, hòa thì chọn ít phần tử hơn)
+    static State best(const State& a, const State& b) {
+        if (a.cost != b.cost) return a.cost > b.cost ? a : b;
+        return a.count < b.count ? a : b;
     }
 
-    // Chặt nhị phân tìm hệ số phạt tối ưu để đạt số lượng chọn target_k
-    long long solve(int target_k, long long min_pen, long long max_pen) {
-        long long low = min_pen, high = max_pen;
-        long long best_pen = 0;
+    // Quy hoạch động 1 chiều không ràng buộc K, mỗi lần chọn chịu phí phạt penalty
+    State solve_dp(const vector<long long>& a, long long penalty) {
+        int n = a.size();
+        State dp0 = {0, 0}; // Không chọn a[i]
+        State dp1 = {-1000000000000000000LL, 0}; // Chọn a[i]
+
+        for (int i = 0; i < n; ++i) {
+            State next_dp0 = best(dp0, dp1);
+            State next_dp1 = {dp0.cost + a[i] - penalty, dp0.count + 1};
+            dp0 = next_dp0;
+            dp1 = next_dp1;
+        }
+        return best(dp0, dp1);
+    }
+
+    // Chặt nhị phân tìm hệ số phạt penalty tối ưu để chọn đúng target_k phần tử
+    long long solve(const vector<long long>& a, int target_k) {
+        long long low = 0, high = 2e14;
+        long long best_penalty = 0;
 
         while (low <= high) {
             long long mid = low + (high - low) / 2;
-            State cur = solve_dp(mid);
-            if (cur.count_k >= target_k) {
-                best_pen = mid;
-                low = mid + 1;
+            State cur = solve_dp(a, mid);
+            if (cur.count <= target_k) {
+                best_penalty = mid;
+                high = mid - 1; // Phạt quá nặng khiến số phần tử chọn ít, giảm phạt
             } else {
-                high = mid - 1;
+                low = mid + 1;  // Phạt quá nhẹ khiến số phần tử chọn nhiều, tăng phạt
             }
         }
 
-        State final_state = solve_dp(best_pen);
-        // Khôi phục giá trị thực: cộng trả lại lượng phạt best_pen * target_k
-        return final_state.cost + best_pen * target_k;
+        State res = solve_dp(a, best_penalty);
+        // Khôi phục giá trị thực: cộng bù lại chi phí phạt best_penalty * target_k
+        return res.cost + best_penalty * target_k;
     }
 };
 ```
@@ -2676,42 +3060,57 @@ struct WQSOptimizer {
 ```cpp
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-// WQS Binary Search (Alien's Trick): Dimension reduction for 'choose exactly K elements'
+// Alien's Trick / WQS Binary Search: Pick exactly K non-adjacent elements to maximize sum
 struct WQSOptimizer {
     struct State {
         long long cost;
-        int count_k;
+        int count;
     };
 
-    // Unconstrained DP penalized by penalty cost per chosen unit
-    State solve_dp(long long penalty) {
-        State result = {0, 0};
-        // Implement 1D / greedy DP subtracting penalty for each unit of K chosen
-        return result;
+    // State comparator (prefer higher cost; tie-break by fewer chosen elements)
+    static State best(const State& a, const State& b) {
+        if (a.cost != b.cost) return a.cost > b.cost ? a : b;
+        return a.count < b.count ? a : b;
     }
 
-    // Binary search on optimal penalty to match target_k
-    long long solve(int target_k, long long min_pen, long long max_pen) {
-        long long low = min_pen, high = max_pen;
-        long long best_pen = 0;
+    // 1D DP without K constraint, subtracting penalty for each chosen element
+    State solve_dp(const vector<long long>& a, long long penalty) {
+        int n = a.size();
+        State dp0 = {0, 0}; // Do not pick a[i]
+        State dp1 = {-1000000000000000000LL, 0}; // Pick a[i]
+
+        for (int i = 0; i < n; ++i) {
+            State next_dp0 = best(dp0, dp1);
+            State next_dp1 = {dp0.cost + a[i] - penalty, dp0.count + 1};
+            dp0 = next_dp0;
+            dp1 = next_dp1;
+        }
+        return best(dp0, dp1);
+    }
+
+    // Binary search on optimal penalty to match target_k chosen elements
+    long long solve(const vector<long long>& a, int target_k) {
+        long long low = 0, high = 2e14;
+        long long best_penalty = 0;
 
         while (low <= high) {
             long long mid = low + (high - low) / 2;
-            State cur = solve_dp(mid);
-            if (cur.count_k >= target_k) {
-                best_pen = mid;
-                low = mid + 1;
+            State cur = solve_dp(a, mid);
+            if (cur.count <= target_k) {
+                best_penalty = mid;
+                high = mid - 1; // Penalty too harsh, reduce penalty
             } else {
-                high = mid - 1;
+                low = mid + 1;  // Penalty too lenient, increase penalty
             }
         }
 
-        State final_state = solve_dp(best_pen);
-        // Recover true optimal cost: add back best_pen * target_k
-        return final_state.cost + best_pen * target_k;
+        State res = solve_dp(a, best_penalty);
+        // Recover true maximum cost by adding back best_penalty * target_k
+        return res.cost + best_penalty * target_k;
     }
 };
 ```
@@ -2728,55 +3127,111 @@ struct WQSOptimizer {
 
 using namespace std;
 
+// Phân tách trọng tâm cây (Centroid Decomposition) giải bài toán đếm cặp đỉnh có khoảng cách <= max_dist
 struct CentroidDecomposition {
+    struct Edge {
+        int to;
+        int weight;
+    };
+
     int n;
-    vector<vector<int>> adj;
+    vector<vector<Edge>> adj;
     vector<int> sz;
     vector<bool> removed;
 
     CentroidDecomposition(int n) : n(n), adj(n), sz(n), removed(n, false) {}
 
-    void add_edge(int u, int v) {
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+    // Thêm cạnh có trọng số vào cây
+    void add_edge(int u, int v, int w) {
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
     }
 
+    // Tính kích thước các cây con
     int calc_size(int u, int p) {
         sz[u] = 1;
-        for (int v : adj[u]) {
-            if (v != p && !removed[v]) {
-                sz[u] += calc_size(v, u);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to]) {
+                sz[u] += calc_size(e.to, u);
             }
         }
         return sz[u];
     }
 
-    // Tìm đỉnh trọng tâm: Mọi cây con sau khi xóa trọng tâm đều có kích thước <= total / 2
+    // Tìm đỉnh trọng tâm: Mọi cây con sau khi tách centroid đều có kích thước <= total / 2
     int find_centroid(int u, int p, int total) {
-        for (int v : adj[u]) {
-            if (v != p && !removed[v] && sz[v] > total / 2) {
-                return find_centroid(v, u, total);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to] && sz[e.to] > total / 2) {
+                return find_centroid(e.to, u, total);
             }
         }
         return u;
     }
 
+    // Thu thập khoảng cách từ gốc đang xét đến tất cả đỉnh trong cây con
+    void get_dists(int u, int p, int d, vector<int>& dists) {
+        dists.push_back(d);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to]) {
+                get_dists(e.to, u, d + e.weight, dists);
+            }
+        }
+    }
+
+    // Đếm số cặp (i, j) với i < j sao cho dists[i] + dists[j] <= max_dist bằng Hai con trỏ
+    long long count_pairs(vector<int>& dists, int max_dist) {
+        sort(dists.begin(), dists.end());
+        long long count = 0;
+        int l = 0, r = (int)dists.size() - 1;
+        while (l < r) {
+            if (dists[l] + dists[r] <= max_dist) {
+                count += (r - l);
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return count;
+    }
+
     // Hàm đệ quy chia để trị trên cây trọng tâm
-    void decompose(int u) {
+    long long decompose(int u, int max_dist) {
         int total = calc_size(u, -1);
         int centroid = find_centroid(u, -1, total);
+        long long ans = 0;
 
-        // 1. Xử lý các đường đi đi xuyên qua centroid
-        // processPathsThroughCentroid(centroid);
+        // Đếm các đường đi xuất phát từ chính centroid và kết thúc ở một đỉnh khác
+        vector<int> all_dists;
+        all_dists.push_back(0);
+
+        for (const Edge& e : adj[centroid]) {
+            if (!removed[e.to]) {
+                vector<int> sub_dists;
+                get_dists(e.to, centroid, e.weight, sub_dists);
+                // Trừ đi các cặp đi chung một nhánh cây con (trùng đường đi)
+                ans -= count_pairs(sub_dists, max_dist);
+                all_dists.insert(all_dists.end(), sub_dists.begin(), sub_dists.end());
+            }
+        }
+
+        // Cộng các cặp đi qua centroid
+        ans += count_pairs(all_dists, max_dist);
 
         removed[centroid] = true; // Xóa centroid
 
-        // 2. Đệ quy vào các cây con
-        for (int v : adj[centroid]) {
-            if (!removed[v]) {
-                decompose(v);
+        // Đệ quy vào các cây con
+        for (const Edge& e : adj[centroid]) {
+            if (!removed[e.to]) {
+                ans += decompose(e.to, max_dist);
             }
         }
+        return ans;
+    }
+
+    // Hàm giải chính đếm số cặp có khoảng cách <= max_dist trong O(N log^2 N)
+    long long solve(int root, int max_dist) {
+        fill(removed.begin(), removed.end(), false);
+        return decompose(root, max_dist);
     }
 };
 ```
@@ -2788,55 +3243,110 @@ struct CentroidDecomposition {
 
 using namespace std;
 
+// Centroid Decomposition counting pairs with tree distance <= max_dist in O(N log^2 N)
 struct CentroidDecomposition {
+    struct Edge {
+        int to;
+        int weight;
+    };
+
     int n;
-    vector<vector<int>> adj;
+    vector<vector<Edge>> adj;
     vector<int> sz;
     vector<bool> removed;
 
     CentroidDecomposition(int n) : n(n), adj(n), sz(n), removed(n, false) {}
 
-    void add_edge(int u, int v) {
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+    // Add weighted edge to tree
+    void add_edge(int u, int v, int w) {
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
     }
 
+    // Subtree size calculation
     int calc_size(int u, int p) {
         sz[u] = 1;
-        for (int v : adj[u]) {
-            if (v != p && !removed[v]) {
-                sz[u] += calc_size(v, u);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to]) {
+                sz[u] += calc_size(e.to, u);
             }
         }
         return sz[u];
     }
 
-    // Find tree centroid: All components after removing centroid have size <= total / 2
+    // Centroid finding: All remaining subtrees have size <= total / 2
     int find_centroid(int u, int p, int total) {
-        for (int v : adj[u]) {
-            if (v != p && !removed[v] && sz[v] > total / 2) {
-                return find_centroid(v, u, total);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to] && sz[e.to] > total / 2) {
+                return find_centroid(e.to, u, total);
             }
         }
         return u;
     }
 
-    // Recursive divide-and-conquer on tree centroid
-    void decompose(int u) {
+    // Collect path distances from centroid to all nodes in current component
+    void get_dists(int u, int p, int d, vector<int>& dists) {
+        dists.push_back(d);
+        for (const Edge& e : adj[u]) {
+            if (e.to != p && !removed[e.to]) {
+                get_dists(e.to, u, d + e.weight, dists);
+            }
+        }
+    }
+
+    // Two pointers counting pairs (i, j) with i < j such that dists[i] + dists[j] <= max_dist
+    long long count_pairs(vector<int>& dists, int max_dist) {
+        sort(dists.begin(), dists.end());
+        long long count = 0;
+        int l = 0, r = (int)dists.size() - 1;
+        while (l < r) {
+            if (dists[l] + dists[r] <= max_dist) {
+                count += (r - l);
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return count;
+    }
+
+    // Recursive centroid divide and conquer
+    long long decompose(int u, int max_dist) {
         int total = calc_size(u, -1);
         int centroid = find_centroid(u, -1, total);
+        long long ans = 0;
 
-        // 1. Process paths passing through centroid
-        // processPathsThroughCentroid(centroid);
+        vector<int> all_dists;
+        all_dists.push_back(0);
+
+        for (const Edge& e : adj[centroid]) {
+            if (!removed[e.to]) {
+                vector<int> sub_dists;
+                get_dists(e.to, centroid, e.weight, sub_dists);
+                // Subtract invalid pairs originating from the same subtree
+                ans -= count_pairs(sub_dists, max_dist);
+                all_dists.insert(all_dists.end(), sub_dists.begin(), sub_dists.end());
+            }
+        }
+
+        // Add all valid pairs through centroid
+        ans += count_pairs(all_dists, max_dist);
 
         removed[centroid] = true; // Remove centroid
 
-        // 2. Recurse into remaining subtrees
-        for (int v : adj[centroid]) {
-            if (!removed[v]) {
-                decompose(v);
+        // Recurse into remaining subtrees
+        for (const Edge& e : adj[centroid]) {
+            if (!removed[e.to]) {
+                ans += decompose(e.to, max_dist);
             }
         }
+        return ans;
+    }
+
+    // Main solver counting pairs with distance <= max_dist in O(N log^2 N)
+    long long solve(int root, int max_dist) {
+        fill(removed.begin(), removed.end(), false);
+        return decompose(root, max_dist);
     }
 };
 ```
@@ -2857,6 +3367,7 @@ using namespace std;
 const int MOD = 998244353;
 const int G = 3; // Căn nguyên thủy (Primitive root)
 
+// Lũy thừa nhanh tính a^b % MOD
 long long power(long long a, long long b) {
     long long res = 1;
     a %= MOD;
@@ -2868,6 +3379,7 @@ long long power(long long a, long long b) {
     return res;
 }
 
+// Biến đổi NTT xuôi (invert = false) và ngược (invert = true)
 void ntt(vector<int>& a, bool invert) {
     int n = a.size();
 
@@ -2906,8 +3418,8 @@ void ntt(vector<int>& a, bool invert) {
 vector<int> multiply(vector<int> a, vector<int> b) {
     int n = 1;
     while (n < (int)(a.size() + b.size())) n <<= 1;
-    a.resize(n);
-    b.resize(n);
+    a.resize(n, 0);
+    b.resize(n, 0);
 
     ntt(a, false);
     ntt(b, false);
@@ -2930,6 +3442,7 @@ using namespace std;
 const int MOD = 998244353;
 const int G = 3; // Primitive root
 
+// Fast modular exponentiation calculating a^b % MOD
 long long power(long long a, long long b) {
     long long res = 1;
     a %= MOD;
@@ -2941,6 +3454,7 @@ long long power(long long a, long long b) {
     return res;
 }
 
+// Forward NTT (invert = false) and Inverse NTT (invert = true)
 void ntt(vector<int>& a, bool invert) {
     int n = a.size();
 
@@ -2979,8 +3493,8 @@ void ntt(vector<int>& a, bool invert) {
 vector<int> multiply(vector<int> a, vector<int> b) {
     int n = 1;
     while (n < (int)(a.size() + b.size())) n <<= 1;
-    a.resize(n);
-    b.resize(n);
+    a.resize(n, 0);
+    b.resize(n, 0);
 
     ntt(a, false);
     ntt(b, false);
@@ -3005,11 +3519,11 @@ vector<int> multiply(vector<int> a, vector<int> b) {
 
 using namespace std;
 
-// Suffix Automaton (Máy tự động hậu tố) nén toàn bộ chuỗi con trong O(N)
+// Suffix Automaton (Máy tự động hậu tố) nén toàn bộ chuỗi con trong O(N) kèm các truy vấn chuỗi
 struct SuffixAutomaton {
     struct State {
-        int len;           // Độ dài chuỗi con dài nhất thuộc lớp tương đương
-        int link;          // Suffix link trỏ tới tiền tố dài nhất khác endpos
+        int len;             // Độ dài chuỗi con dài nhất thuộc lớp tương đương
+        int link;            // Suffix link trỏ tới tiền tố dài nhất khác endpos
         map<char, int> next; // Chuyển trạng thái theo ký tự
     };
 
@@ -3061,6 +3575,25 @@ struct SuffixAutomaton {
     void build(const string& s) {
         for (char c : s) extend(c);
     }
+
+    // Kiểm tra chuỗi mẫu p có phải là chuỗi con của s hay không trong O(|p|)
+    bool contains(const string& p) const {
+        int cur = 0;
+        for (char c : p) {
+            if (!st[cur].next.count(c)) return false;
+            cur = st[cur].next.at(c);
+        }
+        return true;
+    }
+
+    // Đếm số lượng chuỗi con phân biệt khác rỗng trong O(V) = O(|s|)
+    long long count_distinct() const {
+        long long total = 0;
+        for (int i = 1; i < sz; ++i) {
+            total += st[i].len - st[st[i].link].len;
+        }
+        return total;
+    }
 };
 ```
 
@@ -3072,11 +3605,11 @@ struct SuffixAutomaton {
 
 using namespace std;
 
-// Suffix Automaton (SAM) compressing all substrings of s in O(N)
+// Suffix Automaton (SAM) compressing all substrings of s in O(N) with query methods
 struct SuffixAutomaton {
     struct State {
-        int len;           // Maximum length of substring in equivalence class
-        int link;          // Suffix link pointing to longest prefix with different endpos
+        int len;             // Maximum length of substring in equivalence class
+        int link;            // Suffix link pointing to longest prefix with different endpos
         map<char, int> next; // Transitions by character
     };
 
@@ -3128,8 +3661,29 @@ struct SuffixAutomaton {
     void build(const string& s) {
         for (char c : s) extend(c);
     }
+
+    // Check if pattern p is a substring of s in O(|p|)
+    bool contains(const string& p) const {
+        int cur = 0;
+        for (char c : p) {
+            if (!st[cur].next.count(c)) return false;
+            cur = st[cur].next.at(c);
+        }
+        return true;
+    }
+
+    // Count number of distinct non-empty substrings in O(V) = O(|s|)
+    long long count_distinct() const {
+        long long total = 0;
+        for (int i = 1; i < sz; ++i) {
+            total += st[i].len - st[st[i].link].len;
+        }
+        return total;
+    }
 };
 ```
+
+---
 
 ---
 
@@ -3139,8 +3693,9 @@ Sau khi bạn duyệt qua toàn bộ mã nguồn trên, đây là kế hoạch t
 
 1. **Tab Switcher "Theory & Methodology" ⟷ "Canonical Code"**:
    - Ở mỗi chủ đề, bên cạnh phần **Algorithm Essence & Methodology**, sẽ có thêm một tab hoặc khối **Canonical C++ Implementation**.
+   - Cung cấp toggle chuyển đổi song ngữ: `[Tiếng Việt]` ⟷ `[English]` để học viên linh hoạt theo dõi chú thích.
    - Có nút **Copy Code** tức thì, hiển thị đánh dấu syntax highlighting sắc nét với theme tối giản chuẩn USACO Guide.
 2. **Badge chú thích độ phức tạp & cấu trúc**:
    - Mỗi code đi kèm nhãn độ phức tạp Thời gian ($O(N \log N)$), Bộ nhớ ($O(N)$), và liên kết trích dẫn nguồn uy tín (CP-Algorithms, KACTL, USACO Guide).
 3. **Mã nguồn tự chủ (Self-contained)**:
-   - Các hàm và struct được thiết kế để học viên có thể ném vào bất kỳ solution Codeforces nào mà không cần sửa đổi biến ngoài luồng.
+   - Các hàm và struct được thiết kế đầy đủ 100% tất cả các bước (DFS, LCA, Fenwick, BIT, Segment Tree nội bộ), học viên có thể sao chép trực tiếp vào bài nộp contest mà không cần định nghĩa bất kỳ hàm ngoài nào.
