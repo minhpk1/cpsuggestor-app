@@ -8,17 +8,21 @@ import {
   RoadmapProblem,
   RoadmapPhase,
 } from '@/data/roadmapData';
+import { CANONICAL_CODES } from '@/data/canonicalCodes';
 import { useLanguage } from '@/context/LanguageContext';
 import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
+  ChevronUp,
   ExternalLink,
   Check,
   RefreshCw,
   ChevronsLeft,
   ChevronsRight,
   MoreVertical,
+  Copy,
+  Code2,
 } from 'lucide-react';
 
 interface RoadmapViewProps {
@@ -89,6 +93,23 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
   const [handle, setHandle] = useState<string>(initialHandle);
   const [syncing, setSyncing] = useState<boolean>(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
+
+  // Canonical code viewer state
+  const [codeLang, setCodeLang] = useState<'vi' | 'en'>(lang === 'en' ? 'en' : 'vi');
+  const [codeCopied, setCodeCopied] = useState<boolean>(false);
+  const [isCodeExpanded, setIsCodeExpanded] = useState<boolean>(true);
+
+  // Sync codeLang with global language changes by default
+  useEffect(() => {
+    setCodeLang(lang === 'en' ? 'en' : 'vi');
+  }, [lang]);
+
+  const copyCode = (text: string) => {
+    if (!text) return;
+    navigator.clipboard.writeText(text);
+    setCodeCopied(true);
+    setTimeout(() => setCodeCopied(false), 2000);
+  };
 
   // Dropdown states
   const [isPhaseDropdownOpen, setIsPhaseDropdownOpen] = useState<boolean>(false);
@@ -317,6 +338,12 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
   const currentTopicTier = isEn ? currentTopic.tierEn : currentTopic.tierVi;
   const currentComplexity = cleanMath(isEn ? currentTopic.complexityEn : currentTopic.complexityVi);
   const currentEssence = (isEn ? currentTopic.essenceEn : currentTopic.essenceVi).map(cleanMath);
+
+  // Canonical C++ implementation data
+  const canonicalData = CANONICAL_CODES[currentTopic.id];
+  const activeCanonicalCode = canonicalData
+    ? (codeLang === 'en' ? canonicalData.codeEn : canonicalData.codeVi)
+    : '';
 
   return (
     <div className="bg-white min-h-[85vh] border border-[#e5e7eb] rounded-lg shadow-xs overflow-hidden flex flex-col font-sans text-[#1f2937]">
@@ -689,7 +716,127 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
           </section>
 
           {/* ===================================================================== */}
-          {/* SECTION 2: FOCUS PROBLEM (USACO GUIDE SIGNATURE CARD)                  */}
+          {/* SECTION 2: CANONICAL C++ IMPLEMENTATION (BILINGUAL & SELF-CONTAINED) */}
+          {/* ===================================================================== */}
+          {canonicalData && (
+            <section className="mb-10 space-y-3">
+              <div className="flex items-center justify-between flex-wrap gap-2 pb-1.5 border-b border-gray-200">
+                <div className="flex items-center space-x-2">
+                  <Code2 className="w-5 h-5 text-blue-600 shrink-0" />
+                  <h2 className="text-xl font-bold text-gray-900 tracking-tight">
+                    {isEn ? 'Canonical C++ Implementation' : 'Mã nguồn chuẩn C++'}
+                  </h2>
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 hidden sm:inline-block">
+                    {canonicalData.source}
+                  </span>
+                </div>
+
+                {/* Right controls: Language Toggle & Copy Button & Collapse/Expand */}
+                <div className="flex items-center space-x-2">
+                  {/* Language switch for comments */}
+                  <div className="inline-flex rounded-md border border-gray-300 p-0.5 bg-gray-100 text-xs font-semibold">
+                    <button
+                      onClick={() => setCodeLang('vi')}
+                      className={`px-2.5 py-1 rounded transition-colors cursor-pointer ${
+                        codeLang === 'vi'
+                          ? 'bg-white text-gray-900 shadow-2xs font-bold'
+                          : 'text-gray-500 hover:text-gray-800'
+                      }`}
+                    >
+                      Tiếng Việt
+                    </button>
+                    <button
+                      onClick={() => setCodeLang('en')}
+                      className={`px-2.5 py-1 rounded transition-colors cursor-pointer ${
+                        codeLang === 'en'
+                          ? 'bg-white text-gray-900 shadow-2xs font-bold'
+                          : 'text-gray-500 hover:text-gray-800'
+                      }`}
+                    >
+                      English
+                    </button>
+                  </div>
+
+                  {/* Copy button */}
+                  <button
+                    onClick={() => copyCode(activeCanonicalCode)}
+                    className="inline-flex items-center space-x-1.5 px-3 py-1 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+                    title={isEn ? 'Copy full C++ code' : 'Sao chép toàn bộ mã nguồn C++'}
+                  >
+                    {codeCopied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-700 font-bold">{isEn ? 'Copied!' : 'Đã chép!'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-gray-500" />
+                        <span>{isEn ? 'Copy' : 'Sao chép'}</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Collapse/Expand button */}
+                  <button
+                    onClick={() => setIsCodeExpanded(!isCodeExpanded)}
+                    className="p-1 text-gray-400 hover:text-gray-600 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+                    title={isCodeExpanded ? (isEn ? 'Collapse code' : 'Thu gọn') : (isEn ? 'Expand code' : 'Mở rộng')}
+                  >
+                    {isCodeExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile source tag */}
+              <div className="sm:hidden text-xs text-gray-500 italic">
+                {canonicalData.source}
+              </div>
+
+              {/* Code Container */}
+              {isCodeExpanded && (
+                <div className="rounded-lg overflow-hidden border border-[#2b2f3a] bg-[#1a1b26] shadow-sm transition-all">
+                  {/* Top terminal-style bar */}
+                  <div className="px-4 py-2 bg-[#16161e] border-b border-[#2b2f3a] flex items-center justify-between text-xs text-gray-400 font-mono">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex space-x-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#f7768e] opacity-80" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#e0af68] opacity-80" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#9ece6a] opacity-80" />
+                      </div>
+                      <span className="ml-2 text-gray-300 font-medium">template.cpp</span>
+                    </div>
+                    <div className="flex items-center space-x-3 text-[11px]">
+                      <span className="text-gray-400">C++17/20</span>
+                      <span className="text-gray-600">•</span>
+                      <span className="text-gray-400">0 Lambdas</span>
+                      <span className="text-gray-600">•</span>
+                      <span className="text-emerald-400 font-semibold">Self-Contained</span>
+                    </div>
+                  </div>
+
+                  {/* Code body */}
+                  <pre className="p-4 sm:p-5 text-[#c0caf5] font-mono text-[13px] leading-relaxed overflow-x-auto max-h-[520px] overflow-y-auto selection:bg-[#364a82]">
+                    <code>{activeCanonicalCode}</code>
+                  </pre>
+
+                  {/* Bottom info footer */}
+                  <div className="px-4 py-2 bg-[#13141c] border-t border-[#24273a] text-[11px] text-gray-400 flex items-center justify-between">
+                    <span>
+                      {isEn
+                        ? '100% Complete & Self-Contained. Zero external dependencies.'
+                        : 'Cài đặt đầy đủ 100% các bước tiền xử lý, không phụ thuộc biến ngoài.'}
+                    </span>
+                    <span className="font-mono text-gray-500">
+                      {codeLang === 'en' ? 'English Comments' : 'Chú thích Tiếng Việt'}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* ===================================================================== */}
+          {/* SECTION 3: FOCUS PROBLEM (USACO GUIDE SIGNATURE CARD)                  */}
           {/* ===================================================================== */}
           {currentTopic.problems[0] && (() => {
             const focusProb = currentTopic.problems[0];
