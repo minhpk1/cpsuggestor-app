@@ -34,7 +34,14 @@ import {
   Code2,
   Copy,
   Cpu,
+  Calendar,
 } from 'lucide-react';
+import { 
+  CF_MIN_YEAR, 
+  CF_MAX_YEAR, 
+  CF_AVAILABLE_YEARS, 
+  CF_YEAR_PRESETS 
+} from '@/data/cfContestYears';
 
 export const ALL_CF_TAGS = [
   'Tất cả',
@@ -156,6 +163,8 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [matchMode, setMatchMode] = useState<'AND' | 'OR'>('AND');
   const [selectedRating, setSelectedRating] = useState<number>(recommendedRating || 1200);
+  const [fromYear, setFromYear] = useState<number>(CF_MIN_YEAR);
+  const [toYear, setToYear] = useState<number>(CF_MAX_YEAR);
   const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
   const [tagSearchQuery, setTagSearchQuery] = useState('');
   const tagDropdownRef = useRef<HTMLDivElement>(null);
@@ -238,6 +247,25 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
     setIsTagDropdownOpen(false);
   };
 
+  const handleFromYearChange = (val: number) => {
+    setFromYear(val);
+    if (val > toYear) {
+      setToYear(val);
+    }
+  };
+
+  const handleToYearChange = (val: number) => {
+    setToYear(val);
+    if (val < fromYear) {
+      setFromYear(val);
+    }
+  };
+
+  const handleSelectYearPreset = (presetFrom: number, presetTo: number) => {
+    setFromYear(presetFrom);
+    setToYear(presetTo);
+  };
+
   // Trạng thái mở từng bậc thang gợi ý
   const [revealedTiers, setRevealedTiers] = useState<{ [key: string]: boolean }>({
     hint1: false,
@@ -312,7 +340,9 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
         selectedRating,
         solvedProblemIds,
         matchMode,
-        lang
+        lang,
+        fromYear,
+        toYear
       );
       setRandomProblem(problem);
 
@@ -426,7 +456,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             
             {/* Chọn và gộp Tag */}
-            <div className={`md:col-span-6 relative ${isTagDropdownOpen ? 'z-50' : 'z-10'}`} ref={tagDropdownRef}>
+            <div className={`md:col-span-5 relative ${isTagDropdownOpen ? 'z-50' : 'z-10'}`} ref={tagDropdownRef}>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-[11px] font-medium text-gray-700 flex items-center space-x-1">
                   <Tag className="w-3 h-3 text-blue-600" />
@@ -579,23 +609,24 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
             </div>
 
             {/* Chọn Rating */}
-            <div className="md:col-span-3">
+            <div className="md:col-span-2">
               <div className="flex items-center justify-between mb-1">
-                <label className="text-[11px] font-medium text-gray-700">
+                <label className="text-[11px] font-medium text-gray-700 truncate">
                   {t('step2_rating')}
                 </label>
                 <button
                   type="button"
                   onClick={() => setSelectedRating(recommendedRating)}
-                  className="text-[10px] text-blue-600 hover:underline font-medium"
+                  className="text-[10px] text-blue-600 hover:underline font-medium shrink-0"
+                  title={`${t('btn_use_recommended')} (${recommendedRating})`}
                 >
-                  {t('btn_use_recommended')} ({recommendedRating})
+                  ★ {recommendedRating}
                 </button>
               </div>
               <select
                 value={selectedRating}
                 onChange={(e) => setSelectedRating(Number(e.target.value))}
-                className="w-full text-xs bg-white border border-gray-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-500 font-mono shadow-sm"
+                className="w-full text-xs bg-white border border-gray-300 rounded px-2 py-2 focus:outline-none focus:border-blue-500 font-mono shadow-sm"
               >
                 {RATING_OPTIONS.map((r) => (
                   <option key={r} value={r}>
@@ -605,8 +636,57 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
               </select>
             </div>
 
+            {/* Chọn khoảng Năm ra đề */}
+            <div className="md:col-span-3">
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-medium text-gray-700 flex items-center space-x-1 truncate">
+                  <Calendar className="w-3 h-3 text-sky-600 shrink-0" />
+                  <span className="truncate">{t('step3_year')}</span>
+                </label>
+                {(fromYear !== CF_MIN_YEAR || toYear !== CF_MAX_YEAR) && (
+                  <button
+                    type="button"
+                    onClick={() => { setFromYear(CF_MIN_YEAR); setToYear(CF_MAX_YEAR); }}
+                    className="text-[10px] text-sky-600 hover:underline font-medium shrink-0 ml-1"
+                  >
+                    {t('preset_all')}
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-1.5">
+                <div className="relative">
+                  <select
+                    value={fromYear}
+                    onChange={(e) => handleFromYearChange(Number(e.target.value))}
+                    className="w-full text-xs bg-white border border-gray-300 rounded px-2 py-2 focus:outline-none focus:border-blue-500 font-mono shadow-sm"
+                    title={t('filter_from_year')}
+                  >
+                    {CF_AVAILABLE_YEARS.map((y) => (
+                      <option key={`from-${y}`} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="relative">
+                  <select
+                    value={toYear}
+                    onChange={(e) => handleToYearChange(Number(e.target.value))}
+                    className="w-full text-xs bg-white border border-gray-300 rounded px-2 py-2 focus:outline-none focus:border-blue-500 font-mono shadow-sm"
+                    title={t('filter_to_year')}
+                  >
+                    {CF_AVAILABLE_YEARS.map((y) => (
+                      <option key={`to-${y}`} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
             {/* Nút bấm Random */}
-            <div className="md:col-span-3 flex items-end">
+            <div className="md:col-span-2 flex items-end">
               <button
                 onClick={handleRandomize}
                 disabled={loadingRandom}
@@ -716,6 +796,37 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
             })}
           </div>
 
+          {/* Hàng chọn nhanh khoảng năm (Quick Year Presets) */}
+          <div className="pt-1.5 flex items-center flex-wrap gap-1.5 text-[11px] text-gray-500 border-t border-gray-100">
+            <span className="font-medium text-gray-600 flex items-center space-x-1">
+              <Calendar className="w-3 h-3 text-sky-600" />
+              <span>{t('year_presets_label')}</span>
+            </span>
+            {CF_YEAR_PRESETS.map((preset) => {
+              const isActive = fromYear === preset.fromYear && toYear === preset.toYear;
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => handleSelectYearPreset(preset.fromYear, preset.toYear)}
+                  title={lang === 'en' ? preset.descriptionEn : preset.descriptionVi}
+                  className={`px-2 py-0.5 rounded text-[10px] border transition-colors ${
+                    isActive
+                      ? 'bg-sky-600 text-white border-sky-600 font-medium shadow-xs'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-sky-300 hover:text-sky-700'
+                  }`}
+                >
+                  {lang === 'en' ? preset.labelEn : preset.labelVi}
+                </button>
+              );
+            })}
+            {(fromYear !== CF_MIN_YEAR || toYear !== CF_MAX_YEAR) && (
+              <span className="text-[10px] text-sky-700 font-mono bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-medium">
+                {fromYear} – {toYear}
+              </span>
+            )}
+          </div>
+
         </div>
 
         {/* Lỗi nếu có */}
@@ -746,6 +857,12 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                   <span className={`px-2 py-0.5 rounded text-xs font-mono font-bold border ${getRatingBadgeClass(randomProblem.rating)}`}>
                     {t('rating_label')} {randomProblem.rating}
                   </span>
+                  {randomProblem.year && (
+                    <span className="px-2 py-0.5 rounded text-xs font-mono font-medium border bg-sky-50 text-sky-700 border-sky-200 flex items-center space-x-1">
+                      <Calendar className="w-3 h-3 text-sky-600" />
+                      <span>{t('problem_year_badge')} {randomProblem.year}</span>
+                    </span>
+                  )}
                   {randomProblem.tags.map((tTag) => (
                     <span
                       key={tTag}

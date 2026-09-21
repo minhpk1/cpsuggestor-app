@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getContestYear, isContestInYearRange } from '@/data/cfContestYears';
 
 export interface CFRandomProblem {
   contestId: number;
@@ -8,6 +9,7 @@ export interface CFRandomProblem {
   tags: string[];
   solvedCount?: number;
   url: string;
+  year?: number;
 }
 
 export async function GET(request: NextRequest) {
@@ -17,6 +19,10 @@ export async function GET(request: NextRequest) {
   const matchMode = ((searchParams.get('matchMode') || 'AND').toUpperCase() === 'OR' ? 'OR' : 'AND') as 'AND' | 'OR';
   const ratingStr = searchParams.get('rating');
   const targetRating = ratingStr ? parseInt(ratingStr, 10) : undefined;
+  const fromYearStr = searchParams.get('fromYear') || searchParams.get('from');
+  const toYearStr = searchParams.get('toYear') || searchParams.get('to');
+  const fromYear = fromYearStr ? parseInt(fromYearStr, 10) : undefined;
+  const toYear = toYearStr ? parseInt(toYearStr, 10) : undefined;
 
   const rawTags = tagsParam
     .split(/[;,]/)
@@ -131,6 +137,7 @@ export async function GET(request: NextRequest) {
       const probKey = `${p.contestId}${p.index}`;
       if (solvedSet.has(probKey)) continue;
       if (!checkTagMatch(p.tags)) continue;
+      if (!isContestInYearRange(p.contestId, fromYear, toYear)) continue;
 
       if (targetRating) {
         if (p.rating !== targetRating) continue;
@@ -144,6 +151,7 @@ export async function GET(request: NextRequest) {
         tags: Array.isArray(p.tags) ? p.tags : [],
         solvedCount: statsMap.get(probKey) || 0,
         url: `https://codeforces.com/contest/${p.contestId}/problem/${p.index}`,
+        year: getContestYear(p.contestId),
       });
     }
 
@@ -155,6 +163,7 @@ export async function GET(request: NextRequest) {
         const probKey = `${p.contestId}${p.index}`;
         if (solvedSet.has(probKey)) continue;
         if (!checkTagMatch(p.tags)) continue;
+        if (!isContestInYearRange(p.contestId, fromYear, toYear)) continue;
 
         if (Math.abs(p.rating - targetRating) <= 100) {
           eligibleProblems.push({
@@ -165,6 +174,7 @@ export async function GET(request: NextRequest) {
             tags: Array.isArray(p.tags) ? p.tags : [],
             solvedCount: statsMap.get(probKey) || 0,
             url: `https://codeforces.com/contest/${p.contestId}/problem/${p.index}`,
+            year: getContestYear(p.contestId),
           });
         }
       }
@@ -172,10 +182,13 @@ export async function GET(request: NextRequest) {
 
     if (eligibleProblems.length === 0) {
       const tagDisplay = rawTags.length > 0 ? ` [${rawTags.join(matchMode === 'AND' ? ' + ' : ' / ')}]` : ' Tất cả';
+      const yearDisplay = (fromYear || toYear)
+        ? ` trong giai đoạn ${fromYear || 2010} - ${toYear || 2026}`
+        : '';
       return NextResponse.json(
         {
           success: false,
-          error: `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${targetRating || 'bất kỳ'}.`,
+          error: `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay}, rating ${targetRating || 'bất kỳ'}${yearDisplay}.`,
         },
         { status: 404 }
       );

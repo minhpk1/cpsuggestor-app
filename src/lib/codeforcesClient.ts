@@ -27,6 +27,8 @@ export interface CFProfileResponse {
   recommendedRatingReason: string;
 }
 
+import { getContestYear, isContestInYearRange } from '@/data/cfContestYears';
+
 export interface CFRandomProblemItem {
   contestId: number;
   index: string;
@@ -34,6 +36,7 @@ export interface CFRandomProblemItem {
   rating: number;
   tags: string[];
   url: string;
+  year?: number;
   solvedCount?: number;
 }
 
@@ -185,7 +188,9 @@ export async function getRandomCFProblem(
   rating: number,
   solvedProblemIds: string[] = [],
   matchMode: 'AND' | 'OR' = 'AND',
-  lang: 'vi' | 'en' = 'vi'
+  lang: 'vi' | 'en' = 'vi',
+  fromYear?: number,
+  toYear?: number
 ): Promise<CFRandomProblemItem> {
   const solvedSet = new Set(solvedProblemIds);
   const tagList = Array.isArray(tags) ? tags : [tags];
@@ -238,7 +243,8 @@ export async function getRandomCFProblem(
   // 2. Nếu client fetch bị chặn mạng, fallback sang local API route
   if (problems.length === 0) {
     const tagsParam = encodeURIComponent(activeTags.join(';'));
-    const res = await fetch(`/api/codeforces/random?tags=${tagsParam}&rating=${rating}&matchMode=${matchMode}`);
+    const yearParams = `${fromYear ? `&fromYear=${fromYear}` : ''}${toYear ? `&toYear=${toYear}` : ''}`;
+    const res = await fetch(`/api/codeforces/random?tags=${tagsParam}&rating=${rating}&matchMode=${matchMode}${yearParams}`);
     const json = await res.json();
     if (json.success && json.problem) {
       return json.problem;
@@ -246,7 +252,7 @@ export async function getRandomCFProblem(
     throw new Error(json.error || (lang === 'en' ? 'No matching problem found.' : 'Không tìm thấy bài tập phù hợp.'));
   }
 
-  // 3. Lọc bài chưa AC và đúng mốc rating, khớp tag chuẩn xác
+  // 3. Lọc bài chưa AC và đúng mốc rating, khớp tag chuẩn xác, nằm trong khoảng năm
   const checkTagMatch = (probTags: string[]) => {
     if (activeTags.length === 0) return true;
     const lower = (probTags || []).map(t => t.toLowerCase());
@@ -264,6 +270,7 @@ export async function getRandomCFProblem(
     const key = `${p.contestId}${p.index}`;
     if (solvedSet.has(key)) continue;
     if (!checkTagMatch(p.tags)) continue;
+    if (!isContestInYearRange(p.contestId, fromYear, toYear)) continue;
 
     if (p.rating === rating) {
       candidates.push({
@@ -273,6 +280,7 @@ export async function getRandomCFProblem(
         rating: p.rating,
         tags: Array.isArray(p.tags) ? p.tags : [],
         url: `https://codeforces.com/contest/${p.contestId}/problem/${p.index}`,
+        year: getContestYear(p.contestId),
       });
     }
   }
@@ -285,6 +293,7 @@ export async function getRandomCFProblem(
       const key = `${p.contestId}${p.index}`;
       if (solvedSet.has(key)) continue;
       if (!checkTagMatch(p.tags)) continue;
+      if (!isContestInYearRange(p.contestId, fromYear, toYear)) continue;
 
       if (Math.abs(p.rating - rating) <= 100) {
         candidates.push({
@@ -294,6 +303,7 @@ export async function getRandomCFProblem(
           rating: p.rating,
           tags: Array.isArray(p.tags) ? p.tags : [],
           url: `https://codeforces.com/contest/${p.contestId}/problem/${p.index}`,
+          year: getContestYear(p.contestId),
         });
       }
     }
@@ -301,10 +311,13 @@ export async function getRandomCFProblem(
 
   if (candidates.length === 0) {
     const tagDisplay = activeTags.length > 0 ? ` [${activeTags.join(matchMode === 'AND' ? ' + ' : ' / ')}]` : '';
+    const yearDisplay = (fromYear || toYear)
+      ? ` (${lang === 'en' ? 'years' : 'năm'} ${fromYear || 2010} - ${toYear || 2026})`
+      : '';
     throw new Error(
       lang === 'en'
-        ? `No un-AC problems found with tags${tagDisplay} and rating ${rating}.`
-        : `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay} và rating ${rating}.`
+        ? `No un-AC problems found with tags${tagDisplay}, rating ${rating}${yearDisplay}.`
+        : `Không tìm thấy bài tập nào chưa AC với tag${tagDisplay}, rating ${rating}${yearDisplay}.`
     );
   }
 
