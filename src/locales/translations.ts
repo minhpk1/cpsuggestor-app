@@ -197,10 +197,10 @@ export const translations = {
 
     // Roadmap translations
     platform_roadmap: 'Roadmap CP',
-    platform_roadmap_sub: '28 Chủ đề',
-    platform_switch_roadmap: 'Lộ trình Thuật toán CP (28 Chủ đề & 280 Bài tập)',
+    platform_roadmap_sub: '31 Chủ đề',
+    platform_switch_roadmap: 'Lộ trình Thuật toán CP (31 Chủ đề & 310 Bài tập)',
     platform_switch_roadmap_sub: 'Phân bậc chuẩn xác từ Newbie đến Grandmaster, 10 bài tập/chủ đề có nhận xét sư phạm',
-    roadmap_nav_tagline: 'Lộ trình 28 chủ đề thuật toán cốt lõi & 280 bài tập Codeforces kinh điển',
+    roadmap_nav_tagline: 'Lộ trình 31 chủ đề thuật toán cốt lõi & 310 bài tập Codeforces kinh điển',
     roadmap_search_placeholder: 'Tìm theo tên thuật toán, mã bài, rating (vd: LCA, 1201C, 1900)...',
     roadmap_filter_all: 'Tất cả bài tập',
     roadmap_filter_unsolved: 'Chưa AC',
@@ -428,10 +428,10 @@ export const translations = {
 
     // Roadmap translations
     platform_roadmap: 'CP Roadmap',
-    platform_roadmap_sub: '28 Topics',
-    platform_switch_roadmap: 'CP Algorithm Roadmap (28 Topics & 280 Problems)',
+    platform_roadmap_sub: '31 Topics',
+    platform_switch_roadmap: 'CP Algorithm Roadmap (31 Topics & 310 Problems)',
     platform_switch_roadmap_sub: 'Pedagogical curriculum from Newbie to Grandmaster with 10 curated problems each',
-    roadmap_nav_tagline: '28 core competitive programming algorithms & 280 curated Codeforces problems',
+    roadmap_nav_tagline: '31 core competitive programming algorithms & 310 curated Codeforces problems',
     roadmap_search_placeholder: 'Search by algorithm, problem code, rating (e.g. LCA, 1201C, 1900)...',
     roadmap_filter_all: 'All Problems',
     roadmap_filter_unsolved: 'Unsolved',

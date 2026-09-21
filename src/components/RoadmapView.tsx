@@ -129,12 +129,10 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
       const savedTopic = localStorage.getItem('roadmap_active_topic');
       if (savedTopic) {
         const topicId = parseInt(savedTopic, 10);
-        if (topicId >= 1 && topicId <= 28) {
+        const found = ROADMAP_TOPICS.find((t) => t.id === topicId);
+        if (found) {
           setSelectedTopicId(topicId);
-          const found = ROADMAP_TOPICS.find((t) => t.id === topicId);
-          if (found) {
-            setSelectedPhaseId(found.phaseId);
-          }
+          setSelectedPhaseId(found.phaseId);
         }
       }
 
@@ -245,10 +243,11 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
         }
 
         localStorage.setItem('roadmap_ac_problems', JSON.stringify(Array.from(merged)));
+        const totalProblemsCount = ROADMAP_TOPICS.reduce((acc, t) => acc + t.problems.length, 0);
         setSyncMessage(
           isEn
-            ? `Synced! You have solved ${roadmapSolvedCount}/280 problems.`
-            : `Đã đồng bộ! Bạn đã AC ${roadmapSolvedCount}/280 bài tập.`
+            ? `Synced! You have solved ${roadmapSolvedCount}/${totalProblemsCount} problems.`
+            : `Đã đồng bộ! Bạn đã AC ${roadmapSolvedCount}/${totalProblemsCount} bài tập.`
         );
         return merged;
       });
@@ -294,6 +293,11 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
     }
     return count;
   }, [solvedSet]);
+
+  // Total problems across all topics
+  const totalRoadmapProblems = useMemo(() => {
+    return ROADMAP_TOPICS.reduce((acc, t) => acc + t.problems.length, 0);
+  }, []);
 
   // Topics in current phase
   const phaseTopics = useMemo(
@@ -357,10 +361,12 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({ initialHandle = 'Benq'
             {isEn ? 'CP Algorithm Roadmap' : 'Lộ trình Thuật toán CP'}
           </span>
           <span className="text-gray-300">•</span>
-          <span className="font-mono text-gray-500">28 Topics / 280 Problems</span>
+          <span className="font-mono text-gray-500">
+            {ROADMAP_TOPICS.length} {isEn ? 'Topics' : 'Chủ đề'} / {totalRoadmapProblems} {isEn ? 'Problems' : 'Bài tập'}
+          </span>
           <span className="text-gray-300">•</span>
           <span className="font-mono text-emerald-700 font-semibold">
-            {isEn ? 'Solved:' : 'Đã AC:'} {totalSolvedCount} / 280 ({Math.round((totalSolvedCount / 280) * 100)}%)
+            {isEn ? 'Solved:' : 'Đã AC:'} {totalSolvedCount} / {totalRoadmapProblems} ({totalRoadmapProblems > 0 ? Math.round((totalSolvedCount / totalRoadmapProblems) * 100) : 0}%)
           </span>
         </div>
 

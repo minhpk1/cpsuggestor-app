@@ -196,7 +196,7 @@ export default function HomePage() {
         )}
 
         {/* ============================================================== */}
-        {/* PHÂN HỆ 3: LỘ TRÌNH THUẬT TOÁN CP (28 CHỦ ĐỀ & 280 BÀI TẬP)   */}
+        {/* PHÂN HỆ 3: LỘ TRÌNH THUẬT TOÁN CP (31 CHỦ ĐỀ & 310 BÀI TẬP)   */}
         {/* ============================================================== */}
         {platform === 'roadmap' && (
           <RoadmapView initialHandle={handle} />

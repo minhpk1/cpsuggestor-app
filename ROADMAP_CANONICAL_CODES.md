@@ -1,6 +1,6 @@
-# KHO MÃ NGUỒN CHUẨN (CANONICAL CODE TEMPLATES) - 28 CHỦ ĐỀ THUẬT TOÁN CP
+# KHO MÃ NGUỒN CHUẨN (CANONICAL CODE TEMPLATES) - 31 CHỦ ĐỀ THUẬT TOÁN CP
 
-Tài liệu này tổng hợp **bộ mã nguồn chuẩn (Canonical Implementations)** cho toàn bộ 28 chủ đề thuật toán trong lộ trình Competitive Programming.
+Tài liệu này tổng hợp **bộ mã nguồn chuẩn (Canonical Implementations)** cho toàn bộ 31 chủ đề thuật toán trong lộ trình Competitive Programming.
 Mỗi mẫu code được chọn lọc và tinh chỉnh kỹ lưỡng dựa trên các nguồn uy tín hàng đầu thế giới (**CP-Algorithms**, **USACO Guide**, **KACTL**, **Codeforces Edu**, và code của các Grandmaster/LGM như **Errichto**, **Benq**, **Um_nik**).
 
 Tất cả các thuật toán phức tạp (như Cây ảo - Virtual Tree, Phân tách đường đi nặng nhẹ - HLD, Phân tách trọng tâm - Centroid Decomposition, Tìm kiếm nhị phân song song - Parallel Binary Search, WQS Binary Search) đều được **cài đặt đầy đủ 100% tất cả các bước tiền xử lý (DFS, Euler tour, Binary Lifting LCA, Bitmask, Segment Tree/Fenwick nội bộ)** mà không phụ thuộc vào mã nguồn bên ngoài hay để lại bất kỳ đoạn giả mã placeholder nào.
@@ -3678,6 +3678,883 @@ struct SuffixAutomaton {
         for (int i = 1; i < sz; ++i) {
             total += st[i].len - st[st[i].link].len;
         }
+        return total;
+    }
+};
+```
+
+---
+
+## 29. DIVIDE AND CONQUER (CHIA ĐỂ TRỊ)
+* **Nguồn tham khảo:** *CP-Algorithms & USACO Guide*
+* **Độ phức tạp:** Thời gian: $O(N \log N)$ | Bộ nhớ: $O(N)$
+* **Thành phần tích hợp đầy đủ 100%:**
+  - Struct `Point {x, y, id}` biểu diễn điểm 2D nguyên bản.
+  - Các hàm so sánh độc lập `cmp_x`, `cmp_y` (không dùng lambda).
+  - Tính bình phương khoảng cách Euclide `dist_sq` chính xác 100% chống sai số số thực.
+  - Xử lý cơ sở $N \le 3$ vét cạn tối ưu.
+  - Đệ quy chia đôi theo trục $X$, trộn hai nửa đã sắp theo trục $Y$ trong $O(N)$ (Merge step).
+  - Lọc dải phân cách $|x_i - x_{mid}|^2 < d$ và quét tối đa 7 điểm lân cận.
+  - Hàm bọc `closest_pair` tự cấp phát bộ nhớ phụ và sắp xếp khởi tạo.
+
+### C++ Implementation (Chú thích Tiếng Việt)
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+// Cấu trúc biểu diễn một điểm 2D
+struct Point {
+    long long x, y;
+    int id;
+};
+
+// Hàm so sánh sắp xếp theo tọa độ X tăng dần (không dùng lambda)
+bool cmp_x(const Point& a, const Point& b) {
+    if (a.x != b.x) return a.x < b.x;
+    return a.y < b.y;
+}
+
+// Hàm so sánh sắp xếp theo tọa độ Y tăng dần (không dùng lambda)
+bool cmp_y(const Point& a, const Point& b) {
+    return a.y < b.y;
+}
+
+// Tính bình phương khoảng cách Euclide giữa 2 điểm (tránh sai số số thực double)
+long long dist_sq(const Point& a, const Point& b) {
+    long long dx = a.x - b.x;
+    long long dy = a.y - b.y;
+    return dx * dx + dy * dy;
+}
+
+// Hàm đệ quy chia để trị tìm bình phương khoảng cách nhỏ nhất
+long long solve(int l, int r, vector<Point>& pts, vector<Point>& temp) {
+    // Trường hợp cơ sở: Khi kích thước đoạn <= 3, duyệt vét cạn O(1)
+    if (r - l + 1 <= 3) {
+        long long min_d = 4e18;
+        for (int i = l; i <= r; ++i) {
+            for (int j = i + 1; j <= r; ++j) {
+                min_d = min(min_d, dist_sq(pts[i], pts[j]));
+            }
+        }
+        sort(pts.begin() + l, pts.begin() + r + 1, cmp_y);
+        return min_d;
+    }
+
+    int mid = l + (r - l) / 2;
+    long long mid_x = pts[mid].x;
+
+    // 1. Trị đệ quy giải 2 nửa độc lập
+    long long dl = solve(l, mid, pts, temp);
+    long long dr = solve(mid + 1, r, pts, temp);
+    long long d = min(dl, dr);
+
+    // 2. Trộn hai nửa đã sắp xếp theo Y vào mảng tạm (bước Merge của Merge Sort O(N))
+    merge(pts.begin() + l, pts.begin() + mid + 1,
+          pts.begin() + mid + 1, pts.begin() + r + 1,
+          temp.begin(), cmp_y);
+    copy(temp.begin(), temp.begin() + (r - l + 1), pts.begin() + l);
+
+    // 3. Lọc các điểm nằm trong dải phân cách có khoảng cách tới đường chia < d
+    vector<Point> strip;
+    strip.reserve(r - l + 1);
+    for (int i = l; i <= r; ++i) {
+        long long dx = pts[i].x - mid_x;
+        if (dx * dx < d) {
+            strip.push_back(pts[i]);
+        }
+    }
+
+    // 4. Quét dải phân cách: Mỗi điểm chỉ cần so sánh với tối đa 7 điểm tiếp theo
+    int sz = strip.size();
+    for (int i = 0; i < sz; ++i) {
+        for (int j = i + 1; j < sz; ++j) {
+            long long dy = strip[j].y - strip[i].y;
+            if (dy * dy >= d) break; // Cắt tỉa nhánh sớm vì đã sắp xếp theo Y
+            d = min(d, dist_sq(strip[i], strip[j]));
+        }
+    }
+
+    return d;
+}
+
+// Hàm giao tiếp chính: Tìm khoảng cách nhỏ nhất giữa cặp điểm bất kỳ trong O(N log N)
+long long closest_pair(vector<Point>& pts) {
+    int n = pts.size();
+    if (n <= 1) return 0;
+    sort(pts.begin(), pts.end(), cmp_x);
+    vector<Point> temp(n);
+    return solve(0, n - 1, pts, temp);
+}
+```
+
+### C++ Implementation (English Comments)
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+// 2D Point structure
+struct Point {
+    long long x, y;
+    int id;
+};
+
+// Comparator sorting by X-coordinate ascending (no lambdas)
+bool cmp_x(const Point& a, const Point& b) {
+    if (a.x != b.x) return a.x < b.x;
+    return a.y < b.y;
+}
+
+// Comparator sorting by Y-coordinate ascending (no lambdas)
+bool cmp_y(const Point& a, const Point& b) {
+    return a.y < b.y;
+}
+
+// Squared Euclidean distance between two points (prevents precision loss)
+long long dist_sq(const Point& a, const Point& b) {
+    long long dx = a.x - b.x;
+    long long dy = a.y - b.y;
+    return dx * dx + dy * dy;
+}
+
+// Recursive divide and conquer finding the minimum squared distance
+long long solve(int l, int r, vector<Point>& pts, vector<Point>& temp) {
+    // Base case: for small sizes (<= 3), perform brute-force search in O(1)
+    if (r - l + 1 <= 3) {
+        long long min_d = 4e18;
+        for (int i = l; i <= r; ++i) {
+            for (int j = i + 1; j <= r; ++j) {
+                min_d = min(min_d, dist_sq(pts[i], pts[j]));
+            }
+        }
+        sort(pts.begin() + l, pts.begin() + r + 1, cmp_y);
+        return min_d;
+    }
+
+    int mid = l + (r - l) / 2;
+    long long mid_x = pts[mid].x;
+
+    // 1. Divide and conquer on both halves
+    long long dl = solve(l, mid, pts, temp);
+    long long dr = solve(mid + 1, r, pts, temp);
+    long long d = min(dl, dr);
+
+    // 2. Merge sorted halves by Y-coordinate in O(N)
+    merge(pts.begin() + l, pts.begin() + mid + 1,
+          pts.begin() + mid + 1, pts.begin() + r + 1,
+          temp.begin(), cmp_y);
+    copy(temp.begin(), temp.begin() + (r - l + 1), pts.begin() + l);
+
+    // 3. Filter points within the vertical strip |x - mid_x|^2 < d
+    vector<Point> strip;
+    strip.reserve(r - l + 1);
+    for (int i = l; i <= r; ++i) {
+        long long dx = pts[i].x - mid_x;
+        if (dx * dx < d) {
+            strip.push_back(pts[i]);
+        }
+    }
+
+    // 4. Scan strip: each point is compared with at most 7 geometric neighbors
+    int sz = strip.size();
+    for (int i = 0; i < sz; ++i) {
+        for (int j = i + 1; j < sz; ++j) {
+            long long dy = strip[j].y - strip[i].y;
+            if (dy * dy >= d) break; // Early branch pruning
+            d = min(d, dist_sq(strip[i], strip[j]));
+        }
+    }
+
+    return d;
+}
+
+// Main interface: Closest pair of points in O(N log N)
+long long closest_pair(vector<Point>& pts) {
+    int n = pts.size();
+    if (n <= 1) return 0;
+    sort(pts.begin(), pts.end(), cmp_x);
+    vector<Point> temp(n);
+    return solve(0, n - 1, pts, temp);
+}
+```
+
+---
+
+## 30. CDQ DIVIDE AND CONQUER (CHIA ĐỂ TRỊ CHEN DANQI - CDQ 分治)
+* **Nguồn tham khảo:** *Chen Danqi (IOI 2008) & Luogu P3810*
+* **Độ phức tạp:** Thời gian: $O(N \log^2 N)$ | Bộ nhớ: $O(N)$
+* **Thành phần tích hợp đầy đủ 100%:**
+  - Struct `Element {a, b, c, cnt, ans, id}` hỗ trợ bài toán Thứ tự riêng phần 3D (3D Partial Order).
+  - Cây Fenwick (BIT) tự chủ với hàm `clear` rollback $O(\text{size})$, tuyệt đối không dùng `memset`.
+  - Các hàm so sánh độc lập `cmp_a`, `cmp_b` (không dùng lambda).
+  - Hàm `cdq(l, r)` chia để trị, sắp xếp nửa trái/phải theo chiều $b$, cập nhật BIT theo chiều $c$, rollback và đệ quy.
+  - Hàm `solve_3d` xử lý trọn vẹn việc gom cụm các phần tử trùng tọa độ $(a, b, c)$ và phân phối đáp án.
+
+### C++ Implementation (Chú thích Tiếng Việt)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// Cấu trúc phần tử 3 chiều (a, b, c)
+struct Element {
+    int a, b, c;
+    int cnt; // Số lượng phần tử có cùng tọa độ (a, b, c)
+    int ans; // Số lượng phần tử bị phần tử này chi phối
+    int id;  // Chỉ số gốc ban đầu
+};
+
+// Cây Fenwick (BIT) hỗ trợ dọn dẹp không dùng memset để bảo toàn độ phức tạp O(N log^2 N)
+struct Fenwick {
+    int n;
+    vector<int> tree;
+
+    Fenwick(int size) : n(size), tree(size + 1, 0) {}
+
+    // Cộng delta vào vị trí i
+    void add(int i, int delta) {
+        for (; i <= n; i += i & -i) tree[i] += delta;
+    }
+
+    // Truy vấn tổng tiền tố [1, i]
+    int query(int i) const {
+        int sum = 0;
+        for (; i > 0; i -= i & -i) sum += tree[i];
+        return sum;
+    }
+
+    // Dọn dẹp giá trị đã thêm tại vị trí i (Rollback trong O(log N))
+    void clear(int i) {
+        for (; i <= n; i += i & -i) {
+            if (tree[i] == 0) break;
+            tree[i] = 0;
+        }
+    }
+};
+
+// Hàm so sánh sắp xếp theo chiều thứ 1 (a) (không dùng lambda)
+bool cmp_a(const Element& x, const Element& y) {
+    if (x.a != y.a) return x.a < y.a;
+    if (x.b != y.b) return x.b < y.b;
+    return x.c < y.c;
+}
+
+// Hàm so sánh sắp xếp theo chiều thứ 2 (b) (không dùng lambda)
+bool cmp_b(const Element& x, const Element& y) {
+    if (x.b != y.b) return x.b < y.b;
+    return x.c < y.c;
+}
+
+// Chia để trị CDQ tính lượng đóng góp từ nửa trái lên nửa phải
+void cdq(int l, int r, vector<Element>& a, vector<Element>& temp, Fenwick& bit) {
+    if (l >= r) return;
+    int mid = l + (r - l) / 2;
+
+    // 1. Đệ quy giải nửa trái trước
+    cdq(l, mid, a, temp, bit);
+
+    // 2. Sắp xếp nửa trái và nửa phải theo chiều thứ 2 (b)
+    sort(a.begin() + l, a.begin() + mid + 1, cmp_b);
+    sort(a.begin() + mid + 1, a.begin() + r + 1, cmp_b);
+
+    // 3. Hai con trỏ: Cập nhật Fenwick theo chiều thứ 3 (c) và tính đóng góp
+    int i = l;
+    for (int j = mid + 1; j <= r; ++j) {
+        while (i <= mid && a[i].b <= a[j].b) {
+            bit.add(a[i].c, a[i].cnt);
+            i++;
+        }
+        a[j].ans += bit.query(a[j].c);
+    }
+
+    // 4. Rollback dọn dẹp cây Fenwick sạch sẽ trong O(size)
+    for (int k = l; k < i; ++k) {
+        bit.clear(a[k].c);
+    }
+
+    // 5. Đệ quy giải nửa phải
+    cdq(mid + 1, r, a, temp, bit);
+}
+
+// Hàm giải quyết bài toán 3D Partial Order hoàn chỉnh
+vector<int> solve_3d(vector<Element>& raw_input, int max_c) {
+    int n = raw_input.size();
+    if (n == 0) return {};
+
+    // Sắp xếp toàn bộ theo chiều thứ 1 (a)
+    sort(raw_input.begin(), raw_input.end(), cmp_a);
+
+    // Gom cụm các phần tử trùng lặp tọa độ (a, b, c)
+    vector<Element> unique_elem;
+    for (int i = 0; i < n; ++i) {
+        if (!unique_elem.empty() && 
+            unique_elem.back().a == raw_input[i].a &&
+            unique_elem.back().b == raw_input[i].b &&
+            unique_elem.back().c == raw_input[i].c) {
+            unique_elem.back().cnt++;
+        } else {
+            Element elem = raw_input[i];
+            elem.cnt = 1;
+            elem.ans = 0;
+            unique_elem.push_back(elem);
+        }
+    }
+
+    int m = unique_elem.size();
+    vector<Element> temp(m);
+    Fenwick bit(max_c);
+
+    // Chạy chia để trị CDQ trên các phần tử duy nhất
+    cdq(0, m - 1, unique_elem, temp, bit);
+
+    // Phân phối kết quả trả về mảng ban đầu
+    vector<int> result(n);
+    int cur_idx = 0;
+    for (const auto& elem : unique_elem) {
+        // Mỗi phần tử trong cụm cùng chi phối lẫn nhau (cnt - 1 phần tử cùng tọa độ)
+        int total_ans = elem.ans + elem.cnt - 1;
+        for (int k = 0; k < elem.cnt; ++k) {
+            result[raw_input[cur_idx++].id] = total_ans;
+        }
+    }
+
+    return result;
+}
+```
+
+### C++ Implementation (English Comments)
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// 3D Element structure (a, b, c)
+struct Element {
+    int a, b, c;
+    int cnt; // Multiplicity of identical elements (a, b, c)
+    int ans; // Number of elements dominated by this element
+    int id;  // Original index
+};
+
+// Fenwick Tree (BIT) with O(size) rollback (avoids memset for O(N log^2 N) overall bound)
+struct Fenwick {
+    int n;
+    vector<int> tree;
+
+    Fenwick(int size) : n(size), tree(size + 1, 0) {}
+
+    // Point update: add delta at index i
+    void add(int i, int delta) {
+        for (; i <= n; i += i & -i) tree[i] += delta;
+    }
+
+    // Prefix sum query on [1, i]
+    int query(int i) const {
+        int sum = 0;
+        for (; i > 0; i -= i & -i) sum += tree[i];
+        return sum;
+    }
+
+    // Rollback: clear added values at index i in O(log N)
+    void clear(int i) {
+        for (; i <= n; i += i & -i) {
+            if (tree[i] == 0) break;
+            tree[i] = 0;
+        }
+    }
+};
+
+// Comparator sorting by 1st dimension (a) ascending (no lambdas)
+bool cmp_a(const Element& x, const Element& y) {
+    if (x.a != y.a) return x.a < y.a;
+    if (x.b != y.b) return x.b < y.b;
+    return x.c < y.c;
+}
+
+// Comparator sorting by 2nd dimension (b) ascending (no lambdas)
+bool cmp_b(const Element& x, const Element& y) {
+    if (x.b != y.b) return x.b < y.b;
+    return x.c < y.c;
+}
+
+// CDQ divide and conquer computing cross-contributions from left to right half
+void cdq(int l, int r, vector<Element>& a, vector<Element>& temp, Fenwick& bit) {
+    if (l >= r) return;
+    int mid = l + (r - l) / 2;
+
+    // 1. Recursively solve left half first
+    cdq(l, mid, a, temp, bit);
+
+    // 2. Sort both halves by the 2nd dimension (b)
+    sort(a.begin() + l, a.begin() + mid + 1, cmp_b);
+    sort(a.begin() + mid + 1, a.begin() + r + 1, cmp_b);
+
+    // 3. Two pointers: Add left elements to BIT by dimension c and query for right elements
+    int i = l;
+    for (int j = mid + 1; j <= r; ++j) {
+        while (i <= mid && a[i].b <= a[j].b) {
+            bit.add(a[i].c, a[i].cnt);
+            i++;
+        }
+        a[j].ans += bit.query(a[j].c);
+    }
+
+    // 4. Rollback BIT modifications cleanly in O(size)
+    for (int k = l; k < i; ++k) {
+        bit.clear(a[k].c);
+    }
+
+    // 5. Recursively solve right half
+    cdq(mid + 1, r, a, temp, bit);
+}
+
+// Complete solver for 3D Partial Order
+vector<int> solve_3d(vector<Element>& raw_input, int max_c) {
+    int n = raw_input.size();
+    if (n == 0) return {};
+
+    // Sort all elements by 1st dimension (a)
+    sort(raw_input.begin(), raw_input.end(), cmp_a);
+
+    // Compress identical coordinates (a, b, c)
+    vector<Element> unique_elem;
+    for (int i = 0; i < n; ++i) {
+        if (!unique_elem.empty() && 
+            unique_elem.back().a == raw_input[i].a &&
+            unique_elem.back().b == raw_input[i].b &&
+            unique_elem.back().c == raw_input[i].c) {
+            unique_elem.back().cnt++;
+        } else {
+            Element elem = raw_input[i];
+            elem.cnt = 1;
+            elem.ans = 0;
+            unique_elem.push_back(elem);
+        }
+    }
+
+    int m = unique_elem.size();
+    vector<Element> temp(m);
+    Fenwick bit(max_c);
+
+    // Run CDQ divide and conquer on compressed elements
+    cdq(0, m - 1, unique_elem, temp, bit);
+
+    // Distribute results back to original indices
+    vector<int> result(n);
+    int cur_idx = 0;
+    for (const auto& elem : unique_elem) {
+        // Elements with identical coordinates dominate each other (cnt - 1 count)
+        int total_ans = elem.ans + elem.cnt - 1;
+        for (int k = 0; k < elem.cnt; ++k) {
+            result[raw_input[cur_idx++].id] = total_ans;
+        }
+    }
+
+    return result;
+}
+```
+
+---
+
+## 31. TRIE & 0-1 TRIE (CÂY TIỀN TỐ & TRIE NHỊ PHÂN)
+* **Nguồn tham khảo:** *USACO Guide & CP-Algorithms*
+* **Độ phức tạp:** Thời gian: $O(|S|)$ hoặc $O(30)$ mỗi thao tác | Bộ nhớ: $O(N \cdot |S|)$ hoặc $O(N \cdot 30)$
+* **Thành phần tích hợp đầy đủ 100%:**
+  - `StringTrie`: Cây tiền tố chuỗi ký tự thường `'a' \dots 'z'` với `insert`, `search`, `starts_with`, `count_prefix`, `erase`.
+  - `BinaryTrie` (0-1 Trie): Cây tiền tố nhị phân bitwise XOR với `insert`, `erase`, `max_xor`, `min_xor`, `count_xor_le`.
+  - Tên hàm ngắn gọn chuẩn 1 - 2 từ, tuyệt đối không dùng lambda.
+  - Tự động quản lý bộ nhớ động an toàn bằng vector nodes, không rò rỉ bộ nhớ.
+
+### C++ Implementation (Chú thích Tiếng Việt)
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// 1. Cây tiền tố chuỗi ký tự (String Trie cho bảng chữ cái 'a'-'z')
+struct StringTrie {
+    struct Node {
+        int next_node[26];
+        int count_words;  // Số từ kết thúc tại nút này
+        int count_prefix; // Số từ có tiền tố đi qua nút này
+
+        Node() : count_words(0), count_prefix(0) {
+            fill(next_node, next_node + 26, -1);
+        }
+    };
+
+    vector<Node> nodes;
+
+    StringTrie() {
+        nodes.emplace_back(); // Nút gốc root = 0
+    }
+
+    // Chèn một chuỗi s vào Trie trong O(|s|)
+    void insert(const string& s) {
+        int u = 0;
+        nodes[u].count_prefix++;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) {
+                nodes[u].next_node[c] = nodes.size();
+                nodes.emplace_back();
+            }
+            u = nodes[u].next_node[c];
+            nodes[u].count_prefix++;
+        }
+        nodes[u].count_words++;
+    }
+
+    // Kiểm tra chuỗi s có tồn tại hoàn chỉnh trong Trie không
+    bool search(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return false;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_words > 0;
+    }
+
+    // Kiểm tra có từ nào bắt đầu bằng tiền tố s không
+    bool starts_with(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return false;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_prefix > 0;
+    }
+
+    // Đếm số lượng từ có tiền tố là s trong O(|s|)
+    int count_prefix(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return 0;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_prefix;
+    }
+
+    // Xóa một lần xuất hiện của chuỗi s khỏi Trie
+    bool erase(const string& s) {
+        if (!search(s)) return false;
+        int u = 0;
+        nodes[u].count_prefix--;
+        for (char ch : s) {
+            int c = ch - 'a';
+            u = nodes[u].next_node[c];
+            nodes[u].count_prefix--;
+        }
+        nodes[u].count_words--;
+        return true;
+    }
+};
+
+// 2. Cây tiền tố nhị phân (0-1 Binary Trie cho các phép toán Bitwise XOR trên số nguyên)
+struct BinaryTrie {
+    struct Node {
+        int child[2];
+        int count; // Số lượng số nguyên đi qua nút này
+
+        Node() : count(0) {
+            child[0] = child[1] = -1;
+        }
+    };
+
+    vector<Node> nodes;
+    static const int BITS = 30; // Hỗ trợ số nguyên lên tới 2^30 - 1
+
+    BinaryTrie() {
+        nodes.emplace_back(); // Nút gốc root = 0
+    }
+
+    // Chèn một số nguyên x vào 0-1 Trie
+    void insert(int x) {
+        int u = 0;
+        nodes[u].count++;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            if (nodes[u].child[bit] == -1) {
+                nodes[u].child[bit] = nodes.size();
+                nodes.emplace_back();
+            }
+            u = nodes[u].child[bit];
+            nodes[u].count++;
+        }
+    }
+
+    // Xóa một lần xuất hiện của số nguyên x khỏi 0-1 Trie
+    void erase(int x) {
+        int u = 0;
+        nodes[u].count--;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            u = nodes[u].child[bit];
+            nodes[u].count--;
+        }
+    }
+
+    // Tìm giá trị v trong Trie sao cho (x XOR v) đạt giá trị LỚN NHẤT
+    int max_xor(int x) const {
+        int u = 0, ans = 0;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            int want = 1 - bit; // Tham lam rẽ vào bit ngược lại để XOR ra 1
+            if (nodes[u].child[want] != -1 && nodes[nodes[u].child[want]].count > 0) {
+                ans |= (1 << i);
+                u = nodes[u].child[want];
+            } else {
+                u = nodes[u].child[bit];
+            }
+        }
+        return ans;
+    }
+
+    // Tìm giá trị v trong Trie sao cho (x XOR v) đạt giá trị NHỎ NHẤT
+    int min_xor(int x) const {
+        int u = 0, ans = 0;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            int want = bit; // Tham lam rẽ vào cùng bit để XOR ra 0
+            if (nodes[u].child[want] != -1 && nodes[nodes[u].child[want]].count > 0) {
+                u = nodes[u].child[want];
+            } else {
+                ans |= (1 << i);
+                u = nodes[u].child[1 - want];
+            }
+        }
+        return ans;
+    }
+
+    // Đếm số lượng số v trong Trie thỏa mãn: (x XOR v) <= limit
+    int count_xor_le(int x, int limit) const {
+        int u = 0, total = 0;
+        for (int i = BITS; i >= 0; --i) {
+            if (u == -1 || nodes[u].count == 0) break;
+            int bit_x = (x >> i) & 1;
+            int bit_lim = (limit >> i) & 1;
+
+            if (bit_lim == 1) {
+                // Nhánh cùng bit với bit_x cho kết quả XOR = 0 < 1, toàn bộ nhánh này đều thỏa mãn
+                int same_branch = nodes[u].child[bit_x];
+                if (same_branch != -1) total += nodes[same_branch].count;
+                // Tiếp tục rẽ vào nhánh ngược lại cho kết quả XOR = 1
+                u = nodes[u].child[1 - bit_x];
+            } else {
+                // Buộc phải rẽ vào nhánh cùng bit để kết quả XOR = 0
+                u = nodes[u].child[bit_x];
+            }
+        }
+        if (u != -1) total += nodes[u].count;
+        return total;
+    }
+};
+```
+
+### C++ Implementation (English Comments)
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// 1. String Prefix Tree (String Trie for lowercase English alphabet 'a'-'z')
+struct StringTrie {
+    struct Node {
+        int next_node[26];
+        int count_words;  // Number of words ending at this node
+        int count_prefix; // Number of words passing through this prefix
+
+        Node() : count_words(0), count_prefix(0) {
+            fill(next_node, next_node + 26, -1);
+        }
+    };
+
+    vector<Node> nodes;
+
+    StringTrie() {
+        nodes.emplace_back(); // Root node = 0
+    }
+
+    // Insert string s into Trie in O(|s|)
+    void insert(const string& s) {
+        int u = 0;
+        nodes[u].count_prefix++;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) {
+                nodes[u].next_node[c] = nodes.size();
+                nodes.emplace_back();
+            }
+            u = nodes[u].next_node[c];
+            nodes[u].count_prefix++;
+        }
+        nodes[u].count_words++;
+    }
+
+    // Check if string s exists completely in the Trie
+    bool search(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return false;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_words > 0;
+    }
+
+    // Check if any word starts with prefix s
+    bool starts_with(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return false;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_prefix > 0;
+    }
+
+    // Count number of words having prefix s in O(|s|)
+    int count_prefix(const string& s) const {
+        int u = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (nodes[u].next_node[c] == -1) return 0;
+            u = nodes[u].next_node[c];
+        }
+        return nodes[u].count_prefix;
+    }
+
+    // Erase one occurrence of string s from the Trie
+    bool erase(const string& s) {
+        if (!search(s)) return false;
+        int u = 0;
+        nodes[u].count_prefix--;
+        for (char ch : s) {
+            int c = ch - 'a';
+            u = nodes[u].next_node[c];
+            nodes[u].count_prefix--;
+        }
+        nodes[u].count_words--;
+        return true;
+    }
+};
+
+// 2. Binary Prefix Tree (0-1 Binary Trie for bitwise XOR operations on non-negative integers)
+struct BinaryTrie {
+    struct Node {
+        int child[2];
+        int count; // Number of integers passing through this node
+
+        Node() : count(0) {
+            child[0] = child[1] = -1;
+        }
+    };
+
+    vector<Node> nodes;
+    static const int BITS = 30; // Supports integers up to 2^30 - 1
+
+    BinaryTrie() {
+        nodes.emplace_back(); // Root node = 0
+    }
+
+    // Insert integer x into 0-1 Trie
+    void insert(int x) {
+        int u = 0;
+        nodes[u].count++;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            if (nodes[u].child[bit] == -1) {
+                nodes[u].child[bit] = nodes.size();
+                nodes.emplace_back();
+            }
+            u = nodes[u].child[bit];
+            nodes[u].count++;
+        }
+    }
+
+    // Erase one occurrence of integer x from 0-1 Trie
+    void erase(int x) {
+        int u = 0;
+        nodes[u].count--;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            u = nodes[u].child[bit];
+            nodes[u].count--;
+        }
+    }
+
+    // Find value v in Trie maximizing (x XOR v)
+    int max_xor(int x) const {
+        int u = 0, ans = 0;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            int want = 1 - bit; // Greedily navigate to opposite bit to produce 1
+            if (nodes[u].child[want] != -1 && nodes[nodes[u].child[want]].count > 0) {
+                ans |= (1 << i);
+                u = nodes[u].child[want];
+            } else {
+                u = nodes[u].child[bit];
+            }
+        }
+        return ans;
+    }
+
+    // Find value v in Trie minimizing (x XOR v)
+    int min_xor(int x) const {
+        int u = 0, ans = 0;
+        for (int i = BITS; i >= 0; --i) {
+            int bit = (x >> i) & 1;
+            int want = bit; // Greedily navigate to same bit to produce 0
+            if (nodes[u].child[want] != -1 && nodes[nodes[u].child[want]].count > 0) {
+                u = nodes[u].child[want];
+            } else {
+                ans |= (1 << i);
+                u = nodes[u].child[1 - want];
+            }
+        }
+        return ans;
+    }
+
+    // Count integers v in Trie satisfying: (x XOR v) <= limit
+    int count_xor_le(int x, int limit) const {
+        int u = 0, total = 0;
+        for (int i = BITS; i >= 0; --i) {
+            if (u == -1 || nodes[u].count == 0) break;
+            int bit_x = (x >> i) & 1;
+            int bit_lim = (limit >> i) & 1;
+
+            if (bit_lim == 1) {
+                // Same bit branch yields (bit_x XOR bit_v) == 0 < 1, all elements are strictly less
+                int same_branch = nodes[u].child[bit_x];
+                if (same_branch != -1) total += nodes[same_branch].count;
+                // Continue searching in branch yielding (bit_x XOR bit_v) == 1
+                u = nodes[u].child[1 - bit_x];
+            } else {
+                // Must take same bit branch yielding (bit_x XOR bit_v) == 0
+                u = nodes[u].child[bit_x];
+            }
+        }
+        if (u != -1) total += nodes[u].count;
         return total;
     }
 };

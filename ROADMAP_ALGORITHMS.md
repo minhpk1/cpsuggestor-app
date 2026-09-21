@@ -1,22 +1,23 @@
 # BẢN ĐỒ LỘ TRÌNH THUẬT TOÁN COMPETITIVE PROGRAMMING (NEWBIE ➔ GRANDMASTER)
 > **Dành cho Luyện thi Codeforces & Đội tuyển Olympic Tin học Quốc tế (VNOI / IOI)**
-> Tuyển tập 28 thuật toán cốt lõi với 280 bài tập Codeforces kinh điển được phân cấp sư phạm chi tiết từ thông hiểu thuần túy đến vận dụng nâng cao.
+> Tuyển tập 31 thuật toán cốt lõi với 310 bài tập Codeforces kinh điển được phân cấp sư phạm chi tiết từ thông hiểu thuần túy đến vận dụng nâng cao.
 
 ---
 
-## 🗺️ BẢNG TỔNG QUAN PHÂN CẤP 5 GIAI ĐOẠN & 28 THUẬT TOÁN
+## 🗺️ BẢNG TỔNG QUAN PHÂN CẤP 5 GIAI ĐOẠN & 31 THUẬT TOÁN
 
 | Giai đoạn | Rating Codeforces | Danh mục thuật toán & Kỹ thuật |
 |---|---|---|
 | **Phase 1: Foundation (Newbie ➔ Pupil)** | `< 1200 - 1399` | 1. Mảng cộng dồn (Prefix Sum) & Mảng hiệu (Difference Array)<br>2. Hai con trỏ (Two Pointers) & Cửa sổ trượt (Sliding Window)<br>3. Tìm kiếm nhị phân & Chặt nhị phân kết quả<br>4. Sàng nguyên tố Eratosthenes, SPF & Số học cơ bản<br>5. Tham lam (Greedy) & Bất đẳng thức sắp xếp (Exchange Argument) |
 | **Phase 2: Intermediate (Pupil ➔ Specialist)** | `1200 - 1599` | 6. Duyệt đồ thị DFS/BFS & Đồ thị trên ma trận lưới<br>7. Cấu trúc tập hợp rời rạc (DSU - Disjoint Set Union)<br>8. Quy hoạch động cơ bản (1D, 2D, Balo, LIS, LCS)<br>9. Sắp xếp Tô-pô & Đồ thị DAG<br>10. Đường đi ngắn nhất (Dijkstra, 0-1 BFS, Floyd-Warshall) |
-| **Phase 3: Advanced (Specialist ➔ Expert)** | `1600 - 1899` | 11. **Tổ tiên chung gần nhất (LCA), Binary Lifting & Euler Tour**<br>12. **Quy hoạch động trên Cây cơ bản & Kỹ thuật Đổi gốc (Tree DP & Rerooting)**<br>13. Số học Modular & Tổ hợp nâng cao (Fermat, Lucas, Stars and Bars)<br>14. Quy hoạch động Bitmask & SOS DP<br>15. Cây Fenwick (BIT) & Segment Tree cơ bản (Point Update, Range Query)<br>16. Segment Tree cập nhật lười (Lazy Propagation) |
+| **Phase 3: Advanced (Specialist ➔ Expert)** | `1600 - 1899` | 11. **Tổ tiên chung gần nhất (LCA), Binary Lifting & Euler Tour**<br>12. **Quy hoạch động trên Cây cơ bản & Kỹ thuật Đổi gốc (Tree DP & Rerooting)**<br>13. Số học Modular & Tổ hợp nâng cao (Fermat, Lucas, Stars and Bars)<br>14. Quy hoạch động Bitmask & SOS DP<br>15. Cây Fenwick (BIT) & Segment Tree cơ bản (Point Update, Range Query)<br>16. Segment Tree cập nhật lười (Lazy Propagation)<br>29. **Chia để trị (Divide and Conquer - Inversion & Closest Pair)**<br>31. **Cây tiền tố (Trie & 0-1 Trie bitwise XOR)** |
 | **Phase 4: High-End Core (Candidate Master ➔ Master)** | `1900 - 2299` | 17. Xử lý chuỗi nâng cao (String Hashing, Z-Algorithm, KMP & Trie)<br>18. Thành phần liên thông mạnh (SCC) & Cầu / Khớp (Tarjan & 2-SAT)<br>19. Luồng cực đại Dinic & Cặp ghép cực đại (Max Flow & Bipartite Matching)<br>20. Cây phân đoạn bền vững (Persistent Segment Tree & Persistent Trie)<br>21. **Phân tách đường đi nặng - nhẹ trên cây (Heavy-Light Decomposition - HLD)**<br>22. **Tối ưu hóa Quy hoạch động: Bao lồi (Convex Hull Trick) & Cây Li Chao** |
-| **Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)** | `2300 - 2600+` | 23. **Cây ảo (Virtual Tree / Auxiliary Tree)**<br>24. **Tìm kiếm nhị phân song song (Parallel Binary Search)**<br>25. **Tối ưu hóa WQS / Alien's Trick (Lambda Optimization)**<br>26. **Phân tách trọng tâm trên cây (Centroid Decomposition)**<br>27. **Biến đổi Fourier nhanh (Fast Fourier Transform - FFT / NTT)**<br>28. **Suffix Automaton (SAM - Máy tự động hậu tố) & Cây hậu tố** |
+| **Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)** | `2300 - 2600+` | 23. **Cây ảo (Virtual Tree / Auxiliary Tree)**<br>24. **Tìm kiếm nhị phân song song (Parallel Binary Search)**<br>25. **Tối ưu hóa WQS / Alien's Trick (Lambda Optimization)**<br>26. **Phân tách trọng tâm trên cây (Centroid Decomposition)**<br>27. **Biến đổi Fourier nhanh (Fast Fourier Transform - FFT / NTT)**<br>28. **Suffix Automaton (SAM - Máy tự động hậu tố) & Cây hậu tố**<br>30. **Chia để trị Chen Danqi (CDQ Divide and Conquer - CDQ 分治)** |
 
 ---
 
-# CHI TIẾT TỪNG THUẬT TOÁN: BẢN CHẤT, BLOG CODEFORCES & 280 BÀI TẬP PHÂN CẤP
+# CHI TIẾT TỪNG THUẬT TOÁN: BẢN CHẤT, BLOG CODEFORCES & 310 BÀI TẬP PHÂN CẤP
+
 
 ---
 
@@ -654,6 +655,91 @@
   8. [CF 472D - Design Tutorial: Inverse the Problem](https://codeforces.com/problemset/problem/472/D) (1900) – *Khôi phục cây từ ma trận khoảng cách: Chạy thuật toán cây khung nhỏ nhất (Prim/Kruskal) trên ma trận khoảng cách, sau đó chạy DFS tính lại khoảng cách trên cây để so sánh với ma trận gốc.*
   9. [CF 802L - Send the Fool Further (medium)](https://codeforces.com/problemset/problem/802/L) (2000) – *Kỳ vọng ngẫu nhiên trên cây (Random Walk on Tree): Phương trình kỳ vọng $E[u] = \frac{1}{deg(u)} \sum (E[v] + w)$. Biểu diễn $E[u] = A_u E[parent] + B_u$ và tính bằng 2 lượt DFS.*
   10. [CF 700D - Huffman Coding on a String](https://codeforces.com/problemset/problem/700/D) (3200) – *Mo's Algorithm chia căn tần suất kết hợp Priority Queue: Các phần tử có tần suất $> \sqrt{N}$ tối đa $\sqrt{N}$ phần tử, mô phỏng thuật toán Huffman Coding trên các khối tần suất bằng hàng đợi ưu tiên.*
+
+---
+
+## 29. CHIA ĐỂ TRỊ (DIVIDE AND CONQUER - D&C)
+* **Phân hạng:** `Specialist ➔ Expert (1500 - 1900)`
+* **Bản chất:**
+  * Chia bài toán kích thước $N$ thành các bài toán con độc lập có kích thước $N/2$, giải đệ quy cho từng nửa, sau đó gộp nghiệm và tính lượng đóng góp tương tác giữa hai nửa qua trục phân cách trong thời gian $O(N)$ hoặc $O(N \log N)$.
+  * **Các bài toán kinh điển trong CP:**
+    1. **Đếm số nghịch thế (Inversion Counting)**: Mở rộng Merge Sort để đếm số cặp $i < j$ có $a[i] > a[j]$ qua điểm chia `mid` trong $O(N \log N)$.
+    2. **Cặp điểm gần nhất trên mặt phẳng (Closest Pair of Points)**: Chia theo tọa độ $X$, đệ quy tìm khoảng cách nhỏ nhất $d = \min(d_L, d_R)$, sau đó lọc các điểm trong dải phân cách $|x_i - x_{mid}| < d$ và quét theo thứ tự tăng dần của $Y$. Chứng minh hình học mỗi điểm chỉ cần so sánh với tối đa 7 điểm tiếp theo trong dải, đạt độ phức tạp $O(N \log N)$.
+    3. **Tối ưu hóa Quy hoạch động Chia để trị (D&C DP Optimization)**: Áp dụng khi hàm chi phí thỏa mãn bất đẳng thức tứ giác Monge hoặc tính đơn điệu của điểm chuyển trạng thái tối ưu: $opt[i][j-1] \le opt[i][j] \le opt[i+1][j]$, giảm độ phức tạp từ $O(K \cdot N^2)$ xuống $O(K \cdot N \log N)$.
+* **Độ phức tạp:** Thời gian $O(N \log N)$ hoặc $O(N \log^2 N)$, bộ nhớ bổ trợ $O(N)$.
+* **Link Codeforces Blog:**
+  * [Divide and Conquer on Trees and Arrays (Errichto)](https://codeforces.com/blog/entry/78584)
+  * [Divide and Conquer DP Optimization (CP-Algorithms)](https://cp-algorithms.com/dynamic_programming/divide-and-conquer-dp.html)
+* **Bài tập tiêu biểu rèn luyện (10 bài phân cấp từ dễ đến khó):**
+  1. [CF 1490C - Sum of Cubes](https://codeforces.com/problemset/problem/1490/C) (1100) – *Chia để trị tìm kiếm cặp nghiệm $a^3 + b^3 = x$.*
+  2. [CF 911D - Inversion Counting](https://codeforces.com/problemset/problem/911/D) (1400) – *Tính chẵn lẻ của số nghịch thế sau phép đảo ngược đoạn: mỗi phép đảo đoạn độ dài $L$ đảo ngược $\binom{L}{2}$ cặp.*
+  3. [CF 845C - Two TVs](https://codeforces.com/problemset/problem/845/C) (1500) – *Chia để trị và sắp xếp sự kiện kiểm tra giao thoa các khoảng thời gian.*
+  4. [CF 1042D - Petya and Array](https://codeforces.com/problemset/problem/1042/D) (1800) – *Chia để trị đếm số đoạn con có tổng $< t$ tương tự Merge Sort trên mảng tổng tiền tố.*
+  5. [CF 1155D - Beautiful Array](https://codeforces.com/problemset/problem/1155/D) (1800) – *Chia để trị hoặc DP tối đa hóa tổng đoạn con sau phép nhân một đoạn với hệ số $x$.*
+  6. [CF 86D - Powerful array](https://codeforces.com/problemset/problem/86/D) (2200) – *Chia để trị phân khối Mo's Algorithm sắp xếp truy vấn offline.*
+  7. [CF 1175F - The Number of Subpermutations](https://codeforces.com/problemset/problem/1175/F) (2300) – *Chia để trị qua vị trí phần tử lớn nhất: đệ quy nửa nhỏ hơn để đếm số hoán vị hợp lệ.*
+  8. [CF 1442D - Sum of Paths](https://codeforces.com/problemset/problem/1442/D) (2400) – *D&C Knapsack: Bỏ qua lần lượt từng mảng để tính toán Balo mà không cần phép trừ trong $O(N K \log N)$.*
+  9. [CF 868F - Yet Another Minimization Problem](https://codeforces.com/problemset/problem/868/F) (2500) – *D&C DP kết hợp Two Pointers duy trì chi phí $\binom{cnt}{2}$ khi dịch chuyển giữa các khoảng $[L, R]$.*
+  10. [CF 321E - Ciel and Gondolas](https://codeforces.com/problemset/problem/321/E) (2600) – *Bài toán kinh điển tối ưu hóa DP Chia để trị: chia $N$ người vào $K$ thuyền để giảm chi phí giao tiếp từ $O(K N^2)$ xuống $O(K N \log N)$.*
+
+---
+
+## 30. CHIA ĐỂ TRỊ CHEN DANQI (CDQ DIVIDE AND CONQUER - CDQ 分治)
+* **Phân hạng:** `Master ➔ Grandmaster (2300 - 2700+)`
+* **Bản chất:**
+  * Kỹ thuật chia để trị offline do tuyển thủ IOI 2008 người Trung Quốc **Trần Đan Kỳ (Chen Danqi)** đề xuất. Kỹ thuật này cho phép giải quyết bài toán **Thứ tự riêng phần đa chiều (Multi-dimensional Partial Orders)** và chuyển đổi các bài toán **cập nhật động (dynamic) thành các truy vấn tĩnh (static) trên dòng thời gian** trong $O(N \log^2 N)$ mà không cần cấu trúc dữ liệu lồng nhau phức tạp.
+  * **Cơ chế 3 tầng triệt tiêu số chiều trong bài toán 3D Partial Order $(a, b, c)$:**
+    1. **Tầng 1 (Chiều $a$)**: Sắp xếp toàn bộ phần tử theo chiều $a$, đảm bảo mọi phần tử bên trái có $a_i \le a_j$.
+    2. **Tầng 2 (Chiều $b$)**: Chia để trị CDQ trên đoạn $[L, R]$, lấy $mid = (L+R)/2$:
+       - Đệ quy nửa trái $[L, mid]$.
+       - Sắp xếp nửa trái và nửa phải theo chiều $b$ (dùng Merge Sort để giữ độ phức tạp tuyến tính).
+       - Dùng Hai con trỏ: với mỗi phần tử $j$ ở nửa phải, đẩy toàn bộ phần tử $i$ ở nửa trái thỏa mãn $b_i \le b_j$ vào Cây Fenwick theo tọa độ chiều $c$.
+       - Truy vấn Fenwick để tính đóng góp lên phần tử $j$.
+       - **Rollback dọn dẹp Fenwick trong $O(\text{size})$**: Tuyệt đối không dùng `memset` để bảo toàn độ phức tạp $O(N \log^2 N)$.
+       - Đệ quy nửa phải $[mid+1, R]$.
+    3. **Tầng 3 (Chiều $c$)**: Cây Fenwick 1 chiều thực hiện cập nhật điểm và truy vấn tổng tiền tố trong $O(\log N)$.
+* **Độ phức tạp:** Thời gian $O(N \log^2 N)$, bộ nhớ $O(N)$.
+* **Link Codeforces Blog:**
+  * [CDQ Divide and Conquer Tutorial on Codeforces by misakas](https://codeforces.com/blog/entry/84042)
+  * [A brief introduction to CDQ divide and conquer](https://codeforces.com/blog/entry/75685)
+* **Bài tập tiêu biểu rèn luyện (10 bài phân cấp từ dễ đến khó):**
+  1. [Luogu P3810 - 3D Partial Order](https://www.luogu.com.cn/problem/P3810) (2200) – *Bài tập mẫu kinh điển của CDQ: Đếm số phần tử bị chi phối bởi không quá $k$ phần tử khác trong không gian 3 chiều.*
+  2. [CF 369E - Valera and Queries](https://codeforces.com/problemset/problem/369/E) (2100) – *Đếm số đoạn chứa ít nhất 1 điểm truy vấn: Chuyển thành bài toán 2D offline xử lý bằng CDQ hoặc Fenwick.*
+  3. [CF 1093E - Intersection of Permutations](https://codeforces.com/problemset/problem/1093/E) (2400) – *Đổi chỗ 2 phần tử và đếm số phần tử chung trong 2 đoạn con: Đưa về bài toán thêm/xóa điểm động trong 2D, giải bằng CDQ trên dòng thời gian.*
+  4. [CF 1398G - Running Competition](https://codeforces.com/problemset/problem/1398/G) (2500) – *Tìm mọi hiệu khoảng cách xuất hiện và tối ưu hóa truy vấn bằng CDQ.*
+  5. [CF 848C - Goodbye Souvenir](https://codeforces.com/problemset/problem/848/C) (2600) – *Tính tổng chênh lệch vị trí đầu cuối của các số phân biệt khi có thao tác gán giá trị: CDQ phân trị 3 chiều trên (thời gian, vị trí, giá trị trước đó).*
+  6. [CF 1198F - GCD Groups 2](https://codeforces.com/problemset/problem/1198/F) (2600) – *Chia nhóm tối ưu hóa số học và nhánh cận.*
+  7. [CF 1442E - Black, White and Grey Tree](https://codeforces.com/problemset/problem/1442/E) (2600) – *Tô màu cây và chia để trị đường kính.*
+  8. [CF 601D - Acyclic Negotiating](https://codeforces.com/problemset/problem/601/D) (2700) – *Gộp cây Trie kết hợp chia để trị tính số chuỗi con phân biệt trên cây.*
+  9. [CF 568E - Longest Increasing Subsequence](https://codeforces.com/problemset/problem/568/E) (3000) – *Tối ưu hóa quy hoạch động LIS với các giá trị bị khuyết bằng CDQ divide and conquer.*
+  10. [CF 765F - Souvenirs](https://codeforces.com/problemset/problem/765/F) (3100) – *Tìm độ chênh lệch nhỏ nhất giữa 2 phần tử trong đoạn $[L, R]$: CDQ divide and conquer kết hợp Segment Tree lịch sử.*
+
+---
+
+## 31. CÂY TIỀN TỐ (TRIE & 0-1 TRIE)
+* **Phân hạng:** `Specialist ➔ Candidate Master (1500 - 1900)`
+* **Bản chất:**
+  * Cấu trúc dữ liệu cây $K$-phân tối ưu hóa việc lưu trữ, tìm kiếm tập hợp chuỗi ký tự hoặc các số nguyên biểu diễn dưới dạng chuỗi bit nhị phân có chung tiền tố.
+  * **Hai nhánh ứng dụng cốt lõi:**
+    1. **String Trie (Cây tiền tố chuỗi)**: Mỗi nút đại diện cho một tiền tố, chứa mảng liên kết `next[26]`, cờ kết thúc `is_end`, và biến đếm `count_prefix`. Độ phức tạp chèn/tìm kiếm $O(|S|)$, tối ưu hơn Hash table khi cần tìm tiền tố chung dài nhất (LCP) hoặc duyệt theo thứ tự từ điển.
+    2. **0-1 Trie (Binary Trie - Trie nhị phân)**: Biểu diễn mỗi số nguyên không âm thành chuỗi $30$ bit (hoặc $60$ bit). Hỗ trợ các bài toán CP kinh điển:
+       - **Tìm XOR lớn nhất / nhỏ nhất với $X$**: Tham lam rẽ vào nhánh có bit ngược lại `1 - bit` (cho max) hoặc cùng bit (cho min) tại mỗi vị trí bit trong đúng $O(30)$ thao tác.
+       - **Đếm số phần tử có $X \oplus V \le K$**: Tại mỗi bit, nếu bit của $K$ là 1 thì cộng toàn bộ số phần tử ở nhánh có bit XOR bằng 0, rồi đi tiếp vào nhánh có bit XOR bằng 1.
+* **Độ phức tạp:** Thao tác thêm/xóa/truy vấn trong $O(|S|)$ (với xâu) hoặc $O(\log(\text{MAX\_VAL}))$ (với số nguyên, khoảng 30 bước). Bộ nhớ $O(N \cdot |S|)$ hoặc $O(N \cdot 30)$.
+* **Link Codeforces Blog:**
+  * [Trie Data Structure and 0-1 Trie (USACO Guide)](https://usaco.guide/silver/trie)
+  * [Bitwise XOR Trie Tutorial (CP-Algorithms)](https://cp-algorithms.com/data_structures/trie.html)
+* **Bài tập tiêu biểu rèn luyện (10 bài phân cấp từ dễ đến khó):**
+  1. [CF 706D - Vasiliy's Multiset](https://codeforces.com/problemset/problem/706/D) (1500) – *Bài tập mẫu 0-1 Trie: Thêm số, xóa số và tìm $\max(x \oplus v)$ với $v$ thuộc tập hợp.*
+  2. [CF 514C - Watto and Mechanism](https://codeforces.com/problemset/problem/514/C) (1700) – *String Trie kết hợp DFS: Kiểm tra xem chuỗi truy vấn có thể biến đổi thành một chuỗi trong từ điển bằng cách thay đúng 1 ký tự không.*
+  3. [CF 282E - Sausage Maximization](https://codeforces.com/problemset/problem/282/E) (1800) – *Prefix XOR và Suffix XOR kết hợp 0-1 Trie để tìm giá trị XOR đoạn đầu và đoạn đuôi lớn nhất.*
+  4. [CF 842D - Vanya and Brackets / XOR Queries](https://codeforces.com/problemset/problem/842/D) (1900) – *0-1 Trie tìm MEX của mảng sau mỗi thao tác XOR toàn bộ mảng với $x$: Duy trì số lượng phần tử đầy đủ của cây con.*
+  5. [CF 665E - Beautiful Subarrays](https://codeforces.com/problemset/problem/665/E) (2000) – *0-1 Trie kết hợp Prefix XOR: Đếm số lượng đoạn con có tổng XOR $\ge k$ trong $O(N \log(\text{MAX}))$.*
+  6. [CF 965E - Short Code](https://codeforces.com/problemset/problem/965/E) (2200) – *Dựng Trie từ điển, dùng hàng đợi ưu tiên (Priority Queue) đẩy các nhãn độ sâu lên cao để tối thiểu hóa tổng độ dài.*
+  7. [CF 1625D - Binary Spanning Tree](https://codeforces.com/problemset/problem/1625/D) (2200) – *0-1 Trie tìm tập con lớn nhất có XOR đôi một $\ge k$.*
+  8. [CF 1447E - Tri-Graph](https://codeforces.com/problemset/problem/1447/E) (2300) – *0-1 Trie kết hợp Quy hoạch động: Mỗi nút rẽ đôi chỉ được giữ lại 1 cạnh liên thông, tính số phần tử tối đa giữ lại.*
+  9. [CF 1777F - Comfortably Numb](https://codeforces.com/problemset/problem/1777/F) (2500) – *Chia để trị qua phần tử lớn nhất của đoạn kết hợp 0-1 Trie và kỹ thuật gộp tập nhỏ vào tập lớn (Small-to-Large).*
+  10. [CF 1055F - Paths and XORs](https://codeforces.com/problemset/problem/1055/F) (2600) – *0-1 Trie song song trên cây: Tìm đường đi thứ $k$ có tổng trọng số XOR nhỏ nhất trong đồ thị cây.*
 
 ---
 

@@ -79,7 +79,9 @@ export const ROADMAP_PHASES: RoadmapPhase[] = [
       13,
       14,
       15,
-      16
+      16,
+      29,
+      31
     ]
   },
   {
@@ -103,15 +105,16 @@ export const ROADMAP_PHASES: RoadmapPhase[] = [
     "titleVi": "Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)",
     "titleEn": "Phase 5: Legendary & Grandmaster (Master ➔ GM / IGM)",
     "ratingRange": "2300 - 2600+",
-    "descriptionVi": "Vũ khí tối thượng của GM: Cây ảo, Parallel BS, WQS BS, Centroid Decomposition, FFT/NTT và Suffix Automaton.",
-    "descriptionEn": "Grandmaster armory: virtual trees, parallel binary search, Alien's trick (WQS), centroid decomposition, polynomial FFT/NTT, and suffix automata.",
+    "descriptionVi": "Vũ khí tối thượng của GM: Cây ảo, Parallel BS, WQS BS, Centroid Decomposition, FFT/NTT, Suffix Automaton và Chia để trị CDQ.",
+    "descriptionEn": "Grandmaster armory: virtual trees, parallel binary search, Alien's trick (WQS), centroid decomposition, polynomial FFT/NTT, suffix automata, and CDQ divide & conquer.",
     "topicIds": [
       23,
       24,
       25,
       26,
       27,
-      28
+      28,
+      30
     ]
   }
 ];
@@ -3721,6 +3724,396 @@ export const ROADMAP_TOPICS: RoadmapTopic[] = [
         "commentVi": "Mo's Algorithm chia căn tần suất kết hợp Priority Queue: Các phần tử có tần suất > √N tối đa √N phần tử, mô phỏng thuật toán Huffman Coding trên các khối tần suất bằng hàng đợi ưu tiên.",
         "commentEn": "Mo's Algorithm frequency bucketing with Priority Queue: Elements with frequency > sqrt(N) number at most sqrt(N); simulate Huffman Coding over frequency buckets using min-heap.",
         "contestId": 700,
+        "index": "D"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "phaseId": 3,
+    "nameVi": "CHIA ĐỂ TRỊ (DIVIDE AND CONQUER)",
+    "nameEn": "Divide and Conquer (D&C)",
+    "tierVi": "Specialist ➔ Expert (1600 - 1900)",
+    "tierEn": "Specialist ➔ Expert (1600 - 1900)",
+    "essenceVi": [
+      "Chia để trị (Divide and Conquer) là tư tưởng thuật toán nền tảng: Chia bài toán quy mô N thành các bài toán con độc lập cỡ N/2, đệ quy giải các bài toán con, và kết hợp (Merge) lời giải để tính lượng đóng góp giao thoa qua đường phân cách mid.",
+      "Hai bài toán kinh điển: Cặp điểm gần nhất 2D (Closest Pair of Points) trong O(N log N) bằng cách quét dải phân cách sắp xếp theo trục Y; và Đếm cặp nghịch thế (Inversion Counting) kết hợp Merge Sort trong O(N log N)."
+    ],
+    "essenceEn": [
+      "Divide and Conquer partitions a problem of size N into independent subproblems of size N/2, recursively solves each subproblem, and merges the solutions to capture cross-boundary contributions across mid.",
+      "Two classic paradigms: Closest Pair of Points in 2D in O(N log N) via vertical strip scanning sorted by Y; and Inversion Counting via Merge Sort in O(N log N)."
+    ],
+    "complexityVi": "Thời gian O(N log N), bộ nhớ O(N).",
+    "complexityEn": "Time complexity O(N log N), space complexity O(N).",
+    "blogs": [
+      {
+        "title": "Divide and Conquer Tutorial (CP-Algorithms)",
+        "url": "https://cp-algorithms.com/divide_and_conquer/closest_pair.html"
+      },
+      {
+        "title": "Divide and Conquer DP Optimization (CP-Algorithms)",
+        "url": "https://cp-algorithms.com/dynamic_programming/divide-and-conquer-dp.html"
+      }
+    ],
+    "problems": [
+      {
+        "code": "CF 1490C",
+        "name": "Sum of Cubes",
+        "rating": 1100,
+        "url": "https://codeforces.com/problemset/problem/1490/C",
+        "commentVi": "Chia để trị và chặt nhị phân tìm kiếm cặp nghiệm x^3 + y^3 = n.",
+        "commentEn": "Divide and conquer / binary search to find pair solutions for x^3 + y^3 = n.",
+        "contestId": 1490,
+        "index": "C"
+      },
+      {
+        "code": "CF 911D",
+        "name": "Inversion Counting",
+        "rating": 1400,
+        "url": "https://codeforces.com/problemset/problem/911/D",
+        "commentVi": "Tính chất chẵn lẻ của số nghịch thế sau phép đảo ngược đoạn con.",
+        "commentEn": "Parity of inversion count under range reversal queries.",
+        "contestId": 911,
+        "index": "D"
+      },
+      {
+        "code": "CF 845C",
+        "name": "Two TVs",
+        "rating": 1500,
+        "url": "https://codeforces.com/problemset/problem/845/C",
+        "commentVi": "Chia để trị và sắp xếp sự kiện kiểm tra giao nhau giữa các chương trình.",
+        "commentEn": "Event sorting and segment intersection checking.",
+        "contestId": 845,
+        "index": "C"
+      },
+      {
+        "code": "CF 1042D",
+        "name": "Petya and Array",
+        "rating": 1800,
+        "url": "https://codeforces.com/problemset/problem/1042/D",
+        "commentVi": "Chia để trị đếm số đoạn con có tổng < t tương tự thuật toán Merge Sort.",
+        "commentEn": "D&C counting subsegments with sum < t similar to Merge Sort.",
+        "contestId": 1042,
+        "index": "D"
+      },
+      {
+        "code": "CF 1155D",
+        "name": "Beautiful Array",
+        "rating": 1800,
+        "url": "https://codeforces.com/problemset/problem/1155/D",
+        "commentVi": "Chia để trị và DP tối đa hóa tổng đoạn con sau khi nhân một đoạn với x.",
+        "commentEn": "D&C and DP maximizing subsegment sum after multiplying a subarray by x.",
+        "contestId": 1155,
+        "index": "D"
+      },
+      {
+        "code": "CF 86D",
+        "name": "Powerful array",
+        "rating": 2200,
+        "url": "https://codeforces.com/problemset/problem/86/D",
+        "commentVi": "Thuật toán Mo chia khối căn (Square Root Decomposition) xử lý truy vấn offline.",
+        "commentEn": "Mo's algorithm with square root block decomposition for offline queries.",
+        "contestId": 86,
+        "index": "D"
+      },
+      {
+        "code": "CF 1175F",
+        "name": "The Number of Subpermutations",
+        "rating": 2300,
+        "url": "https://codeforces.com/problemset/problem/1175/F",
+        "commentVi": "Chia để trị qua phần tử lớn nhất của đoạn kết hợp kỹ thuật băm/kiểm tra hoán vị.",
+        "commentEn": "Divide and conquer over the maximum element of intervals combined with permutation hashing.",
+        "contestId": 1175,
+        "index": "F"
+      },
+      {
+        "code": "CF 1442D",
+        "name": "Sum of Paths",
+        "rating": 2400,
+        "url": "https://codeforces.com/problemset/problem/1442/D",
+        "commentVi": "Knapsack kết hợp Chia để trị bỏ qua từng mảng một trong O(N K log N).",
+        "commentEn": "Knapsack DP with D&C skipping one array in O(N K log N).",
+        "contestId": 1442,
+        "index": "D"
+      },
+      {
+        "code": "CF 868F",
+        "name": "Yet Another Minimization Problem",
+        "rating": 2500,
+        "url": "https://codeforces.com/problemset/problem/868/F",
+        "commentVi": "Tối ưu hóa quy hoạch động chia để trị (D&C DP Optimization) kết hợp Two Pointers.",
+        "commentEn": "Divide and conquer DP optimization with two-pointer cost maintenance.",
+        "contestId": 868,
+        "index": "F"
+      },
+      {
+        "code": "CF 321E",
+        "name": "Ciel and Gondolas",
+        "rating": 2600,
+        "url": "https://codeforces.com/problemset/problem/321/E",
+        "commentVi": "D&C DP Optimization kinh điển trên hàm chi phí tứ giác thỏa mãn bất đẳng thức Monge.",
+        "commentEn": "Classical D&C DP optimization satisfying the Quadrangle Inequality (Monge property).",
+        "contestId": 321,
+        "index": "E"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "phaseId": 5,
+    "nameVi": "CHIA ĐỂ TRỊ CHEN DANQI (CDQ 分治)",
+    "nameEn": "CDQ Divide and Conquer",
+    "tierVi": "Master ➔ Grandmaster (2300 - 2600+)",
+    "tierEn": "Master ➔ Grandmaster (2300 - 2600+)",
+    "essenceVi": [
+      "Kỹ thuật chia để trị nâng cao do tuyển thủ IOI Chen Danqi đề xuất: Khử một chiều bài toán bằng cách đệ quy chia để trị trên chiều thứ hai, sắp xếp hai nửa và dùng cấu trúc dữ liệu một chiều (Cây Fenwick) để tính lượng đóng góp từ nửa trái sang nửa phải.",
+      "Ứng dụng cốt lõi: Giải bài toán Thứ tự riêng phần 3D (3D Partial Order / Dominance) trong O(N log^2 N) và chuyển hóa các bài toán cập nhật động (online) thành các bài toán xử lý tĩnh (offline) trên trục thời gian."
+    ],
+    "essenceEn": [
+      "Advanced divide and conquer technique pioneered by IOI medalist Chen Danqi: Eliminates multidimensional constraints by recursing on one dimension, sorting both halves, and using a 1D Fenwick tree to compute cross-half contributions.",
+      "Core applications: Solving 3D Partial Order (Dominance) in O(N log^2 N) and converting online dynamic update problems into offline static queries along the timeline."
+    ],
+    "complexityVi": "Thời gian O(N log^2 N), bộ nhớ O(N).",
+    "complexityEn": "Time complexity O(N log^2 N), space complexity O(N).",
+    "blogs": [
+      {
+        "title": "CDQ Divide and Conquer Tutorial on Codeforces by misakas",
+        "url": "https://codeforces.com/blog/entry/84042"
+      },
+      {
+        "title": "A brief introduction to CDQ divide and conquer",
+        "url": "https://codeforces.com/blog/entry/75685"
+      }
+    ],
+    "problems": [
+      {
+        "code": "CF 369E",
+        "name": "Valera and Queries",
+        "rating": 2100,
+        "url": "https://codeforces.com/problemset/problem/369/E",
+        "commentVi": "Đếm số đoạn chứa ít nhất 1 điểm truy vấn: Chuyển thành bài toán 2D offline xử lý bằng CDQ hoặc Fenwick.",
+        "commentEn": "Count segments containing at least one query point: Reduced to 2D offline solved with CDQ or Fenwick.",
+        "contestId": 369,
+        "index": "E"
+      },
+      {
+        "code": "CF 1093E",
+        "name": "Intersection of Permutations",
+        "rating": 2400,
+        "url": "https://codeforces.com/problemset/problem/1093/E",
+        "commentVi": "Đổi chỗ 2 phần tử và đếm số phần tử chung trong 2 đoạn con: Đưa về bài toán thêm/xóa điểm động trong 2D, giải bằng CDQ trên dòng thời gian.",
+        "commentEn": "Swap two elements and count common elements in subsegments: Dynamic 2D points solved by CDQ over time.",
+        "contestId": 1093,
+        "index": "E"
+      },
+      {
+        "code": "CF 1398G",
+        "name": "Running Competition",
+        "rating": 2500,
+        "url": "https://codeforces.com/problemset/problem/1398/G",
+        "commentVi": "Tìm mọi hiệu khoảng cách xuất hiện và tối ưu hóa truy vấn bằng CDQ.",
+        "commentEn": "Find all reachable running distance differences optimized with CDQ.",
+        "contestId": 1398,
+        "index": "G"
+      },
+      {
+        "code": "CF 848C",
+        "name": "Goodbye Souvenir",
+        "rating": 2600,
+        "url": "https://codeforces.com/problemset/problem/848/C",
+        "commentVi": "Tính tổng chênh lệch vị trí đầu cuối của các số phân biệt khi có thao tác gán giá trị: CDQ phân trị 3 chiều trên (thời gian, vị trí, giá trị trước đó).",
+        "commentEn": "Sum of differences of first and last occurrences under point updates: 3D CDQ over (time, pos, prev).",
+        "contestId": 848,
+        "index": "C"
+      },
+      {
+        "code": "CF 1198F",
+        "name": "GCD Groups 2",
+        "rating": 2600,
+        "url": "https://codeforces.com/problemset/problem/1198/F",
+        "commentVi": "Chia nhóm tối ưu hóa số học và nhánh cận.",
+        "commentEn": "Number theory grouping with randomized branch-and-bound pruning.",
+        "contestId": 1198,
+        "index": "F"
+      },
+      {
+        "code": "CF 1442E",
+        "name": "Black, White and Grey Tree",
+        "rating": 2600,
+        "url": "https://codeforces.com/problemset/problem/1442/E",
+        "commentVi": "Tô màu cây và chia để trị đường kính.",
+        "commentEn": "Tree coloring and diameter divide and conquer.",
+        "contestId": 1442,
+        "index": "E"
+      },
+      {
+        "code": "CF 601D",
+        "name": "Acyclic Negotiating",
+        "rating": 2700,
+        "url": "https://codeforces.com/problemset/problem/601/D",
+        "commentVi": "Gộp cây Trie kết hợp chia để trị tính số chuỗi con phân biệt trên cây.",
+        "commentEn": "Trie merging combined with tree divide and conquer counting distinct substrings.",
+        "contestId": 601,
+        "index": "D"
+      },
+      {
+        "code": "CF 568E",
+        "name": "Longest Increasing Subsequence",
+        "rating": 3000,
+        "url": "https://codeforces.com/problemset/problem/568/E",
+        "commentVi": "Tối ưu hóa quy hoạch động LIS với các giá trị bị khuyết bằng CDQ divide and conquer.",
+        "commentEn": "Optimizing LIS DP with missing values via CDQ divide and conquer.",
+        "contestId": 568,
+        "index": "E"
+      },
+      {
+        "code": "CF 765F",
+        "name": "Souvenirs",
+        "rating": 3100,
+        "url": "https://codeforces.com/problemset/problem/765/F",
+        "commentVi": "Tìm độ chênh lệch nhỏ nhất giữa 2 phần tử trong đoạn [L, R]: CDQ divide and conquer kết hợp Segment Tree lịch sử.",
+        "commentEn": "Minimum difference between two elements in range [L, R]: CDQ with historical Segment Tree.",
+        "contestId": 765,
+        "index": "F"
+      },
+      {
+        "code": "CF 1777F",
+        "name": "Comfortably Numb",
+        "rating": 2500,
+        "url": "https://codeforces.com/problemset/problem/1777/F",
+        "commentVi": "Chia để trị qua phần tử lớn nhất của đoạn kết hợp 0-1 Trie và kỹ thuật gộp tập nhỏ vào tập lớn (Small-to-Large).",
+        "commentEn": "Divide and conquer over range maximums combined with 0-1 Trie and Small-to-Large merging.",
+        "contestId": 1777,
+        "index": "F"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "phaseId": 3,
+    "nameVi": "CÂY TIỀN TỐ (TRIE & 0-1 TRIE)",
+    "nameEn": "Trie & 0-1 Trie (Prefix Trees)",
+    "tierVi": "Specialist ➔ Candidate Master (1500 - 1900)",
+    "tierEn": "Specialist ➔ Candidate Master (1500 - 1900)",
+    "essenceVi": [
+      "Cấu trúc cây K-phân tối ưu hóa việc lưu trữ, tìm kiếm và truy vấn các tập hợp chuỗi ký tự hoặc các số nguyên biểu diễn dưới dạng chuỗi bit nhị phân có chung tiền tố.",
+      "String Trie hỗ trợ chèn, tìm kiếm tiền tố và duyệt từ thứ k theo từ điển trong O(|S|). 0-1 Trie đại diện cho số nguyên dưới dạng chuỗi bit 30 chiều, tối ưu hóa các phép toán bitwise: tìm XOR lớn nhất / nhỏ nhất trong O(30), và đếm số cặp có x XOR v <= k trong O(30)."
+    ],
+    "essenceEn": [
+      "K-ary tree structure storing a set of strings or binary bit strings sharing common prefixes.",
+      "String Trie supports insertion, prefix search, and lexicographical k-th queries in O(|S|). 0-1 Trie represents integers as 30-bit binary sequences, optimizing bitwise operations: finding max/min XOR in O(30), and counting elements with x XOR v <= k in O(30)."
+    ],
+    "complexityVi": "Thời gian O(|S|) hoặc O(30) mỗi thao tác, bộ nhớ O(N × |S|) hoặc O(N × 30).",
+    "complexityEn": "Time complexity O(|S|) or O(30) per operation, space complexity O(N × |S|) or O(N × 30).",
+    "blogs": [
+      {
+        "title": "Trie Data Structure and 0-1 Trie (USACO Guide)",
+        "url": "https://usaco.guide/silver/trie"
+      },
+      {
+        "title": "Bitwise XOR Trie Tutorial (CP-Algorithms)",
+        "url": "https://cp-algorithms.com/data_structures/trie.html"
+      }
+    ],
+    "problems": [
+      {
+        "code": "CF 706D",
+        "name": "Vasiliy's Multiset",
+        "rating": 1500,
+        "url": "https://codeforces.com/problemset/problem/706/D",
+        "commentVi": "Bài tập mẫu 0-1 Trie: Thêm số, xóa số và tìm max(x XOR v) với v thuộc tập hợp.",
+        "commentEn": "Canonical 0-1 Trie: Insert, erase, and query max(x XOR v) from a dynamic multiset.",
+        "contestId": 706,
+        "index": "D"
+      },
+      {
+        "code": "CF 514C",
+        "name": "Watto and Mechanism",
+        "rating": 1700,
+        "url": "https://codeforces.com/problemset/problem/514/C",
+        "commentVi": "String Trie kết hợp DFS: Kiểm tra xem chuỗi truy vấn có thể biến đổi thành một chuỗi trong từ điển bằng cách thay đúng 1 ký tự không.",
+        "commentEn": "String Trie with DFS: Determine if a query string can match a dictionary word with exactly 1 character modification.",
+        "contestId": 514,
+        "index": "C"
+      },
+      {
+        "code": "CF 282E",
+        "name": "Sausage Maximization",
+        "rating": 1800,
+        "url": "https://codeforces.com/problemset/problem/282/E",
+        "commentVi": "Prefix XOR và Suffix XOR kết hợp 0-1 Trie để tìm giá trị XOR đoạn đầu và đoạn đuôi lớn nhất.",
+        "commentEn": "Prefix XOR and Suffix XOR combined with 0-1 Trie to maximize prefix and suffix XOR sum.",
+        "contestId": 282,
+        "index": "E"
+      },
+      {
+        "code": "CF 842D",
+        "name": "Vanya and Brackets",
+        "rating": 1900,
+        "url": "https://codeforces.com/problemset/problem/842/D",
+        "commentVi": "0-1 Trie tìm MEX của mảng sau mỗi thao tác XOR toàn bộ mảng với x: Duy trì số lượng phần tử đầy đủ của cây con.",
+        "commentEn": "0-1 Trie finding the MEX of array after global XOR operations with x by tracking full subtree sizes.",
+        "contestId": 842,
+        "index": "D"
+      },
+      {
+        "code": "CF 665E",
+        "name": "Beautiful Subarrays",
+        "rating": 2000,
+        "url": "https://codeforces.com/problemset/problem/665/E",
+        "commentVi": "0-1 Trie kết hợp Prefix XOR: Đếm số lượng đoạn con có tổng XOR >= k trong O(N log(MAX)).",
+        "commentEn": "0-1 Trie with Prefix XOR: Count subsegments with XOR sum >= k in O(N log(MAX)).",
+        "contestId": 665,
+        "index": "E"
+      },
+      {
+        "code": "CF 965E",
+        "name": "Short Code",
+        "rating": 2200,
+        "url": "https://codeforces.com/problemset/problem/965/E",
+        "commentVi": "Dựng Trie từ điển, dùng hàng đợi ưu tiên (Priority Queue) đẩy các nhãn độ sâu lên cao để tối thiểu hóa tổng độ dài.",
+        "commentEn": "Build dictionary Trie, use Priority Queue to push depth labels upward to minimize total code length.",
+        "contestId": 965,
+        "index": "E"
+      },
+      {
+        "code": "CF 1625D",
+        "name": "Binary Spanning Tree",
+        "rating": 2200,
+        "url": "https://codeforces.com/problemset/problem/1625/D",
+        "commentVi": "0-1 Trie tìm tập con lớn nhất có XOR đôi một >= k.",
+        "commentEn": "0-1 Trie finding the maximum subset with pairwise XOR >= k.",
+        "contestId": 1625,
+        "index": "D"
+      },
+      {
+        "code": "CF 1447E",
+        "name": "Tri-Graph",
+        "rating": 2300,
+        "url": "https://codeforces.com/problemset/problem/1447/E",
+        "commentVi": "0-1 Trie kết hợp Quy hoạch động: Mỗi nút rẽ đôi chỉ được giữ lại 1 cạnh liên thông, tính số phần tử tối đa giữ lại.",
+        "commentEn": "0-1 Trie with tree DP: Each binary split can retain at most 1 connected edge, compute maximum retained elements.",
+        "contestId": 1447,
+        "index": "E"
+      },
+      {
+        "code": "CF 1055F",
+        "name": "Paths and XORs",
+        "rating": 2600,
+        "url": "https://codeforces.com/problemset/problem/1055/F",
+        "commentVi": "0-1 Trie song song trên cây: Tìm đường đi thứ k có tổng trọng số XOR nhỏ nhất trong đồ thị cây.",
+        "commentEn": "Parallel 0-1 Trie on trees: Find the k-th path with minimum XOR weight.",
+        "contestId": 1055,
+        "index": "F"
+      },
+      {
+        "code": "CF 601D",
+        "name": "Acyclic Negotiating",
+        "rating": 2700,
+        "url": "https://codeforces.com/problemset/problem/601/D",
+        "commentVi": "Gộp cây Trie tính số lượng chuỗi con phân biệt trong cây con của mỗi đỉnh.",
+        "commentEn": "Trie merging on trees calculating the number of distinct substrings in each vertex subtree.",
+        "contestId": 601,
         "index": "D"
       }
     ]
