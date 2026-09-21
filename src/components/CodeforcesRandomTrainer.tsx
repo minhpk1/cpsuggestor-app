@@ -5,7 +5,9 @@ import {
   CFRandomProblemItem, 
   CFGeminiHint, 
   getRandomCFProblem, 
-  getGeminiHintWithTimeout 
+  getGeminiHintWithTimeout,
+  formatHintDisplay,
+  formatSolutionCodeDisplay,
 } from '@/lib/codeforcesClient';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
@@ -892,7 +894,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                         <BookOpen className="w-3.5 h-3.5 text-blue-600" />
                         <span>{t('hint_brief_summary')}</span>
                       </span>
-                      <p className="text-gray-700 whitespace-pre-line">{geminiHint.briefSummary}</p>
+                      <p className="text-gray-700 whitespace-pre-line">{formatHintDisplay(geminiHint.briefSummary)}</p>
                     </div>
                   )}
 
@@ -922,7 +924,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
                       {revealedTiers.hint1 && (
                         <div className="px-3.5 pb-3 pt-1 border-t border-emerald-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line">
-                          {geminiHint.hint1_basic || geminiHint.keyObservation}
+                          {formatHintDisplay(geminiHint.hint1_basic || geminiHint.keyObservation)}
                         </div>
                       )}
                     </div>
@@ -954,7 +956,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
                       {revealedTiers.hint2 && (
                         <div className="px-3.5 pb-3 pt-1 border-t border-blue-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line">
-                          {geminiHint.hint2_reduction}
+                          {formatHintDisplay(geminiHint.hint2_reduction)}
                         </div>
                       )}
                     </div>
@@ -991,7 +993,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
                       {revealedTiers.hint3 && (
                         <div className="px-3.5 pb-3 pt-1 border-t border-amber-200/60 text-xs text-gray-800 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-amber-400">
-                          {geminiHint.hint3_key || geminiHint.keyObservation}
+                          {formatHintDisplay(geminiHint.hint3_key || geminiHint.keyObservation)}
                         </div>
                       )}
                     </div>
@@ -1023,7 +1025,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
                       {revealedTiers.hint4 && (
                         <div className="px-3.5 pb-3 pt-1 border-t border-purple-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-purple-400">
-                          {geminiHint.hint4_algorithm || geminiHint.stepByStepHint}
+                          {formatHintDisplay(geminiHint.hint4_algorithm || geminiHint.stepByStepHint)}
                         </div>
                       )}
                     </div>
@@ -1055,7 +1057,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
 
                       {revealedTiers.edgeCases && (
                         <div className="px-3.5 pb-3 pt-1 border-t border-rose-100 text-xs text-gray-700 leading-relaxed whitespace-pre-line pl-4 border-l-3 border-rose-400">
-                          {geminiHint.edgeCases}
+                          {formatHintDisplay(geminiHint.edgeCases)}
                         </div>
                       )}
                     </div>
@@ -1098,7 +1100,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                             </span>
                             <button
                               type="button"
-                              onClick={() => handleCopyCode(geminiHint.solutionCode)}
+                              onClick={() => handleCopyCode(formatSolutionCodeDisplay(geminiHint.solutionCode))}
                               className="inline-flex items-center space-x-1 px-2.5 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded text-[11px] text-gray-700 transition-colors"
                             >
                               {copiedCode ? (
@@ -1116,7 +1118,7 @@ export const CodeforcesRandomTrainer: React.FC<CodeforcesRandomTrainerProps> = (
                           </div>
 
                           <pre className="p-3 bg-[#1e1e2e] text-gray-100 rounded text-[11px] font-mono overflow-x-auto leading-relaxed whitespace-pre shadow-inner">
-                            {geminiHint.solutionCode}
+                            {formatSolutionCodeDisplay(geminiHint.solutionCode)}
                           </pre>
                         </div>
                       )}

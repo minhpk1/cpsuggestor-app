@@ -313,28 +313,116 @@ export async function getRandomCFProblem(
 }
 
 /**
+ * Kiểm tra xem chuỗi có phải là mã nguồn lập trình C++ hay không
+ * để tránh việc gán nhầm mã nguồn vào các gợi ý văn bản
+ */
+export function isLikelySourceCode(str: string): boolean {
+  if (!str) return false;
+  const s = str.trim();
+  return (
+    s.startsWith('#include') ||
+    s.startsWith('using namespace') ||
+    s.startsWith('int main') ||
+    s.startsWith('cpp\n') ||
+    s.startsWith('cpp\\n') ||
+    s.startsWith('```cpp') ||
+    s.includes('#include <iostream>') ||
+    s.includes('ios_base::sync_with_stdio') ||
+    (s.includes('cin >>') && s.includes('cout <<'))
+  );
+}
+
+/**
+ * Làm sạch chuỗi phản hồi từ Gemini để chuẩn bị phân tích JSON.
+ * Xử lý an toàn: loại bỏ các markdown code fence bao ngoài (```json hoặc ```),
+ * nhưng tuyệt đối không làm cắt xén mã C++ hoặc code fence bên trong trường solutionCode!
+ */
+export function cleanGeminiJsonText(rawText: string): string {
+  if (!rawText) return '';
+  let text = rawText.trim();
+
+  // Nếu text là mã nguồn lập trình, không cắt xén theo dấu ngoặc nhọn JSON!
+  if (isLikelySourceCode(text)) {
+    return text;
+  }
+
+  // 1. Nếu toàn bộ response được bao bọc bởi ```json ... ``` hoặc ``` ... ```
+  if (text.startsWith('```')) {
+    text = text.replace(/^```(?:json)?\s*\n?/i, '');
+    text = text.replace(/\n?```\s*$/i, '');
+    text = text.trim();
+  }
+
+  // 2. Nếu có text mở đầu trước khối JSON (ví dụ: "Here is the JSON:\n```json\n...")
+  if (!text.startsWith('{')) {
+    const firstBrace = text.indexOf('{');
+    const lastBrace = text.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      const candidate = text.slice(firstBrace, lastBrace + 1).trim();
+      // Chỉ cắt nếu ứng viên thực sự có cấu trúc JSON key-value
+      if (candidate.includes('":') || candidate.includes('",') || candidate.includes('"hint')) {
+        text = candidate;
+      }
+    }
+  }
+
+  return text;
+}
+
+/**
+ * Làm sạch và chuẩn hóa văn bản gợi ý trước khi hiển thị
+ * Chuyển các ký tự escape \\n thành ký tự xuống dòng thực tế \n,
+ * loại bỏ code fence nếu vô tình bị dính vào văn bản thông thường
+ */
+export function formatHintDisplay(text?: string | null): string {
+  if (!text) return '';
+  let res = text.trim();
+  res = res.replace(/\\n/g, '\n');
+  res = res.replace(/\\"/g, '"');
+  res = res.replace(/\\\\/g, '\\');
+  res = res.replace(/\\t/g, '  ');
+  // Nếu vô tình dính tiền tố markdown code fence
+  res = res.replace(/^```(?:cpp|json)?\s*\n?/i, '');
+  res = res.replace(/\n?```\s*$/i, '');
+  res = res.replace(/^cpp\s*\n/i, '');
+  return res.trim();
+}
+
+/**
+ * Chuẩn hóa mã nguồn C++ để hiển thị đẹp mắt trong thẻ <pre>
+ * Loại bỏ các dấu ```cpp hoặc ``` bao quanh nếu có, chuyển \\n thành xuống dòng
+ */
+export function formatSolutionCodeDisplay(code?: string | null): string {
+  if (!code) return '';
+  let res = code.trim();
+  res = res.replace(/\\n/g, '\n');
+  res = res.replace(/\\"/g, '"');
+  res = res.replace(/\\\\/g, '\\');
+  res = res.replace(/\\t/g, '\t');
+  if (res.startsWith('```')) {
+    res = res.replace(/^```[a-zA-Z0-9_-]*\s*\n?/, '');
+    res = res.replace(/\n?```\s*$/, '');
+  }
+  res = res.replace(/^cpp\s*\n/i, '');
+  return res.trim();
+}
+
+/**
  * Trích xuất an toàn một trường JSON chuỗi kể cả khi JSON bị cắt ngắn hoặc có ký tự escape lỗi
  */
-function extractCleanJsonField(text: string, key: string): string {
-  const regex = new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 's');
-  const match = text.match(regex);
-  if (match && match[1]) {
-    return match[1]
-      .replace(/\\n/g, '\n')
-      .replace(/\\"/g, '"')
-      .replace(/\\\\/g, '\\')
-      .replace(/\\t/g, '\t')
-      .trim();
-  }
-  const openRegex = new RegExp(`"${key}"\\s*:\\s*"([\\s\\S]*?)(?=(?:"\\s*,\\s*"[a-zA-Z0-9_]+"\\s*:|"$|(?:"\\s*\\})))`, 's');
-  const openMatch = text.match(openRegex);
-  if (openMatch && openMatch[1]) {
-    return openMatch[1]
-      .replace(/\\n/g, '\n')
-      .replace(/\\"/g, '"')
-      .replace(/\\\\/g, '\\')
-      .replace(/\\t/g, '\t')
-      .trim();
+function extractCleanJsonField(text: string, keys: string | string[]): string {
+  const keyList = Array.isArray(keys) ? keys : [keys];
+  for (const key of keyList) {
+    const regex = new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 's');
+    const match = text.match(regex);
+    if (match && match[1]) {
+      return formatHintDisplay(match[1]);
+    }
+    const openRegex = new RegExp(`"${key}"\\s*:\\s*"([\\s\\S]*?)(?=(?:"\\s*,\\s*"[a-zA-Z0-9_]+"\\s*:|"$|(?:"\\s*\\})))`, 's');
+    const openMatch = text.match(openRegex);
+    if (openMatch && openMatch[1]) {
+      return formatHintDisplay(openMatch[1]);
+    }
   }
   return '';
 }
@@ -344,10 +432,11 @@ function extractCleanJsonField(text: string, key: string): string {
  * Không bao giờ làm lộ cấu trúc JSON thô ra ngoài giao diện người dùng
  */
 export function parseGeminiHintJson(
-  clean: string,
+  rawClean: string,
   problem: CFRandomProblemItem,
   lang: 'vi' | 'en' = 'vi'
 ): CFGeminiHint {
+  const clean = cleanGeminiJsonText(rawClean);
   const isEn = lang === 'en';
   const defaultSummary = isEn ? `Problem ${problem.name}` : `Bài toán ${problem.name}`;
   const defaultHint1 = isEn 
@@ -367,75 +456,120 @@ export function parseGeminiHintJson(
     : `// Chi tiết lời giải và thảo luận trên Codeforces: ${problem.url}`;
   const defaultComplexity = 'O(N) / O(N log N)';
 
-  // 1. Thử JSON.parse chuẩn xác
+  // Helper hàm lấy giá trị ưu tiên từ nhiều key khác nhau
+  const getField = (obj: any, keys: string[]): string => {
+    if (!obj || typeof obj !== 'object') return '';
+    for (const k of keys) {
+      if (typeof obj[k] === 'string' && obj[k].trim().length > 0) {
+        return obj[k];
+      }
+    }
+    return '';
+  };
+
+  const processParsed = (parsed: any): CFGeminiHint | null => {
+    if (!parsed || typeof parsed !== 'object') return null;
+
+    const summary = getField(parsed, ['briefSummary', 'summary', 'problemSummary', 'description']);
+    const h1 = getField(parsed, ['hint1_basic', 'hint1', 'hint_1', 'initialObservations', 'observations', 'keyObservation']);
+    const h2 = getField(parsed, ['hint2_reduction', 'hint2', 'hint_2', 'reduction', 'modelReduction']);
+    const h3 = getField(parsed, ['hint3_key', 'hint3', 'hint_3', 'keyObservation', 'keyInsight', 'ahaMoment']);
+    const h4 = getField(parsed, ['hint4_algorithm', 'hint4', 'hint_4', 'stepByStepHint', 'algorithm', 'steps']);
+    const edge = getField(parsed, ['edgeCases', 'edge_cases', 'cornerCases', 'corner_cases', 'pitfalls']);
+    const code = getField(parsed, ['solutionCode', 'solution_code', 'solution', 'code', 'cppCode']);
+    const comp = getField(parsed, ['complexity', 'targetComplexity', 'timeComplexity', 'time_complexity']);
+
+    // Nếu h1 vô tình chứa code C++ thì chuyển sang code
+    let finalH1 = h1;
+    let finalCode = code;
+    if (isLikelySourceCode(finalH1)) {
+      if (!finalCode) finalCode = finalH1;
+      finalH1 = '';
+    }
+
+    if (summary || finalH1 || h3 || h4 || finalCode) {
+      return {
+        briefSummary: formatHintDisplay(summary || defaultSummary),
+        hint1_basic: formatHintDisplay(finalH1 || defaultHint1),
+        hint2_reduction: formatHintDisplay(h2),
+        hint3_key: formatHintDisplay(h3 || defaultHint3),
+        hint4_algorithm: formatHintDisplay(h4 || defaultHint4),
+        edgeCases: formatHintDisplay(edge || defaultEdge),
+        solutionCode: formatSolutionCodeDisplay(finalCode || defaultCode),
+        complexity: comp || defaultComplexity,
+        keyObservation: formatHintDisplay(h3 || defaultHint3),
+        stepByStepHint: formatHintDisplay(h4 || defaultHint4),
+        targetComplexity: comp || defaultComplexity,
+      };
+    }
+    return null;
+  };
+
+  // 1. Thử JSON.parse trực tiếp
   try {
-    const parsed = JSON.parse(clean);
-    return {
-      briefSummary: parsed.briefSummary || defaultSummary,
-      hint1_basic: parsed.hint1_basic || parsed.keyObservation || defaultHint1,
-      hint2_reduction: parsed.hint2_reduction || '',
-      hint3_key: parsed.hint3_key || parsed.keyObservation || defaultHint3,
-      hint4_algorithm: parsed.hint4_algorithm || parsed.stepByStepHint || defaultHint4,
-      edgeCases: parsed.edgeCases || defaultEdge,
-      solutionCode: parsed.solutionCode || defaultCode,
-      complexity: parsed.complexity || parsed.targetComplexity || defaultComplexity,
-      keyObservation: parsed.hint3_key || parsed.keyObservation || defaultHint3,
-      stepByStepHint: parsed.hint4_algorithm || parsed.stepByStepHint || defaultHint4,
-      targetComplexity: parsed.complexity || parsed.targetComplexity || defaultComplexity,
-    };
+    const res = processParsed(JSON.parse(clean));
+    if (res) return res;
   } catch {}
 
   // 2. Thử substring từ '{' tới '}'
   const start = clean.indexOf('{');
   const end = clean.lastIndexOf('}');
   if (start !== -1 && end !== -1 && end > start) {
+    const slice = clean.slice(start, end + 1);
     try {
-      const subParsed = JSON.parse(clean.slice(start, end + 1));
-      return {
-        briefSummary: subParsed.briefSummary || defaultSummary,
-        hint1_basic: subParsed.hint1_basic || subParsed.keyObservation || defaultHint1,
-        hint2_reduction: subParsed.hint2_reduction || '',
-        hint3_key: subParsed.hint3_key || subParsed.keyObservation || defaultHint3,
-        hint4_algorithm: subParsed.hint4_algorithm || subParsed.stepByStepHint || defaultHint4,
-        edgeCases: subParsed.edgeCases || defaultEdge,
-        solutionCode: subParsed.solutionCode || defaultCode,
-        complexity: subParsed.complexity || subParsed.targetComplexity || defaultComplexity,
-        keyObservation: subParsed.hint3_key || subParsed.keyObservation || defaultHint3,
-        stepByStepHint: subParsed.hint4_algorithm || subParsed.stepByStepHint || defaultHint4,
-        targetComplexity: subParsed.complexity || subParsed.targetComplexity || defaultComplexity,
-      };
+      const res = processParsed(JSON.parse(slice));
+      if (res) return res;
+    } catch {}
+
+    // 2b. Sửa lỗi newline chưa escape trong string literals
+    try {
+      const repaired = slice.replace(new RegExp('"((?:[^"\\\\]|\\\\.)*)"', 'g'), (match) => {
+        return match.replace(/\r?\n/g, '\\n');
+      });
+      const res = processParsed(JSON.parse(repaired));
+      if (res) return res;
     } catch {}
   }
 
   // 3. Trích xuất từng trường độc lập bằng Regex
-  const briefSummary = extractCleanJsonField(clean, 'briefSummary');
-  const hint1 = extractCleanJsonField(clean, 'hint1_basic');
-  const hint2 = extractCleanJsonField(clean, 'hint2_reduction');
-  const hint3 = extractCleanJsonField(clean, 'hint3_key');
-  const hint4 = extractCleanJsonField(clean, 'hint4_algorithm');
-  const edgeCases = extractCleanJsonField(clean, 'edgeCases');
-  const solutionCode = extractCleanJsonField(clean, 'solutionCode');
-  const complexity = extractCleanJsonField(clean, 'complexity');
+  const briefSummary = extractCleanJsonField(clean, ['briefSummary', 'summary', 'problemSummary']);
+  const hint1 = extractCleanJsonField(clean, ['hint1_basic', 'hint1', 'initialObservations']);
+  const hint2 = extractCleanJsonField(clean, ['hint2_reduction', 'hint2', 'reduction']);
+  const hint3 = extractCleanJsonField(clean, ['hint3_key', 'hint3', 'keyObservation', 'keyInsight']);
+  const hint4 = extractCleanJsonField(clean, ['hint4_algorithm', 'hint4', 'stepByStepHint', 'algorithm']);
+  const edgeCases = extractCleanJsonField(clean, ['edgeCases', 'edge_cases', 'cornerCases']);
+  const solutionCode = extractCleanJsonField(clean, ['solutionCode', 'solution_code', 'solution', 'code']);
+  const complexity = extractCleanJsonField(clean, ['complexity', 'targetComplexity', 'timeComplexity']);
 
-  if (hint1 || hint3 || hint4 || briefSummary) {
+  let finalH1 = hint1;
+  let finalCode = solutionCode;
+  if (isLikelySourceCode(finalH1)) {
+    if (!finalCode) finalCode = finalH1;
+    finalH1 = '';
+  }
+
+  if (finalH1 || hint3 || hint4 || briefSummary || finalCode) {
     return {
-      briefSummary: briefSummary || defaultSummary,
-      hint1_basic: hint1 || defaultHint1,
-      hint2_reduction: hint2 || '',
-      hint3_key: hint3 || defaultHint3,
-      hint4_algorithm: hint4 || defaultHint4,
-      edgeCases: edgeCases || defaultEdge,
-      solutionCode: solutionCode || defaultCode,
+      briefSummary: formatHintDisplay(briefSummary || defaultSummary),
+      hint1_basic: formatHintDisplay(finalH1 || defaultHint1),
+      hint2_reduction: formatHintDisplay(hint2),
+      hint3_key: formatHintDisplay(hint3 || defaultHint3),
+      hint4_algorithm: formatHintDisplay(hint4 || defaultHint4),
+      edgeCases: formatHintDisplay(edgeCases || defaultEdge),
+      solutionCode: formatSolutionCodeDisplay(finalCode || defaultCode),
       complexity: complexity || defaultComplexity,
-      keyObservation: hint3 || defaultHint3,
-      stepByStepHint: hint4 || defaultHint4,
+      keyObservation: formatHintDisplay(hint3 || defaultHint3),
+      stepByStepHint: formatHintDisplay(hint4 || defaultHint4),
       targetComplexity: complexity || defaultComplexity,
     };
   }
 
-  // 4. Fallback an toàn: Không bao giờ gán chuỗi JSON thô vào hint1_basic!
+  // 4. Fallback an toàn tuyệt đối:
+  // Nếu chuỗi là C++ code, gán vào solutionCode, KHÔNG BAO GIỜ gán vào hint1_basic!
+  const isCode = isLikelySourceCode(clean);
   const looksLikeJson = clean.trim().startsWith('{') || clean.includes('"briefSummary"') || clean.includes('"hint');
-  const safeHint1 = looksLikeJson ? defaultHint1 : clean;
+  const safeHint1 = (looksLikeJson || isCode) ? defaultHint1 : formatHintDisplay(clean);
+  const safeCode = isCode ? formatSolutionCodeDisplay(clean) : defaultCode;
 
   return {
     briefSummary: defaultSummary,
@@ -444,7 +578,7 @@ export function parseGeminiHintJson(
     hint3_key: defaultHint3,
     hint4_algorithm: defaultHint4,
     edgeCases: defaultEdge,
-    solutionCode: defaultCode,
+    solutionCode: safeCode,
     complexity: defaultComplexity,
     keyObservation: defaultHint3,
     stepByStepHint: defaultHint4,
@@ -486,10 +620,11 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   "hint3_key": "Gợi ý 3 (THEN CHỐT - Aha Moment): Điểm mấu chốt quan trọng nhất để phá vỡ bài toán! Tính chất bất biến, tính chất đơn điệu, tham lam tối ưu hoặc cấu trúc dữ liệu chìa khóa.",
   "hint4_algorithm": "Gợi ý 4 (Các bước thuật toán): Trình bày các bước thực hiện chi tiết: tiền xử lý, cấu trúc dữ liệu, công thức truy hồi, cách tính toán ra kết quả.",
   "edgeCases": "Bẫy test và trường hợp biên (Corner Cases): N=1, tràn số 64-bit int (cần dùng long long trong C++), số âm, số 0, đồ thị rời rạc...",
-  "solutionCode": "Lời giải hoàn chỉnh và Code C++: Phân tích đầy đủ logic giải tối ưu kèm theo toàn bộ mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt).",
+  "solutionCode": "Mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt). LƯU Ý ĐẶC BIỆT: Chỉ chứa mã C++ thuần túy, KHÔNG bọc trong markdown code fence \`\`\`cpp hay \`\`\`.",
   "complexity": "Độ phức tạp thời gian O(...) và bộ nhớ O(...), kèm giải thích tại sao vượt qua được giới hạn thời gian (Time Limit)."
 }
-3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.`;
+3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.
+4. LƯU Ý QUAN TRỌNG: Chỉ trả về đối tượng JSON thuần túy, KHÔNG bọc toàn bộ văn bản trong \`\`\`json.`;
 
   const promptEn = `You are an elite International Olympiad in Informatics (IOI) Coach and Codeforces Legendary Grandmaster.
 Your task is to analyze deeply, solve accurately, and structure the pedagogical hints and complete editorial for the following Codeforces problem:
@@ -512,10 +647,11 @@ PEDAGOGICAL RULES & OUTPUT FORMAT:
   "hint3_key": "Hint 3 (KEY OBSERVATION / Aha! Moment): The pivotal insight needed to crack the problem! Monotonicity, invariant, greedy choice, or key data structure.",
   "hint4_algorithm": "Hint 4 (Step-by-Step Algorithm): Detailed algorithmic procedure: precomputation, transitions, data structures, state definitions, and result extraction.",
   "edgeCases": "Corner cases & Pitfalls: N=1, 64-bit integer overflow (long long in C++), empty sets, disconnected components, boundary values.",
-  "solutionCode": "Complete Solution & C++ Code: In-depth solution breakdown followed by full, clean, working C++ code (C++17/20, Fast I/O, clean English comments).",
+  "solutionCode": "Complete clean working C++ code (C++17/20, Fast I/O, clean English comments). IMPORTANT: Pure C++ code only, do NOT wrap inside \`\`\`cpp or \`\`\` code fences.",
   "complexity": "Time complexity O(...) and Space complexity O(...), with proof of why it easily passes within the time limit."
 }
-4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.`;
+4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.
+5. IMPORTANT: Return raw JSON only, do NOT wrap the entire output in \`\`\`json blocks.`;
 
   const prompt = lang === 'en' ? promptEn : promptVi;
 
@@ -552,12 +688,7 @@ PEDAGOGICAL RULES & OUTPUT FORMAT:
       const data = await res.json();
       if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
         let text = data.candidates[0].content.parts[0].text.trim();
-        let clean = text;
-        const jsonMatch = clean.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-        if (jsonMatch) {
-          clean = jsonMatch[1].trim();
-        }
-
+        const clean = cleanGeminiJsonText(text);
         return parseGeminiHintJson(clean, problem, lang);
       }
     } catch (err: any) {

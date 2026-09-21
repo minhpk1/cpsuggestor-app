@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parseGeminiHintJson } from '@/lib/codeforcesClient';
+import { parseGeminiHintJson, cleanGeminiJsonText } from '@/lib/codeforcesClient';
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,10 +46,11 @@ QUY TẮC SƯ PHẠM VÀ YÊU CẦU ĐẦU RA:
   "hint3_key": "Gợi ý 3 (THEN CHỐT - Aha Moment): Điểm mấu chốt quan trọng nhất để phá vỡ bài toán! Tính chất bất biến, tính chất đơn điệu, tham lam tối ưu hoặc cấu trúc dữ liệu chìa khóa.",
   "hint4_algorithm": "Gợi ý 4 (Các bước thuật toán): Trình bày các bước thực hiện chi tiết: tiền xử lý, cấu trúc dữ liệu, công thức truy hồi, cách tính toán ra kết quả.",
   "edgeCases": "Bẫy test và trường hợp biên (Corner Cases): N=1, tràn số 64-bit int (cần dùng long long trong C++), số âm, số 0, đồ thị rời rạc...",
-  "solutionCode": "Lời giải hoàn chỉnh và Code C++: Phân tích đầy đủ logic giải tối ưu kèm theo toàn bộ mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt).",
+  "solutionCode": "Mã nguồn C++ hoàn chỉnh (chuẩn C++17/20, Fast I/O, có chú thích tiếng Việt cho các đoạn code then chốt). LƯU Ý ĐẶC BIỆT: Chỉ chứa mã C++ thuần túy, KHÔNG bọc trong markdown code fence \`\`\`cpp hay \`\`\`.",
   "complexity": "Độ phức tạp thời gian O(...) và bộ nhớ O(...), kèm giải thích tại sao vượt qua được giới hạn thời gian (Time Limit)."
 }
-3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.`;
+3. CỰC KỲ CHI TIẾT VÀ CHÍNH XÁC: Viết hoàn toàn bằng tiếng Việt, chi tiết, có tâm, tránh nói chung chung hay qua loa.
+4. LƯU Ý QUAN TRỌNG: Chỉ trả về đối tượng JSON thuần túy, KHÔNG bọc toàn bộ văn bản trong \`\`\`json.`;
 
     const promptEn = `You are an elite International Olympiad in Informatics (IOI) Coach and Codeforces Legendary Grandmaster.
 Your task is to analyze deeply, solve accurately, and structure the pedagogical hints and complete editorial for the following Codeforces problem:
@@ -72,10 +73,11 @@ PEDAGOGICAL RULES & OUTPUT FORMAT:
   "hint3_key": "Hint 3 (KEY OBSERVATION / Aha! Moment): The pivotal insight needed to crack the problem! Monotonicity, invariant, greedy choice, or key data structure.",
   "hint4_algorithm": "Hint 4 (Step-by-Step Algorithm): Detailed algorithmic procedure: precomputation, transitions, data structures, state definitions, and result extraction.",
   "edgeCases": "Corner cases & Pitfalls: N=1, 64-bit integer overflow (long long in C++), empty sets, disconnected components, boundary values.",
-  "solutionCode": "Complete Solution & C++ Code: In-depth solution breakdown followed by full, clean, working C++ code (C++17/20, Fast I/O, clean English comments).",
+  "solutionCode": "Complete clean working C++ code (C++17/20, Fast I/O, clean English comments). IMPORTANT: Pure C++ code only, do NOT wrap inside \`\`\`cpp or \`\`\` code fences.",
   "complexity": "Time complexity O(...) and Space complexity O(...), with proof of why it easily passes within the time limit."
 }
-4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.`;
+4. THOROUGH AND PRECISE: Write high-quality, comprehensive guidance. Do not use placeholders or generic advice.
+5. IMPORTANT: Return raw JSON only, do NOT wrap the entire output in \`\`\`json blocks.`;
 
     const prompt = lang === 'en' ? promptEn : promptVi;
 
@@ -112,12 +114,7 @@ PEDAGOGICAL RULES & OUTPUT FORMAT:
         const data = await res.json();
         if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
           let text = data.candidates[0].content.parts[0].text.trim();
-          let clean = text;
-          const jsonMatch = clean.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-          if (jsonMatch) {
-            clean = jsonMatch[1].trim();
-          }
-
+          const clean = cleanGeminiJsonText(text);
           hintObj = parseGeminiHintJson(clean, problem, lang);
           break;
         } else {
